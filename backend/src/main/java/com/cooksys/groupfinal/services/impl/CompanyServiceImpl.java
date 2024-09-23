@@ -25,6 +25,7 @@ import com.cooksys.groupfinal.mappers.ProjectMapper;
 import com.cooksys.groupfinal.mappers.TeamMapper;
 import com.cooksys.groupfinal.mappers.FullUserMapper;
 import com.cooksys.groupfinal.repositories.CompanyRepository;
+import com.cooksys.groupfinal.repositories.ProjectRepository;
 import com.cooksys.groupfinal.repositories.TeamRepository;
 import com.cooksys.groupfinal.services.CompanyService;
 
@@ -40,6 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
 	private final AnnouncementMapper announcementMapper;
 	private final TeamMapper teamMapper;
 	private final ProjectMapper projectMapper;
+	private final ProjectRepository projectRepository;
 	
 	private Company findCompany(Long id) {
         Optional<Company> company = companyRepository.findById(id);
@@ -57,13 +59,17 @@ public class CompanyServiceImpl implements CompanyService {
         return team.get();
     }
 	
+	
+	// Originally, a user will only be displayed if their active status is true
+	// I've changed it to display all user regardless of their active status on the front end
 	@Override
 	public Set<FullUserDto> getAllUsers(Long id) {
 		Company company = findCompany(id);
-		Set<User> filteredUsers = new HashSet<>();
-		company.getEmployees().forEach(filteredUsers::add);
-		filteredUsers.removeIf(user -> !user.isActive());
-		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
+//		Set<User> filteredUsers = new HashSet<>();
+//		company.getEmployees().forEach(filteredUsers::add);
+//		filteredUsers.removeIf(user -> !user.isActive());
+//		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
+		return fullUserMapper.entitiesToFullUserDtos(company.getEmployees());
 	}
 
 	@Override
@@ -80,7 +86,9 @@ public class CompanyServiceImpl implements CompanyService {
 		Company company = findCompany(id);
 		return teamMapper.entitiesToDtos(company.getTeams());
 	}
-
+	
+	// Originally, a team will only be displayed is their active status is set to true
+	// I've changed it to display all projects regardless of their active status on the front end
 	@Override
 	public Set<ProjectDto> getAllProjects(Long companyId, Long teamId) {
 		Company company = findCompany(companyId);
@@ -88,10 +96,25 @@ public class CompanyServiceImpl implements CompanyService {
 		if (!company.getTeams().contains(team)) {
 			throw new NotFoundException("A team with id " + teamId + " does not exist at company with id " + companyId + ".");
 		}
-		Set<Project> filteredProjects = new HashSet<>();
-		team.getProjects().forEach(filteredProjects::add);
-		filteredProjects.removeIf(project -> !project.isActive());
-		return projectMapper.entitiesToDtos(filteredProjects);
+//		Set<Project> filteredProjects = new HashSet<>();
+//		team.getProjects().forEach(filteredProjects::add);
+//		filteredProjects.removeIf(project -> !project.isActive());
+//		return projectMapper.entitiesToDtos(filteredProjects);
+		return projectMapper.entitiesToDtos(team.getProjects());
 	}
+
+	@Override
+	public ProjectDto createProject(Long companyId, Long teamId, ProjectDto project) {
+		Project projectToAdd = projectMapper.DtoToEntity(project);
+		// im going to assume the default active status of a newly created project is false
+		projectToAdd.setActive(false);
+		// the team needs to be associated with a company, then needs to be added to a project
+		// (in that order)
+		Team team = teamRepository.getReferenceById(teamId);
+		team.setCompany(companyRepository.getReferenceById(companyId));
+		projectToAdd.setTeam(team);
+		return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToAdd));
+	}
+
 
 }
