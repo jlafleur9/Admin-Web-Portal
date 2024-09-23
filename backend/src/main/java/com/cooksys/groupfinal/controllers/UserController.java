@@ -13,6 +13,7 @@ import com.cooksys.groupfinal.services.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
