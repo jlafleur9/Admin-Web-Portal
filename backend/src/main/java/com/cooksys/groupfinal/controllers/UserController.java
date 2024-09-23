@@ -13,6 +13,7 @@ import com.cooksys.groupfinal.services.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
@@ -20,7 +21,6 @@ public class UserController {
 	private final UserService userService;
 	
 	@PostMapping("/login")
-	@CrossOrigin(origins="*")
     public FullUserDto login(@RequestBody CredentialsDto credentialsDto) {
         return userService.login(credentialsDto);
     }
