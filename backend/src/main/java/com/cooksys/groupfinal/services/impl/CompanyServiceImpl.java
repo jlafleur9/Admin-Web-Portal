@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.cooksys.groupfinal.repositories.AnnouncementRepository;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.AnnouncementDto;
@@ -42,6 +43,7 @@ public class CompanyServiceImpl implements CompanyService {
 	private final TeamMapper teamMapper;
 	private final ProjectMapper projectMapper;
 	private final ProjectRepository projectRepository;
+	private final AnnouncementRepository announcementRepository;
 	
 	private Company findCompany(Long id) {
         Optional<Company> company = companyRepository.findById(id);
@@ -118,6 +120,20 @@ public class CompanyServiceImpl implements CompanyService {
 		team.setCompany(companyRepository.getReferenceById(companyId));
 		projectToAdd.setTeam(team);
 		return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToAdd));
+	}
+
+	@Override
+	public AnnouncementDto createAnnouncement(Long companyId, AnnouncementDto announcementDto) {
+		Announcement announcement = announcementMapper.DtoToEntity(announcementDto);
+		announcement.setCompany(companyRepository.getReferenceById(companyId));
+		return announcementMapper.entityToDto(announcementRepository.saveAndFlush(announcement));
+	}
+
+	@Override
+	public TeamDto createTeam(Long companyId, TeamDto teamDto) {
+		Team team = teamMapper.DtoToEntity(teamDto);
+		team.setCompany(companyRepository.getReferenceById(companyId));
+		return teamMapper.entityToDto(teamRepository.saveAndFlush(team));
 	}
 
 

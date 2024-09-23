@@ -52,4 +52,14 @@ public class CompanyController {
 		return companyService.createProject(companyId, teamId, projectDto);
 	}
 
+	@PostMapping("/{companyId}/announcements")
+	public AnnouncementDto createAnnouncement(@PathVariable Long companyId, @RequestBody AnnouncementDto announcementDto){
+		return companyService.createAnnouncement(companyId, announcementDto);
+	}
+
+	@PostMapping("/{companyId}/teams")
+	public TeamDto createTeam(@PathVariable Long companyId, @RequestBody TeamDto teamDto){
+		return companyService.createTeam(companyId, teamDto);
+	}
+
 }
