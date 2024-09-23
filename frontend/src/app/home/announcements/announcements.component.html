@@ -1,0 +1,17 @@
+
+<div class="header">
+  <h1> Announcements</h1>
+  <div class="header-line"></div>
+</div>
+
+<div class="container">
+  <div *ngFor="let announcement of announcements">
+    <article class="announcement">
+      <header class="announcement-header">
+        <h2 class="author">{{ announcement.authorName }}</h2>
+        <time class="date">{{ announcement.date | date: 'MMMM d, y'  }}</time>
+      </header>
+      <p class="announcement-content">{{ announcement.message }}</p>
+    </article>
+  </div>
+</div>
