@@ -62,6 +62,8 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	// Originally, a user will only be displayed if their active status is true
 	// I've changed it to display all user regardless of their active status on the front end
+	// ADMINS will be able to see active users, but normal WORKERS will not.
+	// TODO: figure out how to handle what can be visible depending on if an ADMIN or USER is logged in
 	@Override
 	public Set<FullUserDto> getAllUsers(Long id) {
 		Company company = findCompany(id);
@@ -87,8 +89,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return teamMapper.entitiesToDtos(company.getTeams());
 	}
 	
-	// Originally, a team will only be displayed is their active status is set to true
+	// Originally, a team will only be displayed if their active status is set to true
 	// I've changed it to display all projects regardless of their active status on the front end
+	// ADMINS will be able to see active projects, but normal WORKERS will not.
+	// TODO: figure out how to handle what can be visible depending on if an ADMIN or USER is logged in
 	@Override
 	public Set<ProjectDto> getAllProjects(Long companyId, Long teamId) {
 		Company company = findCompany(companyId);
