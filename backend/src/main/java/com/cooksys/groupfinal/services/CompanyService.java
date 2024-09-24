@@ -16,4 +16,9 @@ public interface CompanyService {
 
 	FullUserDto addUser(Long id, UserRequestDto userRequestDto);
 
+	ProjectDto createProject(Long companyId, Long teamId, ProjectDto project);
+
+    AnnouncementDto createAnnouncement(Long companyId, AnnouncementDto announcementDto);
+
+	TeamDto createTeam(Long companyId, TeamDto teamDto);
 }
