@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
 import { ApiService } from 'src/services/api.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -9,7 +8,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from 'src/services/UserService';
 import { ProfileDto } from 'src/services/dtos/profile.dto';
-
 
 export interface Author {
   id: number;
@@ -49,7 +47,7 @@ export interface SimplifiedAnnouncement {
 })
 
 export class AnnouncementsComponent {
-  companyIds = this.userService.user?.companies?.map(company => company.id) || [];
+  companyId: number = 1;
 
   announcements: SimplifiedAnnouncement[] = [];
 
@@ -59,25 +57,19 @@ export class AnnouncementsComponent {
 
   ngOnInit(): void {
 
-    const apiCalls: Observable<Announcement[]>[] = this.companyIds.map(companyId =>
-      this.apiService.getAnnouncements(companyId)
-    );
-    forkJoin(apiCalls).subscribe({
-      next: (results: Announcement[][]) => {
-        console.log('API Responses:', results);
-
-        this.announcements = results.flat().map(announcement => {
-          return {
-            authorName: announcement.author.profile.firstName,
-            date: announcement.date,
-            message: announcement.message
-          }
-        });
+    this.apiService.getAnnouncements(this.companyId).subscribe({
+      next: (data: Announcement[]) => {
+        console.log('API Response:', data);
+        console.log("company ids", this.userService.user)
+        this.announcements = data.map(announcement => ({
+          authorName: announcement.author.profile.firstName,
+          date: announcement.date,
+          message: announcement.message
+        }))
       },
       error: (error) => {
         console.error('Error fetching announcements:', error);
       }
     });
-
   }
 }
