@@ -1,0 +1,20 @@
+<button (click)="logTeams()">Log Teams</button>
+
+<div class="main-container">
+  <div class="sub-container" *ngFor="let team of teams">
+    <div>{{ team.name }}</div>
+    <div># of projects: {{ team.projects }}</div>
+    <p>Members:</p>
+    <div *ngFor="let teammate of team.teammates" class="name-container">
+      <div>
+        {{ teammate.profile.firstName }}
+        {{ teammate.profile.lastName }}
+      </div>
+    </div>
+  </div>
+  <div>
+    <button (click)="revealOverlay()" >Add Team</button>
+  </div>
+</div>
+
+<app-create-team-overlay [(showOverlay)]="showOverlay" [membersData]="membersData" (teamCreated)="onTeamCreated()"></app-create-team-overlay>

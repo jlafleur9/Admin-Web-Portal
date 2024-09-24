@@ -1,1 +1,6 @@
 <p>teams works!</p>
+<app-team-container
+  [teams]="teamData"
+  [membersData]="membersData"
+  (teamCreated)="onTeamCreated()"
+></app-team-container>
