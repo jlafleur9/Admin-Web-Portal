@@ -30,13 +30,14 @@ export class CompanyComponent {
 
     ngOnInit(): void {
       this.companies = this.userService.usersCompanies;
-      console.log("companies", this.companies)
     }
 
-    onCompanySelected(companyId: number) {
-      this.selectedCompanyId = companyId;
-      console.log('Selected company ID:', this.selectedCompanyId);
+    onCompanySelected() {
+      const selectedCompanyId = this.companyForm.get('company')?.value;
+      console.log('Selected Company ID:', selectedCompanyId);
+      // You can add any additional logic here for handling the selected company
     }
+
 }
 
 

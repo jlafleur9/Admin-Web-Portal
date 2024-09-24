@@ -10,10 +10,13 @@
 </div> -->
 
 <form [formGroup]="companyForm" >
-  <label for="company">Pick a company</label>
-  <select id="company" (ngValue)="selectedCompanyId" (ngSubmit)="onCompanySelected($event)">
-    <option *ngFor="let company of companies" [value]="company.id">
-      {{ company.name }}
-    </option>
-  </select>
+  <div class="company-select">
+    <select id="company" formControlName="company" (change)=onCompanySelected()>
+      <option class="option-disabled" value="" disabled selected>Pick a company</option>
+      <option *ngFor="let company of companies" [value]="company.id">
+        {{company.name}}
+      </option>
+    </select>
+
+  </div>
 </form>

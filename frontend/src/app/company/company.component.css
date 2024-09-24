@@ -1,9 +1,21 @@
 .company-select {
-  width: 100%;
-  max-width: 300px;
-  margin: 20px auto;
+  display: flex;
+  flex-direction: column; /* Stack label and select vertically */
+  margin-bottom: 16px; /* Space between form elements */
 }
 
-mat-form-field {
-  background-color: white;
+.company-select label {
+  margin-bottom: 8px; /* Space between label and select */
+  font-weight: bold; /* Optional styling */
+}
+
+.company-select select {
+  padding: 8px; /* Adjust padding for the dropdown */
+  border: 1px solid #ccc; /* Style the border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+}
+
+.company-select select option[disabled] {
+  color: #5533FF;
 }
