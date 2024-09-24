@@ -1,0 +1,47 @@
+<main id="login-page-container">
+  <div id="title-container">
+    <h1 id="title">COOK SYSTEMS</h1>
+    <p id="subtitle">A FINAL APP</p>
+  </div>
+
+  <div id="login-form-container">
+    <div id="company-logo-container">
+      <img id="company-logo" ngSrc="./assets/Company_Logo.svg" width="137" height="93" alt="Company Logo">
+    </div>
+
+    <form id="login-form" [formGroup]="loginForm" (submit)="login()">
+      <div id="login-form-fields-container">
+        <mat-form-field hideRequiredMarker class="login-form-field">
+          <mat-label class="form-field-label">username</mat-label>
+          <input autocomplete="username" required matInput formControlName="username" />
+          <mat-error>A valid username is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field hideRequiredMarker class="login-form-field">
+          <mat-label class="form-field-label">password</mat-label>
+          <input autocomplete="current-password" required type="password" matInput formControlName="password" />
+          <mat-error>A password is required</mat-error>
+        </mat-form-field>
+
+        @if (loginError) {
+          <div>
+            @if (loginError.status === 404) {
+              <p class="error-message">Account not found</p>
+            } @else {
+              <p class="error-message">{{ loginError.message }}</p>
+              <p class="error-message">Status code: {{ loginError.status }}</p>
+            }
+          </div>
+        }
+      </div>
+
+      @if (loggingIn) {
+        <mat-spinner diameter="52"></mat-spinner>
+      } @else {
+        <button id="login-form-submit-button" mat-stroked-button type="submit">LOGIN</button>
+      }
+
+
+    </form>
+  </div>
+</main>
