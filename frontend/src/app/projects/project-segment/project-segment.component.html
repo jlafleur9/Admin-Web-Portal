@@ -1,16 +1,26 @@
 <div>
-  <hr />
-  <div style="display: flex">
+  <hr style="border-color: #deb992; border-width: 1px" />
+  <div style="display: flex; position: relative">
     <div>
-      <div style="display: flex">
-        <h3>Project 1</h3>
-        <h6>Active</h6>
-        <h6>Inactive</h6>
+      <div style="display: flex; align-items: center; height: 60px">
+        <h3 class="project-title">Project 1</h3>
+        <h6 class="active-inactive" style="color: #22dd2abf" *ngIf="active">
+          Active
+        </h6>
+        <h6
+          class="active-inactive"
+          style="color: #df0f0fbf; font-style: italic"
+          *ngIf="!active"
+        >
+          Inactive
+        </h6>
       </div>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+      <p class="project-descrip">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </p>
     </div>
-    <div>
-      <button>Edit</button>
+    <div class="edit-btn-div">
+      <button class="edit-btn">Edit</button>
     </div>
   </div>
 </div>

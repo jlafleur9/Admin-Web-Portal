@@ -1,0 +1,42 @@
+.project-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    padding-right: 85px;
+}
+
+.active-inactive {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.project-descrip {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+    padding-bottom: 5px;
+}
+
+.edit-btn-div {
+    align-items: center;
+    justify-items: end;
+    display: flex;
+    position: absolute;
+    right: 0;
+    bottom: 41px;
+}
+
+.edit-btn {
+    background-color: var(--sys-secondary);
+    width: 103px;
+    height: 32px;
+    border-radius: 10px;
+    color: black;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    cursor: pointer;
+}
+
