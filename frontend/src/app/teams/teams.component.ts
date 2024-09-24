@@ -23,16 +23,16 @@ export class TeamsComponent {
 
   ngOnInit(): void {
     // this.getCompanyFromLocalStorage();
-
-    // lastValueFrom converts the observed fetched data into a promise so I can chain them together
-    // in order to first get the teams then the amount of projects per team
-    // also every member of the specified company
-
     this.loadTeams();
   }
 
   loadTeams(): void {
+    // lastValueFrom converts the observed fetched data into a promise so I can chain them together
+    // in order to first get the teams then the amount of projects per team
+    // also every member of the specified company
     lastValueFrom(
+      // get every team from the given company ID
+      // this will return a list of teams for that given company
       this.http.get<Team[]>('http://localhost:8080/company/1/teams')
     )
       .then((data) => {
@@ -40,6 +40,7 @@ export class TeamsComponent {
         return Promise.all(
           this.teamData.map((team) =>
             lastValueFrom(
+              // for every team, query the number of projects that team is assigned to
               this.http.get<number>(
                 `http://localhost:8080/team/${team.id}/projects`
               )
@@ -47,26 +48,31 @@ export class TeamsComponent {
           )
         ).then((projects) => {
           return lastValueFrom(
+            // return a list of teammates for a given company
             this.http.get<Teammate[]>(`http://localhost:8080/company/1/users`)
           ).then((users) => {
             return { projects, users };
           });
         });
       })
+      // projects contains a list of numbers associated with each team
+      // this number indicates the amount of projects a team is assigned to
       .then(({ projects, users }) => {
         projects.forEach((project, index) => {
+          // each teamData element (of type team) contains a property called "projects"
+          // set equal this "projects" property to the respective number returned from the project get request /team/${team.id}/projects
           this.teamData[index].projects = project;
         });
-
+        // this contains all the members/users of a given company
         this.membersData = users;
       })
       .catch((err) => {
         console.error('Error fetching data', err);
       });
-  };
+  }
 
   onTeamCreated = () => {
-    console.log("new team added")
+    console.log('new team added');
     this.loadTeams();
   };
 

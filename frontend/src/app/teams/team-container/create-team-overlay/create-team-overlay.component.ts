@@ -29,6 +29,8 @@ export class CreateTeamOverlayComponent {
   @Input() showOverlay: boolean | undefined;
   @Input() membersData: Teammate[] = [];
   @Output() showOverlayChange = new EventEmitter<boolean>();
+  // team created is being emitted from here to team-container to team-component to tell team-component to refetch everything
+  // when the user creates a new team so it can display the newly created team
   @Output() teamCreated = new EventEmitter<void>();
   createTeamForm: FormGroup;
   team: Team | undefined;
@@ -45,11 +47,13 @@ export class CreateTeamOverlayComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['membersData']) {
+      // when the number of members for a company is fetched, ensure it's passed to here and updated for the dropdown
       this.availableMembers = [...this.membersData];
     }
   }
 
   onMemberChange = () => {
+    // basically, if a member is selected from the dropdown, remove that member from the dropdown (availableMembers) and add it to selectedMembers
     const selectedMemberId = parseInt(
       this.createTeamForm.get('members')?.value
     );
@@ -66,6 +70,7 @@ export class CreateTeamOverlayComponent {
   };
 
   removeMember = (member: Teammate) => {
+    // when the remove button is clicked, remove that member from selectedMembers and add it back into availableMembers (the dropdown)
     this.selectedMembers = this.selectedMembers.filter(
       (m) => m.id !== member.id
     );
@@ -78,17 +83,20 @@ export class CreateTeamOverlayComponent {
   };
 
   saveNewTeam = () => {
-    // this.createTeamForm.markAllAsTouched();
     if (this.createTeamForm.valid) {
       const formValues = this.createTeamForm.value;
-      // console.log('Selected Members:', this.selectedMembers);
+      // the API expected the request body to go in the order name, description, teammates
+      // formValues' name for teammates is members. Here I'm renaming it to teammates.
       const updatedFormValues = {
         ...formValues,
         teammates: [...this.selectedMembers],
       };
+      // delete to prevent memory leaks
       delete updatedFormValues.members;
+      // convert to json to be sent as the request body to the api
       const jsonFormValues = JSON.stringify(updatedFormValues);
 
+      // send the post request passing in the json
       this.http
         .post('http://localhost:8080/company/1/teams', jsonFormValues, {
           headers: { 'Content-Type': 'application/json' },
@@ -101,6 +109,8 @@ export class CreateTeamOverlayComponent {
         )
         .subscribe({
           next: (response) => {
+            // when i recieve a response back from the api, clear all inputs from the form, 
+            // hide the overlay, and refetch everything in team-container
             console.log('API Response:', response);
             this.createTeamForm.reset();
             this.selectedMembers = [];
