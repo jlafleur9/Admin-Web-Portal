@@ -4,6 +4,9 @@ import { ApiService } from 'src/services/api.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { DatePipe } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 export interface Profile {
   firstName: string;
@@ -37,7 +40,7 @@ export interface SimplifiedAnnouncement {
 @Component({
   selector: 'app-announcements',
   standalone: true,
-  imports: [CommonModule, MatCardModule, DatePipe],
+  imports: [CommonModule, MatCardModule, DatePipe, MatToolbarModule, MatDividerModule, MatButtonModule],
   templateUrl: './announcements.component.html',
   styleUrl: './announcements.component.css'
 })

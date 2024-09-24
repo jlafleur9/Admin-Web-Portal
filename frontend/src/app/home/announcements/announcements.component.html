@@ -1,17 +1,23 @@
 
-<div class="header">
-  <h1> Announcements</h1>
-  <div class="header-line"></div>
+<mat-toolbar color="primary" class="header">
+  <span>Announcements</span>
+</mat-toolbar>
+<div class="divider-button-container">
+  <button mat-flat-button>New</button>
+  <mat-divider></mat-divider>
 </div>
 
 <div class="container">
-  <div *ngFor="let announcement of announcements">
-    <article class="announcement">
-      <header class="announcement-header">
-        <h2 class="author">{{ announcement.authorName }}</h2>
-        <time class="date">{{ announcement.date | date: 'MMMM d, y'  }}</time>
-      </header>
-      <p class="announcement-content">{{ announcement.message }}</p>
-    </article>
-  </div>
+  <mat-card *ngFor="let announcement of announcements" class="announcement">
+    <mat-card-header>
+    <div class="card-title">
+
+      <mat-card-title class="author">{{ announcement.authorName }}</mat-card-title>
+      <mat-card-subtitle class="date">{{ announcement.date | date: 'MMMM d, y' }}</mat-card-subtitle>
+    </div>
+    </mat-card-header>
+    <mat-card-content class="announcement-content">
+      <p>{{ announcement.message }}</p>
+    </mat-card-content>
+  </mat-card>
 </div>
