@@ -36,7 +36,6 @@ public class CompanyController {
 		return companyService.getAllProjects(companyId, teamId);
 	}
 
-    //check the url path****
     @PostMapping("/{id}/users")
     public FullUserDto addUser(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
         return companyService.addUser(id, userRequestDto);
