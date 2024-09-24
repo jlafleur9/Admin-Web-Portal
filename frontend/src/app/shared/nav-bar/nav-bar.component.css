@@ -48,6 +48,8 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+
+  background-color: var(--sys-background);
 }
 
 .nav-toolbar-button {
