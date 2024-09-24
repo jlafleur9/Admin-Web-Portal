@@ -23,6 +23,7 @@
   margin: 0;
 
   font-size: clamp(40px, 2vw + 32px, 72px);
+  font-weight: 400;
   line-height: clamp(76px, 2vw + 68px, 108px);
 
   white-space: nowrap;
