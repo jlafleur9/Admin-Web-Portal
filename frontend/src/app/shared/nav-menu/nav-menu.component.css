@@ -1,0 +1,132 @@
+#nav-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#nav-menu-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  height: fit-content;
+
+  padding: 1rem;
+
+  border: 2px solid var(--sys-secondary);
+}
+
+#info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 1rem;
+}
+
+#logo-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--sys-primary-container);
+  width: 71px;
+  height: 71px;
+  border-radius: 50%;
+}
+
+#info-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--sys-primary-container);
+  width: 71px;
+  height: 71px;
+  border-radius: 50%;
+}
+
+#info-text {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: center;
+
+  margin: 0;
+
+  color: #F24E1E;
+
+  white-space: normal;
+}
+
+#menu-icon-container {
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  background-color: var(--sys-primary-container);
+}
+
+#menu-icon-toggle {
+
+}
+
+.menu-icon {
+  transform: scale(2);
+}
+
+#dropdown-tab-list {
+  overflow: hidden;
+  height: fit-content;
+
+  background: linear-gradient(0deg, rgba(13, 58, 89, 0.5), rgba(13, 58, 89, 0.5)),
+  linear-gradient(0deg, rgba(13, 58, 89, 0.5), rgba(13, 58, 89, 0.5)),
+  linear-gradient(0deg, rgba(13, 58, 89, 0.5), rgba(13, 58, 89, 0.5));
+}
+
+#tabs-list {
+  display: flex;
+  flex-flow: column nowrap;
+  place-items: center center;
+
+  width: 100vw;
+}
+
+.dropdown-tab {
+  font-size: clamp(16px, 4vw + 6px,48px);
+  line-height: clamp(16px, 1vh + 8px, 72px);
+  text-align: center;
+  color: var(--sys-primary);
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.nav-menu-text {
+  margin: 0;
+  padding: 2rem;
+}
+
+.dropdown-tab:hover {
+  background-color: var(--sys-primary-container);
+}
+
+.divider {
+  margin: 0 auto;
+  width: 80%;
+  border-bottom: 2px solid var(--sys-primary);
+}
+
+.dropdown-tab.active {
+  background-color: var(--sys-primary-container);
+}
+
+#logout-button {
+  background-color: inherit;
+  border: none;
+}
+
