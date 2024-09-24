@@ -17,4 +17,4 @@
   </div>
 </div>
 
-<app-create-team-overlay [(showOverlay)]="showOverlay"></app-create-team-overlay>
+<app-create-team-overlay [(showOverlay)]="showOverlay" [membersData]="membersData" (teamCreated)="onTeamCreated()"></app-create-team-overlay>

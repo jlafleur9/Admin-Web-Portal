@@ -1,12 +1,10 @@
 <div *ngIf="showOverlay" class="dim-bg">
   <div>
     <form [formGroup]="createTeamForm" (ngSubmit)="saveNewTeam()">
-
       <label for="name">Team Name</label>
-      <input id="name" formControlName="name"/>
-      <div
+      <input id="name" formControlName="name" />
+      <!-- <div
         *ngIf="
-          
           createTeamForm.get('name')?.dirty &&
           createTeamForm.get('name')?.invalid
         "
@@ -15,13 +13,12 @@
         <div *ngIf="createTeamForm.get('name')?.errors?.['required']">
           Team Name must not be blank!
         </div>
-      </div>
+      </div> -->
 
       <label for="description">Description</label>
       <input id="description" formControlName="description" />
-      <div
+      <!-- <div
         *ngIf="
-          
           createTeamForm.get('description')?.dirty &&
           createTeamForm.get('description')?.invalid
         "
@@ -30,9 +27,29 @@
         <div *ngIf="createTeamForm.get('description')?.errors?.['required']">
           Description not be blank!
         </div>
+      </div> -->
+
+      <label for="members">Select Members</label>
+      <select id="members" formControlName="members" (change)="onMemberChange()">
+        <option *ngFor="let member of availableMembers" [value]="member.id">
+          {{ member.profile.firstName }}
+          {{ member.profile.lastName | slice : 0 : 1 }}
+        </option>
+      </select>
+
+      <div *ngIf="selectedMembers.length > 0">
+        <h3>Selected Members:</h3>
+        <ul>
+          <li *ngFor="let member of selectedMembers">
+            {{member.profile.firstName}} {{ member.profile.lastName | slice : 0 : 1 }}
+            <button type="button" (click)="removeMember(member)">Remove</button>
+          </li>
+        </ul>
       </div>
 
-      <button type="submit" [disabled]="createTeamForm.invalid">Save Team</button>
+      <button type="submit" [disabled]="createTeamForm.invalid || selectedMembers.length === 0">
+        Save Team
+      </button>
     </form>
     <button (click)="hideOverlay()">close</button>
   </div>
