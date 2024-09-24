@@ -5,18 +5,6 @@ mat-divider {
   width: 60%;
   margin-left: 20%;
   margin-bottom: 4%;
-  position: relative;
-}
-
-.divider-button-container {
-  position: relative;
-  width: 100%;
-}
-
-button {
-  position: absolute;
-  right: 30px;
-  top: -20px;
 }
 
 .card-title {
@@ -28,23 +16,16 @@ button {
 
 .date {
   color: rgba(255, 255, 255, 0.63);
-  font-weight: 400;
+  font-weight: 200;
+  line-height: 1.5;
 }
-
-.announcement-content {
-  color: #fff;
-  font: 18px/32px Inter, sans-serif;
-  margin-top: 23px;
-  font-feature-settings: "salt" on, "liga" off;
-}
-
 
 .header {
   color: #1BA098;
   margin: 0;
   display: flex;
   justify-content: center;
-  font-size: 48px;
+  font-size: 5vw;
   margin-bottom: 2%;
   margin-top: 2%;
 }
@@ -65,20 +46,57 @@ button {
 
 .author {
   color: #fff;
-  font-weight: 600;
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: 3vw;
 }
 
 .date {
   color: #fff;
+  font-size: 3vw;
+  font-weight: 200;
 }
 
 .announcement-content {
   color: #fff;
+  font-size: 2vw;
+  margin-top: 23px;
 }
 
+@media (max-width: 500px) {
+  mat-divider {
+    width: 60%;
+    margin: 0 auto;
+  }
 
-@media (max-width: 991px) {
+  .header {
+    font-size: 5vw;
+  }
+
+  .container {
+    margin: 5%;
+  }
+
   .announcement {
-    padding: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 8%;
+  }
+
+  .announcement-content {
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .author {
+    font-size: 4vw;
+  }
+
+  .date {
+    font-size: 4vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }

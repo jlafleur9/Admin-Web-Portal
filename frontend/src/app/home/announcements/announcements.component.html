@@ -2,10 +2,7 @@
 <mat-toolbar color="primary" class="header">
   <span>Announcements</span>
 </mat-toolbar>
-<div class="divider-button-container">
-  <button mat-flat-button>New</button>
   <mat-divider></mat-divider>
-</div>
 
 <div class="container">
   <mat-card *ngFor="let announcement of announcements" class="announcement">
@@ -13,7 +10,10 @@
     <div class="card-title">
 
       <mat-card-title class="author">{{ announcement.authorName }}</mat-card-title>
-      <mat-card-subtitle class="date">{{ announcement.date | date: 'MMMM d, y' }}</mat-card-subtitle>
+      <mat-card-subtitle class="date">
+        <span class="month-year">{{ announcement.date | date: 'MMMM' }}</span>
+        <span class="day-year">{{ announcement.date | date: 'd, y' }}</span>
+      </mat-card-subtitle>
     </div>
     </mat-card-header>
     <mat-card-content class="announcement-content">
