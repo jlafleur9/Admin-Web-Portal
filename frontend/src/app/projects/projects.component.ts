@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ProjectSegmentComponent } from './project-segment/project-segment.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [],
+  imports: [ProjectSegmentComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })
