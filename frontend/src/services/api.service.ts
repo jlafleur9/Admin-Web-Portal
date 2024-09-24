@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAnnouncements(companyId: number): Observable<Announcement[]> {
-    return this.http.get<Announcement[]>(`${this.baseUrl}/company/${companyId}/announcements`);
-  }
+  // getAnnouncements(companyId: number): Observable<Announcement[]> {
+  //   return this.http.get<Announcement[]>(`${this.baseUrl}/company/${companyId}/announcements`);
+  // }
 }

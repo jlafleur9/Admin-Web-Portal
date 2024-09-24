@@ -1,0 +1,19 @@
+mat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--sys-background);
+
+}
+
+mat-form-field {
+  width: 80%;
+  height: auto;
+}
+
+mat-label {
+  font-size: small;
+
+}
