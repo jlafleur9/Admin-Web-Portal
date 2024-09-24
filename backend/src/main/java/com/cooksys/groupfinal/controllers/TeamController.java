@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class TeamController {
 	
 	private final TeamService teamService;
-	
+
 	@GetMapping("/{teamId}/projects")
 	public int getNumOfTeamProjects(@PathVariable Long teamId){
 		return teamService.getNumOfTeamProjects(teamId);

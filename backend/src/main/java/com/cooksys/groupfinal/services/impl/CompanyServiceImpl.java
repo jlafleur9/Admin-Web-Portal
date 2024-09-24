@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.cooksys.groupfinal.dtos.*;
+import com.cooksys.groupfinal.exceptions.BadRequestException;
+import com.cooksys.groupfinal.repositories.UserRepository;
 import com.cooksys.groupfinal.repositories.AnnouncementRepository;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +45,8 @@ public class CompanyServiceImpl implements CompanyService {
 	private final AnnouncementMapper announcementMapper;
 	private final TeamMapper teamMapper;
 	private final ProjectMapper projectMapper;
+	private final UserRepository userRepository;
+
 	private final ProjectRepository projectRepository;
 	private final AnnouncementRepository announcementRepository;
 	
@@ -136,5 +141,30 @@ public class CompanyServiceImpl implements CompanyService {
 		return teamMapper.entityToDto(teamRepository.saveAndFlush(team));
 	}
 
+	public FullUserDto addUser(Long id, UserRequestDto userRequestDto) {
+		if(id == null) {
+			throw new BadRequestException("Company id can't be null.");
+		}
+		if(companyRepository.findById(id).isEmpty()) {
+			throw new BadRequestException("A company with the provided id does not exist.");
+		}
+		if(userRequestDto == null){
+			throw new BadRequestException("User request can't be null.");
+		}
+		List<User> users= userRepository.findAll();
+		for(User user: users){
+			if(user.getProfile().getEmail().equals(userRequestDto.getProfile().getEmail())){
+				throw new BadRequestException("User with that email already exists.");
+			}
+		}
+		User user = fullUserMapper.requestDtoToEntity(userRequestDto);
+		user.setActive(true);
+		user.getCompanies().add(companyRepository.findById(id).get());
+		userRepository.saveAndFlush(user);
+		Company company = findCompany(id);
+		company.getEmployees().add(user);
+		companyRepository.saveAndFlush(company);
+		return fullUserMapper.entityToFullUserDto(user);
+	}
 
 }

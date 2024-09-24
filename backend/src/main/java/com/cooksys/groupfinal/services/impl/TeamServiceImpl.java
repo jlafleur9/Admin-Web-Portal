@@ -16,11 +16,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
-	
+
 	private final TeamRepository teamRepository;
 	private final TeamMapper teamMapper;
-	private final ProjectMapper projectMapper; 
-	
+	private final ProjectMapper projectMapper;
+
 	@Override
 	public int getNumOfTeamProjects(Long id) {
 		Team team = teamRepository.getReferenceById(id);

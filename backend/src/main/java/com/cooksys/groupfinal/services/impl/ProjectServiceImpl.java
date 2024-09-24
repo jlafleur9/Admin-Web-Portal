@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
-	
+
 	private final ProjectRepository projectRepository;
 	private final ProjectMapper projectMapper;
-	
+
 	@Override
 	public ProjectDto editProject(Long projectId, ProjectDto projectDto) {
 		Project projectToEdit = projectRepository.getReferenceById(projectId);

@@ -7,5 +7,5 @@ public interface UserService {
 
 	FullUserDto login(CredentialsDto credentialsDto);
 
-   
+
 }

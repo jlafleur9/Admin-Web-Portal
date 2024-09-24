@@ -11,7 +11,7 @@ import com.cooksys.groupfinal.entities.Project;
 public interface ProjectMapper {
 	
 	ProjectDto entityToDto(Project project);
-	
+
 	Project DtoToEntity(ProjectDto projectDto);
 
     Set<ProjectDto> entitiesToDtos(Set<Project> projects);

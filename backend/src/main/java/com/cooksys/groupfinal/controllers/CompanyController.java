@@ -2,6 +2,8 @@ package com.cooksys.groupfinal.controllers;
 
 import java.util.Set;
 
+import com.cooksys.groupfinal.dtos.*;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -47,6 +49,10 @@ public class CompanyController {
 		return companyService.getAllProjects(companyId, teamId);
 	}
 
+    @PostMapping("/{id}/users")
+    public FullUserDto addUser(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
+        return companyService.addUser(id, userRequestDto);
+    }
 	@PostMapping("/{companyId}/teams/{teamId}/projects")
 	public ProjectDto createProject(@PathVariable Long companyId, @PathVariable Long teamId, @RequestBody ProjectDto projectDto) {
 		return companyService.createProject(companyId, teamId, projectDto);
