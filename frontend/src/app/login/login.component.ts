@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     this.loggingIn = true;
 
     this.userService.login(this.loginForm.value).subscribe({
-      next: _ => this.router.navigate(['/app/home']),
+      next: _ => this.router.navigate(['/company']),
       error: (err: HttpErrorResponse) => {
         this.loginError = err
         this.loggingIn = false;

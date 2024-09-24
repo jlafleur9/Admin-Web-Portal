@@ -59,8 +59,8 @@ export class AnnouncementsComponent {
 
     this.apiService.getAnnouncements(this.companyId).subscribe({
       next: (data: Announcement[]) => {
-        console.log('API Response:', data);
-        console.log("company ids", this.userService.user)
+        // console.log('API Response:', data);
+        // console.log("company ids", this.userService.user)
         this.announcements = data.map(announcement => ({
           authorName: announcement.author.profile.firstName,
           date: announcement.date,

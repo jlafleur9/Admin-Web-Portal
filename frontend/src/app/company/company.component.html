@@ -1,1 +1,19 @@
-<p>company works!</p>
+<!-- <div class="company-select">
+  <mat-form-field appearance="fill">
+    <mat-label for="company">Pick an option</mat-label>
+    <mat-select id="company" [(value)]="selectedCompanyId" (selectionChange)="onCompanySelected($event.value)">
+      <mat-option *ngFor="let company of companies" [value]="company.id">
+        {{ company.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> -->
+
+<form [formGroup]="companyForm" >
+  <label for="company">Pick a company</label>
+  <select id="company" (ngValue)="selectedCompanyId" (ngSubmit)="onCompanySelected($event)">
+    <option *ngFor="let company of companies" [value]="company.id">
+      {{ company.name }}
+    </option>
+  </select>
+</form>

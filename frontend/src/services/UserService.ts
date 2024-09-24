@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {CredentialsDto} from "./dtos/credentials.dto";
 import {FullUserDto} from "./dtos/full-user.dto";
 import {catchError, Observable, tap, throwError} from "rxjs";
+import { CompanyDto } from "./dtos/company.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,16 @@ export class UserService {
       return this._user;
     } else {
       throw new Error("User is not logged in");
+    }
+  }
+
+  get usersCompanies(): CompanyDto[] {
+    try {
+      const user = this.user;
+      return user?.companies || [];
+    } catch (error) {
+      console.error(error);
+      return [];
     }
   }
 
