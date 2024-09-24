@@ -11,7 +11,7 @@ html, body { height: 100%; }
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--sys-surface);
+  background-color: var(--sys-background);
   color: var(--sys-on-surface);
 }
 
@@ -24,9 +24,22 @@ html {
   @include mat.system-level-typography(m3-theme.$dark-theme);
 }
 
-.light-theme {
-  @include mat.all-component-colors(m3-theme.$light-theme);
+:root {
+  // Angular Material overrides
+  --sys-primary: #1BA098;
+  --sys-primary-container: #0B2D45;
+  --sys-background: #051622;
+  --sys-secondary: #DEB992;
 
-  @include mat.system-level-colors(m3-theme.$light-theme);
-  @include mat.system-level-typography(m3-theme.$light-theme);
+  // Our own custom variables
+  --sys-on-select-field: #5533FF;
+}
+
+.primary-button {
+  background-color: var(--sys-primary) !important;
+  color: #FFFFFFBF !important;
+}
+
+.secondary-button {
+  background-color: var(--sys-secondary) !important;
 }

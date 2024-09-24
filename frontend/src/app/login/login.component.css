@@ -1,0 +1,122 @@
+#login-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  height: 100vh;
+}
+
+#title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--sys-primary);
+  text-align: center;
+
+  margin: clamp(1rem, 1.5vw + 1rem, 4rem);
+}
+
+#title {
+  margin: 0;
+
+  font-size: clamp(40px, 2vw + 32px, 72px);
+  line-height: clamp(76px, 2vw + 68px, 108px);
+
+  white-space: nowrap;
+}
+
+#subtitle {
+  font-size: clamp(32px, 2vw + 24px, 48px);
+  line-height: clamp(56px, 2vw + 48px, 72px);
+
+  margin: 0;
+}
+
+#login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: clamp(270px, 20vw + 200px, 660px);
+  height: clamp(500px, 20vw + 300px, 604px);
+  position: relative;
+  padding: clamp(1rem, 1vw, 2rem);
+  margin: 0 clamp(1rem, 1vw, 2rem);
+
+  box-sizing: border-box;
+
+  border: 5px solid var(--sys-secondary);
+  border-radius: 15px;
+
+  box-shadow: 4px 4px 10px 5px #CBCBCB7D;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  flex-grow: 1;
+
+  width: inherit;
+}
+
+#company-logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #0D3A59;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+
+  margin: 1.5rem;
+}
+
+#login-form-fields-container {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 1rem;
+}
+
+#login-form-submit-button {
+  width: 160px;
+  height: 52px;
+  border-radius: 50px;
+  border: 2px solid var(--sys-primary);
+
+  color: white;
+  letter-spacing: 1.25px;
+
+  margin: 0 clamp(0.5rem, 0.25rem + 1vw, 1.5rem);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-field-label {
+  color: var(--sys-primary);
+}
+
+.error-message {
+  color: var(--sys-error);
+  margin: 0;
+  text-align: center;
+}
