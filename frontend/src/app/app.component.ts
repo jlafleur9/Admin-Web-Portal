@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {MatButton} from "@angular/material/button";
 import {RouterOutlet} from "@angular/router";
 
 @Component({
@@ -7,8 +6,7 @@ import {RouterOutlet} from "@angular/router";
   standalone: true,
   templateUrl: './app.component.html',
   imports: [
-    MatButton,
-    RouterOutlet,
+    RouterOutlet
   ],
   styleUrls: ['./app.component.css']
 })
