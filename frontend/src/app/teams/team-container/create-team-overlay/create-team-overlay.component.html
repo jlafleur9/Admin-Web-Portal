@@ -1,0 +1,39 @@
+<div *ngIf="showOverlay" class="dim-bg">
+  <div>
+    <form [formGroup]="createTeamForm" (ngSubmit)="saveNewTeam()">
+
+      <label for="name">Team Name</label>
+      <input id="name" formControlName="name"/>
+      <div
+        *ngIf="
+          
+          createTeamForm.get('name')?.dirty &&
+          createTeamForm.get('name')?.invalid
+        "
+        class="error-message"
+      >
+        <div *ngIf="createTeamForm.get('name')?.errors?.['required']">
+          Team Name must not be blank!
+        </div>
+      </div>
+
+      <label for="description">Description</label>
+      <input id="description" formControlName="description" />
+      <div
+        *ngIf="
+          
+          createTeamForm.get('description')?.dirty &&
+          createTeamForm.get('description')?.invalid
+        "
+        class="error-message"
+      >
+        <div *ngIf="createTeamForm.get('description')?.errors?.['required']">
+          Description not be blank!
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="createTeamForm.invalid">Save Team</button>
+    </form>
+    <button (click)="hideOverlay()">close</button>
+  </div>
+</div>

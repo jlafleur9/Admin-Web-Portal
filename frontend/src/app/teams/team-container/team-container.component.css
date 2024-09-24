@@ -1,0 +1,24 @@
+.main-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 75vw;
+  height: 75vh;
+  background-color: gray;
+}
+
+.sub-container {
+  /* background-color: white; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 15vw;
+  height: 15vh;
+  border: black solid 5px;
+}
+
+.name-container {
+  border: black solid 2px;
+}
