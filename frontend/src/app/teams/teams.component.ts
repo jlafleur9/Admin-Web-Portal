@@ -6,6 +6,7 @@ import Team from './models/Team';
 import Profile from './models/Profile';
 import Teammate from './models/Teammate';
 import { lastValueFrom } from 'rxjs';
+import Project from './models/Project';
 
 @Component({
   selector: 'app-teams',
@@ -18,6 +19,7 @@ export class TeamsComponent {
   company: any;
   teamData: Team[] = [];
   membersData: Teammate[] = [];
+  projectData: Project[] = []
 
   constructor(private http: HttpClient) {}
 
@@ -27,48 +29,24 @@ export class TeamsComponent {
   }
 
   loadTeams(): void {
-    // lastValueFrom converts the observed fetched data into a promise so I can chain them together
-    // in order to first get the teams then the amount of projects per team
-    // also every member of the specified company
+
+
     lastValueFrom(
-      // get every team from the given company ID
-      // this will return a list of teams for that given company
+      // return a list of teams for that given company
       this.http.get<Team[]>('http://localhost:8080/company/1/teams')
-    )
-      .then((data) => {
-        this.teamData = data;
-        return Promise.all(
-          this.teamData.map((team) =>
-            lastValueFrom(
-              // for every team, query the number of projects that team is assigned to
-              this.http.get<number>(
-                `http://localhost:8080/team/${team.id}/projects`
-              )
-            )
-          )
-        ).then((projects) => {
-          return lastValueFrom(
-            // return a list of teammates for a given company
-            this.http.get<Teammate[]>(`http://localhost:8080/company/1/users`)
-          ).then((users) => {
-            return { projects, users };
-          });
-        });
-      })
-      // projects contains a list of numbers associated with each team
-      // this number indicates the amount of projects a team is assigned to
-      .then(({ projects, users }) => {
-        projects.forEach((project, index) => {
-          // each teamData element (of type team) contains a property called "projects"
-          // set equal this "projects" property to the respective number returned from the project get request /team/${team.id}/projects
-          this.teamData[index].projects = project;
-        });
-        // this contains all the members/users of a given company
-        this.membersData = users;
-      })
-      .catch((err) => {
-        console.error('Error fetching data', err);
-      });
+    ).then((teams) => {
+      this.teamData = teams
+      // return a list of projects a company has (includes the team thats working on it)
+      return lastValueFrom(this.http.get<Project[]>('http://localhost:8080/projects/company/1'))
+    }).then((projects) => {
+      this.projectData = projects
+      // return a list of all memebrs from the company
+      return lastValueFrom(this.http.get<Teammate[]>(`http://localhost:8080/company/1/users`))
+    }).then((members) => {
+      this.membersData = members
+    }).catch((error) => {
+      console.error('Error fetching data: ', error)
+    })
   }
 
   onTeamCreated = () => {

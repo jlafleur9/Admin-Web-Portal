@@ -1,7 +1,7 @@
 <button (click)="logTeams()">Log Teams</button>
 
 <div class="main-container">
-  <div class="sub-container" *ngFor="let team of teams">
+  <div class="sub-container" *ngFor="let team of teamData">
     <div>{{ team.name }}</div>
     <div># of projects: {{ team.projects }}</div>
     <p>Members:</p>
