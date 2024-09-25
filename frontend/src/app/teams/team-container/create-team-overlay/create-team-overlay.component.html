@@ -13,11 +13,9 @@
         <input matInput id="description" formControlName="description" />
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-label for="members">Select Members</mat-label>
+
+        <label for="members">Select Members</label>
         <select
-          matNativeControl
-          required
           id="members"
           formControlName="members"
           (change)="onMemberChange()"
@@ -27,7 +25,6 @@
             {{ member.profile.lastName | slice : 0 : 1 }}
           </option>
         </select>
-      </mat-form-field>
 
       <div *ngIf="selectedMembers.length > 0">
         <h3>Selected Members:</h3>
