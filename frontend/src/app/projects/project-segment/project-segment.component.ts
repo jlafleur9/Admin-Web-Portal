@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input  } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CompanyService } from 'src/services/CompanyService';
+import { ProjectDto } from 'src/services/dtos/project.dto';
 
 @Component({
   selector: 'app-project-segment',
@@ -9,5 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './project-segment.component.css'
 })
 export class ProjectSegmentComponent {
-  active = true;
+
+  active = false
+
+  @Input() projectName = ''
+  @Input() description = ''
 }

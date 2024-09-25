@@ -6,10 +6,13 @@
 
   <div style="width: 60%; padding-left: 20%">
     <div class="new-btn-div">
-      <button class="new-btn">New</button>
+      <button class="new-btn" (click)="openOverlay()">New</button>
     </div>
-    <app-project-segment></app-project-segment>
-    <app-project-segment></app-project-segment>
-    <app-project-segment></app-project-segment>
+    <div *ngFor="let project of projects">
+      <app-project-segment
+        projectName="{{ project.name }}"
+        description="{{ project.description }}"
+      ></app-project-segment>
+    </div>
   </div>
 </div>

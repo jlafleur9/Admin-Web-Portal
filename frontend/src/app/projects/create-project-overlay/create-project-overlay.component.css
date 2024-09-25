@@ -1,0 +1,7 @@
+.overlay-container {
+    background-color: #0b2d45;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
