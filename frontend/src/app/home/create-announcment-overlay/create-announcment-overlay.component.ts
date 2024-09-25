@@ -2,7 +2,7 @@ import { Announcement } from 'src/app/home/announcements/announcements.component
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { OverlayLayoutComponent } from 'src/app/shared/overlay-layout/overlay-layout.component';
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import { MatError } from '@angular/material/form-field';
@@ -13,7 +13,7 @@ import { MatInput } from '@angular/material/input';
 @Component({
   selector: 'app-create-announcment-overlay',
   standalone: true,
-  imports: [OverlayLayoutComponent, MatFormField, MatLabel, MatError, MatInput],
+  imports: [OverlayLayoutComponent, MatFormField, MatLabel, MatError, MatInput, ReactiveFormsModule],
   templateUrl: './create-announcment-overlay.component.html',
   styleUrl: './create-announcment-overlay.component.css'
 })
@@ -37,7 +37,7 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
 
     const requestAnnouncementDto: RequestAnnouncementDto = {
       id: null,
-      date: "11-1-111",
+      date: new Date().toISOString(),
       title: this.announcementForm.value.title,
       message: this.announcementForm.value.message,
       author: {
