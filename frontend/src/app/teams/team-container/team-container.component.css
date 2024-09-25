@@ -1,0 +1,29 @@
+.main-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 75vw;
+  gap: 100px 20px;
+}
+
+.sub-container {
+  /* background-color: white; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 15vw;
+  height: 20vh;
+  border: white solid 5px;
+  background-color: gray;
+  border-radius: 10px;
+}
+
+.name-container {
+  border: black solid 2px;
+}
+
+.center-title{
+  text-align: center;
+}
