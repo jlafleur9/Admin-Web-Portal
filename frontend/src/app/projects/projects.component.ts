@@ -7,12 +7,14 @@ import { CreateProjectOverlayComponent } from './create-project-overlay/create-p
 import { ProjectDto } from 'src/services/dtos/project.dto';
 import { CompanyService } from 'src/services/CompanyService';
 import { CommonModule } from '@angular/common';
+import { NavBarComponent } from "../shared/nav-bar/nav-bar.component";
+import { NavMenuComponent } from "../shared/nav-menu/nav-menu.component";
 
 
 @Component({
   selector: 'app-projects', 
   standalone: true,
-  imports: [ProjectSegmentComponent, OverlayModule, CommonModule],
+  imports: [ProjectSegmentComponent, OverlayModule, CommonModule, NavBarComponent, NavMenuComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })
