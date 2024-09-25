@@ -16,11 +16,12 @@
   <mat-dialog-actions class="actions-container" align="center">
     @if (!showLoading) {
       <button
-          [disabled]="formGroup.invalid || submitDisabled"
+          [disabled]="isFormInvalid()"
           form="overlay-form"
           type="submit"
           mat-flat-button
-          class="primary-button dialog-submit-button"
+          [ngClass]="{ 'primary-button': isFormValid() }"
+          class="dialog-submit-button"
       >
         Submit
       </button>

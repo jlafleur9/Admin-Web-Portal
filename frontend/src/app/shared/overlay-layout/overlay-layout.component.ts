@@ -97,4 +97,12 @@ export class OverlayLayoutComponent {
   onClose(): void {
     this.close.emit();
   }
+
+  isFormValid(): boolean {
+    return !this.isFormInvalid();
+  }
+
+  isFormInvalid(): boolean {
+    return this.formGroup.invalid || this.submitDisabled
+  }
 }
