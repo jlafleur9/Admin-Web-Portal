@@ -17,10 +17,6 @@
   width: clamp(270px, 35vw + 150px, 768px);
 }
 
-.dialog-panel {
-  width: clamp(270px, 35vw + 150px, 768px);
-}
-
 #close-dialog-button {
   align-self: flex-end;
   color: #F24E1E;
