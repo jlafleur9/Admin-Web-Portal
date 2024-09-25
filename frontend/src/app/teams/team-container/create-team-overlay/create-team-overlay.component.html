@@ -13,18 +13,19 @@
         <input matInput id="description" formControlName="description" />
       </mat-form-field>
 
-
-        <label for="members">Select Members</label>
-        <select
+      <mat-form-field>
+        <mat-label>Select Members</mat-label>
+        <mat-select
           id="members"
           formControlName="members"
-          (change)="onMemberChange()"
+          (selectionChange)="onMemberChange()"
         >
-          <option *ngFor="let member of availableMembers" [value]="member.id">
+          <mat-option *ngFor="let member of availableMembers" [value]="member.id">
             {{ member.profile.firstName }}
             {{ member.profile.lastName | slice : 0 : 1 }}
-          </option>
-        </select>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <div *ngIf="selectedMembers.length > 0">
         <h3>Selected Members:</h3>
