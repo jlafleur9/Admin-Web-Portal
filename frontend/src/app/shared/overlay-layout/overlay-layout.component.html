@@ -15,7 +15,15 @@
 
   <mat-dialog-actions class="actions-container" align="center">
     @if (!showLoading) {
-      <button form="overlay-form" type="submit" mat-flat-button class="primary-button dialog-submit-button">Submit</button>
+      <button
+          [disabled]="formGroup.invalid || submitDisabled"
+          form="overlay-form"
+          type="submit"
+          mat-flat-button
+          class="primary-button dialog-submit-button"
+      >
+        Submit
+      </button>
     } @else {
       <mat-spinner diameter="48"></mat-spinner>
     }
