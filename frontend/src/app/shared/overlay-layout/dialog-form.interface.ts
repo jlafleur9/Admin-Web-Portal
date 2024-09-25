@@ -25,4 +25,9 @@ export interface DialogFormInterface {
    * Indicates whether the form is currently in a loading state.
    */
   loading: boolean;
+
+  /**
+   * Field to control whether the submit button on the form is disabled.
+   */
+  submitDisabled: boolean;
 }
