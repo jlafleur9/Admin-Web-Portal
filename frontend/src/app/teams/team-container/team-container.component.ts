@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import Team from '../models/Team';
 import Teammate from '../models/Teammate';
 import Project from '../models/Project';
+import {MatButtonModule} from '@angular/material/button';
 
 interface assignedProjects {
   teamId: number;
@@ -19,7 +20,7 @@ interface assignedProjects {
 @Component({
   selector: 'app-team-container',
   standalone: true,
-  imports: [CommonModule, CreateTeamOverlayComponent],
+  imports: [CommonModule, CreateTeamOverlayComponent, MatButtonModule],
   templateUrl: './team-container.component.html',
   styleUrl: './team-container.component.css',
 })

@@ -4,8 +4,7 @@
   justify-content: space-evenly;
   flex-wrap: wrap;
   width: 75vw;
-  height: 75vh;
-  background-color: gray;
+  gap: 100px 20px;
 }
 
 .sub-container {
@@ -15,10 +14,16 @@
   justify-content: space-evenly;
   flex-wrap: wrap;
   width: 15vw;
-  height: 15vh;
-  border: black solid 5px;
+  height: 20vh;
+  border: white solid 5px;
+  background-color: gray;
+  border-radius: 10px;
 }
 
 .name-container {
   border: black solid 2px;
+}
+
+.center-title{
+  text-align: center;
 }

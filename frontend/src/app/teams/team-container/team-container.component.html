@@ -1,5 +1,5 @@
 <button (click)="logTeams()">Log Teams</button>
-
+<h1 class="center-title">Teams</h1>
 <div class="main-container">
   <div class="sub-container" *ngFor="let team of teamData">
     <div>{{ team.name }}</div>
@@ -13,7 +13,7 @@
     </div>
   </div>
   <div>
-    <button (click)="revealOverlay()" >Add Team</button>
+    <button mat-flat-button (click)="revealOverlay()" >Add Team</button>
   </div>
 </div>
 
