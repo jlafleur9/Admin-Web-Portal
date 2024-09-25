@@ -40,7 +40,18 @@ export class AddUserOverlayComponent implements DialogFormInterface{
   submitDisabled = this.newUserForm.get("password") !== this.newUserForm.get("confirmPass")
   @Output() closeOverlay = new EventEmitter<void>();
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(private http: HttpClient) {
+    this.newUserForm.valueChanges.subscribe(() => {
+      this.updateSubmitDisabled();
+    });
+  }
+
+  private updateSubmitDisabled() {
+    const password = this.newUserForm.get("password")?.value;
+    const confirmPass = this.newUserForm.get("confirmPass")?.value;
+    this.submitDisabled = password !== confirmPass;
+  }
+
   successfullySubmitted: EventEmitter<void> = new EventEmitter<void>;
   formError: Partial<HttpErrorResponse> | null = null;
   loading: boolean = false;
