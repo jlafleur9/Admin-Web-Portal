@@ -1,0 +1,15 @@
+.nav {
+  display: none;
+}
+
+@media (max-width: 925px) {
+  #nav-compact-screens {
+    display: block;
+  }
+}
+
+@media (min-width: 926px) {
+  #nav-large-screens {
+    display: block;
+  }
+}
