@@ -1,15 +1,13 @@
-<mat-card>
+
   <form [formGroup]="companyForm" >
-    <mat-card-content>
         <mat-form-field>
           <mat-label for="company">Pick a company</mat-label>
-          <mat-select id="company" formControlName="company" (selectionChange)="onCompanySelected()">
+          <mat-select required id="company" formControlName="company" (selectionChange)="onCompanySelected()">
             <mat-option *ngFor="let company of companies" [value]="company.id">
               {{ company.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-    </mat-card-content>
   </form>
-</mat-card>
+
 

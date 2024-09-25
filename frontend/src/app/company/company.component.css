@@ -12,5 +12,4 @@
   font-weight: 700;
   line-height: clamp(76px, 2vw + 68px, 108px);
   text-align: center;
-  overflow: hidden;
 }
