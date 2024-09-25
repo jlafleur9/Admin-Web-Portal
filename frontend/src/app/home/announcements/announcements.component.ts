@@ -60,7 +60,6 @@ export class AnnouncementsComponent {
   ngOnInit(): void {
 
       if (this.userService.selectedCompany) {
-        console.log("selectedcompany", this.userService.selectedCompany)
         this.companyId = this.userService.selectedCompany;
         this.fetchAnnouncements(this.companyId);
       } else {
