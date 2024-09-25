@@ -1,0 +1,12 @@
+<app-overlay-layout [formGroup]="loginForm" [showLoading]="loading" [dialogError]="formError" (submit)="login()" (close)="close()">
+  <mat-form-field hideRequiredMarker>
+    <mat-label class="label-text">username</mat-label>
+    <input matInput required formControlName="username" />
+    <mat-error>A valid username is required</mat-error>
+  </mat-form-field>
+  <mat-form-field hideRequiredMarker>
+    <mat-label class="label-text">password</mat-label>
+    <input matInput required formControlName="password" />
+    <mat-error>A valid password is required</mat-error>
+  </mat-form-field>
+</app-overlay-layout>

@@ -1,0 +1,24 @@
+<div class="dialog-container" [ngClass]="wideOverlay ? 'dialog-container-large' : ''">
+  <button id="close-dialog-button" mat-icon-button mat-dialog-close>
+    <mat-icon id="close-dialog-icon" fontSet="material-symbols-outlined" (click)="onClose()">cancel</mat-icon>
+  </button>
+
+  <mat-dialog-content>
+    <form id="overlay-form" (submit)="onSubmit()" [formGroup]="formGroup">
+      <ng-content></ng-content>
+
+      @if (dialogError) {
+        <p class="error-message">{{ dialogError.message }}</p>
+      }
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="actions-container" align="center">
+    @if (!showLoading) {
+      <button form="overlay-form" type="submit" mat-flat-button class="primary-button dialog-submit-button">Submit</button>
+    } @else {
+      <mat-spinner diameter="48"></mat-spinner>
+    }
+  </mat-dialog-actions>
+
+</div>
