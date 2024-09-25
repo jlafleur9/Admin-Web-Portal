@@ -29,5 +29,5 @@ export interface DialogFormInterface {
   /**
    * Field to control whether the submit button on the form is disabled.
    */
-  submitDisabled: boolean;
+  submitDisabled?: boolean;
 }
