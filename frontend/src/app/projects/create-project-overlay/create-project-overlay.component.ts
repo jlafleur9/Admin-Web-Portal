@@ -7,7 +7,7 @@ import { TeamDto } from 'src/services/dtos/team.dto';
 @Component({
   selector: 'app-create-project-overlay',
   standalone: true,
-  imports: [ReactiveFormsModule,],
+  imports: [ReactiveFormsModule],
   templateUrl: './create-project-overlay.component.html',
   styleUrl: './create-project-overlay.component.css'
 })
