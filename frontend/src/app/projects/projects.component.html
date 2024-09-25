@@ -1,1 +1,16 @@
-<p>projects works!</p>
+<app-nav-bar></app-nav-bar>
+<div class="page-container">
+  <div style="width: 60%; padding-left: 20%; padding-top: 35px">
+    <a class="back-btn">&lt; Back</a>
+    <h1 class="title">Projects for Team 1</h1>
+    <div class="new-btn-div">
+      <button class="new-btn" (click)="openOverlay()">New</button>
+    </div>
+    <div *ngFor="let project of projects">
+      <app-project-segment
+        projectName="{{ project.name }}"
+        description="{{ project.description }}"
+      ></app-project-segment>
+    </div>
+  </div>
+</div>
