@@ -66,7 +66,7 @@ export class OverlayLayoutComponent {
    * Determines whether the overlay should be displayed as wide.
    * This input uses a transform function for boolean values.
    */
-  @Input({ transform: booleanAttribute }) wideOverlay: boolean = false;
+  @Input({ transform: booleanAttribute }) largeOverlay: boolean = false;
 
   /**
    * Handles the form submission process.

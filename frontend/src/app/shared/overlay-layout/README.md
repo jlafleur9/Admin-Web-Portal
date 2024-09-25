@@ -128,7 +128,7 @@ export class OverlayExampleComponent {
 - **Default:** `false`
 - **Description:** Indicates whether to show a loading spinner while the form is being submitted.
 
-### `wideOverlay`
+### `largeOverlay`
 
 - **Type:** `boolean`
 - **Default:** `false`
@@ -170,6 +170,6 @@ These forms are opened by `OverlayExampleComponent`.
 
 - Ensure all form fields are properly validated using Angular's reactive forms.
 - Customize styles as necessary to fit the design of your application.
-- Need a bigger overlay size? Pass in `wideOverlay="true"` as an input to your `<app-overlay-layout>` component.
+- Need a bigger overlay size? Pass in `largeOverlay="true"` as an input to your `<app-overlay-layout>` component.
 
 

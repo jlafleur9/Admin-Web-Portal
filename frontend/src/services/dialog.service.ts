@@ -30,7 +30,7 @@ export class DialogService {
     const dialogRef = this.dialog.open(dialogForm, {
       autoFocus: 'dialog',
       maxWidth: '80vw',
-      maxHeight: '80vh',
+      maxHeight: '90vh',
     });
 
     this.closeDialogWhenSubmitted(dialogRef);
