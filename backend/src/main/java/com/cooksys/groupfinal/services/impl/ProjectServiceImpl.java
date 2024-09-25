@@ -1,9 +1,12 @@
 package com.cooksys.groupfinal.services.impl;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.ProjectDto;
 import com.cooksys.groupfinal.entities.Project;
+import com.cooksys.groupfinal.entities.Team;
 import com.cooksys.groupfinal.mappers.ProjectMapper;
 import com.cooksys.groupfinal.repositories.ProjectRepository;
 import com.cooksys.groupfinal.services.ProjectService;
@@ -25,6 +28,13 @@ public class ProjectServiceImpl implements ProjectService {
 		projectToEdit.setDescription(projectChanges.getDescription());
 		projectToEdit.setActive(projectChanges.isActive());
 		return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToEdit));
+	}
+
+	@Override
+	public Set<ProjectDto> getProjectsFromCompany(Long companyId) {
+		Set<Project> teams = projectRepository.getProjectsByTeamCompanyId(companyId);
+		
+		return projectMapper.entitiesToDtos(teams);
 	}
 
 }

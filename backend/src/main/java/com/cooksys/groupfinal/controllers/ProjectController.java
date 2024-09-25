@@ -1,9 +1,12 @@
 package com.cooksys.groupfinal.controllers;
 
+import java.util.Set;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +26,11 @@ public class ProjectController {
 	@PatchMapping("/{projectId}")
 	public ProjectDto editProject(@PathVariable Long projectId, @RequestBody ProjectDto projectDto) {
 		return projectService.editProject(projectId, projectDto);
+	}
+	
+	@GetMapping("/company/{companyId}")
+	public Set<ProjectDto> getProjectsFromCompany(@PathVariable Long companyId){
+		return projectService.getProjectsFromCompany(companyId);
 	}
 
 }

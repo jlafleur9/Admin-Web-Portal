@@ -8,5 +8,4 @@ import com.cooksys.groupfinal.entities.Team;
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
-
 }
