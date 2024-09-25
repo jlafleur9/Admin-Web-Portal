@@ -1,0 +1,66 @@
+<nav id="nav-menu">
+  <mat-toolbar id="nav-menu-toolbar">
+    <div id="info-container">
+      <div id="logo-container">
+        <img ngSrc="assets/Company_Logo.svg" alt="company logo" width="50" height="60">
+      </div>
+
+      <div id="info-text-container">
+        <p id="info-text">Acting as Admin</p>
+      </div>
+    </div>
+
+    <div id="menu-icon-container">
+      <button id="menu-icon-toggle" mat-icon-button aria-label="toggle menu" (click)="toggleMenu()">
+        @if (!showMenu) {
+          <mat-icon class="menu-icon" fontSet="material-symbols-outlined">menu</mat-icon>
+        } @else {
+          <mat-icon class="menu-icon" fontSet="material-symbols-outlined">close</mat-icon>
+        }
+      </button>
+    </div>
+  </mat-toolbar>
+
+  @if (showMenu) {
+    <div id="dropdown-tab-list" [@extensionAnimation]="'visible'">
+      <div id="tabs-list">
+        <a
+          class="dropdown-tab"
+          routerLinkActive="active"
+          routerLink="/app/home"
+        >
+          <p class="nav-menu-text">Home</p>
+          <div class="divider"></div>
+        </a>
+
+        <a
+          class="dropdown-tab"
+          routerLinkActive="active"
+          routerLink="/app/company"
+        >
+          <p class="nav-menu-text">Company</p>
+          <div class="divider"></div>
+        </a>
+
+        <a
+          class="dropdown-tab"
+          routerLinkActive="active"
+          routerLink="/app/teams"
+        >
+          <p class="nav-menu-text">Teams</p>
+          <div class="divider"></div>
+        </a>
+
+        <a
+          class="dropdown-tab"
+          routerLinkActive="active"
+          routerLink="/app/users"
+        >
+          <p class="nav-menu-text">Users</p>
+          <div class="divider"></div>
+        </a>
+        <button id="logout-button" class="dropdown-tab nav-menu-text">Logout</button>
+      </div>
+    </div>
+  }
+</nav>
