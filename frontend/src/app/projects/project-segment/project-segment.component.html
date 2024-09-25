@@ -1,0 +1,26 @@
+<div>
+  <hr style="border-color: #deb992; border-width: 1px" />
+  <div style="display: flex; position: relative">
+    <div>
+      <div style="display: flex; align-items: center; height: 60px">
+        <h3 class="project-title">{{ projectName }}</h3>
+        <h6 class="active-inactive" style="color: #22dd2abf" *ngIf="active">
+          Active
+        </h6>
+        <h6
+          class="active-inactive"
+          style="color: #df0f0fbf; font-style: italic"
+          *ngIf="!active"
+        >
+          Inactive
+        </h6>
+      </div>
+      <p class="project-descrip">
+        {{ description }}
+      </p>
+    </div>
+    <div class="edit-btn-div">
+      <button class="edit-btn">Edit</button>
+    </div>
+  </div>
+</div>
