@@ -8,6 +8,7 @@ import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import { MatOptgroup, MatOption, MatSelect } from '@angular/material/select';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-add-user-overlay',
@@ -28,10 +29,9 @@ import { MatOptgroup, MatOption, MatSelect } from '@angular/material/select';
 })
 export class AddUserOverlayComponent implements DialogFormInterface{
   newUserForm: FormGroup = new FormGroup({
-    userName: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required]),
     confirmPass: new FormControl("", [Validators.required]),
-    fistName: new FormControl("", [Validators.required]),
+    firstName: new FormControl("", [Validators.required]),
     lastName: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required]),
     phone: new FormControl("", [Validators.required]),
@@ -40,23 +40,7 @@ export class AddUserOverlayComponent implements DialogFormInterface{
   submitDisabled = this.newUserForm.get("password") !== this.newUserForm.get("confirmPass")
   @Output() closeOverlay = new EventEmitter<void>();
 
-  user: any = {
-    credentials: {
-      username: '',
-      password: ''
-    },
-    profile: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: ''
-    },
-    admin: false
-
-  };
-
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
   successfullySubmitted: EventEmitter<void> = new EventEmitter<void>;
   formError: Partial<HttpErrorResponse> | null = null;
   loading: boolean = false;
@@ -66,8 +50,9 @@ export class AddUserOverlayComponent implements DialogFormInterface{
   }
 
   submitForm() {
-    if (this.newUserForm.invalid || this.user.credentials.password !== this.user.confirmPassword) {
-      return;  // Exit if the form is invalid or passwords don't match
+    if (this.newUserForm.invalid || this.newUserForm.get("password")?.value !== this.newUserForm.get("confirmPass")?.value) {
+      this.formError = { message: 'Passwords do not match!' };
+      return;
     }
     this.formError = null;
     this.loading = true;
@@ -77,16 +62,16 @@ export class AddUserOverlayComponent implements DialogFormInterface{
 
     const userRequestDto = {
       credentials: {
-        username: this.newUserForm.get("userName"),
-        password: this.newUserForm.get("password")
+        username: (this.newUserForm.get("firstName")?.value ??"") + (this.newUserForm.get("lastName")?.value ??""),
+        password: this.newUserForm.get("password")?.value
       },
       profile: {
-        firstName: this.newUserForm.get("firstName"),
-        lastName: this.newUserForm.get("lastName"),
-        email: this.newUserForm.get("email"),
-        phone: this.newUserForm.get("phone")
+        firstName: this.newUserForm.get("firstName")?.value,
+        lastName: this.newUserForm.get("lastName")?.value,
+        email: this.newUserForm.get("email")?.value,
+        phone: this.newUserForm.get("phone")?.value
       },
-      admin: this.newUserForm.get("admin")  
+      admin: this.newUserForm.get("admin")?.value
     };
 
     // Make the HTTP POST request

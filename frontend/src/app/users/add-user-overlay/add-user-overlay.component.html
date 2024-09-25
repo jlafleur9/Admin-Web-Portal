@@ -1,60 +1,73 @@
 <app-overlay-layout [formGroup]="newUserForm" [showLoading]="loading" [dialogError]="formError"
-     largeOverlay="true" (submit)="submitForm()" [submitDisabled]="submitDisabled">
-    <!-- UserName -->
-    <mat-form-field hideRequiredMarker>
+  largeOverlay="true" (submit)="submitForm()" >
+  
+  <div class="form-container">
+    <!-- Left Column -->
+    <div class="left-column">
+        <!-- User Name -->
+        <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>User Name</mat-label>
         <input matInput required formControlName="userName" />
         <mat-error>A valid user name is required</mat-error>
-    </mat-form-field>
-    <!-- First Name -->
-    <mat-form-field hideRequiredMarker>
+        </mat-form-field>
+
+        <!-- First Name -->
+        <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>First Name</mat-label>
         <input matInput required formControlName="firstName" />
         <mat-error>A valid first name is required</mat-error>
-    </mat-form-field>
-    <!-- Last Name -->
-    <mat-form-field hideRequiredMarker>
+        </mat-form-field>
+
+        <!-- Last Name -->
+        <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>Last Name</mat-label>
         <input matInput required formControlName="lastName" />
         <mat-error>A valid last name is required</mat-error>
-    </mat-form-field>
+        </mat-form-field>
 
-    <!-- Email -->
-    <mat-form-field hideRequiredMarker>
+        <!-- Email -->
+        <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>Email</mat-label>
-        <input matInput required formControlName="email" />
+        <input matInput required formControlName="email" type="email" />
         <mat-error>A valid email is required</mat-error>
-    </mat-form-field>
+        </mat-form-field>
+    </div>
 
-    <!-- Phone -->
-    <mat-form-field hideRequiredMarker>
-        <mat-label>phone</mat-label>
+    <!-- Right Column -->
+    <div class="right-column">
+        <!-- Phone -->
+        <mat-form-field class="form-field" hideRequiredMarker>
+        <mat-label>Phone</mat-label>
         <input matInput required formControlName="phone" />
         <mat-error>A valid phone number is required</mat-error>
-    </mat-form-field>
+        </mat-form-field>
 
-    <!-- Password -->
-    <mat-form-field hideRequiredMarker>
+        <!-- Password -->
+        <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>Password</mat-label>
-        <input matInput required formControlName="password" />
+        <input matInput required formControlName="password" type="password" />
         <mat-error>A valid password is required</mat-error>
-    </mat-form-field>
+        </mat-form-field>
 
-    <!-- Confirm Password -->
-    <mat-form-field hideRequiredMarker>
+        <!-- Confirm Password -->
+        <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>Confirm Password</mat-label>
-        <input matInput required formControlName="confirmPass" />
-        <mat-error>A valid first name is required</mat-error>
-    </mat-form-field>
+        <input matInput required formControlName="confirmPass" type="password" />
+        <mat-error>A valid confirm password is required</mat-error>
+        </mat-form-field>
 
-    <!-- Confirm Admin Role -->
-    <mat-form-field>
+        <!-- Confirm Admin Role -->
+        <mat-form-field class="form-field">
         <mat-label>Is Admin?</mat-label>
         <mat-select formControlName="admin">
-          <mat-option [value]="true">Yes</mat-option>
-          <mat-option [value]="false">No</mat-option>
+            <mat-option [value]="true">Yes</mat-option>
+            <mat-option [value]="false">No</mat-option>
         </mat-select>
-      </mat-form-field>
+        </mat-form-field>
+    </div>
+  </div>
 
-    <!-- Submit Button -->
+  <!-- Submit Button -->
+  <div class="form-field full-width">
+  </div>
 </app-overlay-layout>

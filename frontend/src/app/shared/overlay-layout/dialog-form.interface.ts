@@ -27,7 +27,7 @@ export interface DialogFormInterface {
   loading: boolean;
 
   /**
-   * Determines whether the submit button is disabled
+   * Flag to disable the form's submit button
    */
-  submitDisabled?: boolean
+  submitDisabled?: boolean;
 }
