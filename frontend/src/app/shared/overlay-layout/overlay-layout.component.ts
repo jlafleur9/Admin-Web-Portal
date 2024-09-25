@@ -69,6 +69,11 @@ export class OverlayLayoutComponent {
   @Input({ transform: booleanAttribute }) largeOverlay: boolean = false;
 
   /**
+   * Determines whether the submit button is disabled
+   */
+  @Input({ transform: booleanAttribute }) submitDisabled: boolean = false;
+
+  /**
    * Handles the form submission process.
    * Emits the submit event if the form is valid and shows a loading state.
    *
