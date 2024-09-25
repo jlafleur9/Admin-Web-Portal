@@ -6,7 +6,7 @@ import {
   Router,
   RouterStateSnapshot
 } from "@angular/router";
-import {UserService} from "../services/UserService";
+import {UserService} from "../services/user.service";
 import {Injectable} from "@angular/core";
 
 @Injectable({

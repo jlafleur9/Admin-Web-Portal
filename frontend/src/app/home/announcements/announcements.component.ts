@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { UserService } from 'src/services/UserService';
+import { UserService } from 'src/services/user.service';
 import { ProfileDto } from 'src/services/dtos/profile.dto';
 
 export interface Author {
