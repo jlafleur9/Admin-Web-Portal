@@ -17,4 +17,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AnnouncementController {
 
+	private final AnnouncementService announcementService;
+
 }

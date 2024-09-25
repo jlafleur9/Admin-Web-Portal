@@ -15,6 +15,6 @@ import lombok.RequiredArgsConstructor;
 public class TeamController {
 	
 	private final TeamService teamService;
-	
+
 
 }

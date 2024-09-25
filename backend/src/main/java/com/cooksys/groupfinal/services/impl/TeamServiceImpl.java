@@ -12,10 +12,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
-	
+
 	private final TeamRepository teamRepository;
 	private final TeamMapper teamMapper;
 	private final ProjectMapper projectMapper; 
-	
-
 }

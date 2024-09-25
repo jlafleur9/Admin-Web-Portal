@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class ProjectController {
 	
 	private final ProjectService projectService;
-	
+
 	@PatchMapping("/{projectId}")
 	public ProjectDto editProject(@PathVariable Long projectId, @RequestBody ProjectDto projectDto) {
 		return projectService.editProject(projectId, projectDto);
