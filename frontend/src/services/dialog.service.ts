@@ -24,13 +24,15 @@ export class DialogService {
    *
    * @param {ComponentType<DialogFormInterface>} dialogForm - The component type of the dialog to be opened,
    * implementing the DialogFormInterface.
+   * @param {any} data - The data to pass to the dialog component
    * @returns {void}
    */
-  open(dialogForm: ComponentType<DialogFormInterface>): void {
+  open(dialogForm: ComponentType<DialogFormInterface>, data?: any): void {
     const dialogRef = this.dialog.open(dialogForm, {
       autoFocus: 'dialog',
       maxWidth: '80vw',
       maxHeight: '90vh',
+      data
     });
 
     this.closeDialogWhenSubmitted(dialogRef);
