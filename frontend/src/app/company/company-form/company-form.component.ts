@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { CompanyDto } from 'src/services/dtos/company.dto';
-import { UserService } from 'src/services/UserService';
+import { UserService } from 'src/services/user.service';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {Router} from "@angular/router";

@@ -74,6 +74,10 @@ export class UserService {
     return this.httpClient.get<Announcement[]>(`${this.baseUrl}/company/${companyId}/announcements`);
   }
 
+  getCompanyUsers(companyId: number): Observable<FullUserDto[]> {
+    return this.httpClient.get<FullUserDto[]>(`${this.baseUrl}/company/${companyId}/users`)
+  }
+
   setSelectedCompany(company: number) {
     this._selectedCompany = company;
     localStorage.setItem(this.selectedCompanyKey, JSON.stringify(company));
