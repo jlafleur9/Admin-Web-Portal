@@ -1,5 +1,6 @@
 import { Announcement, SimplifiedAnnouncement } from 'src/app/home/announcements/announcements.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +26,8 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
   loading: boolean = false;
 
   constructor(private userService: UserService,
-    @Inject(MAT_DIALOG_DATA) public announcments: SimplifiedAnnouncement[]
+    @Inject(MAT_DIALOG_DATA) public announcments: SimplifiedAnnouncement[],
+    private location: Location
   ) {}
 
   announcementForm: FormGroup = new FormGroup({
@@ -53,6 +55,7 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
     this.userService.postAnnouncement(requestAnnouncementDto).subscribe({
       next: _ => {
         this.successfullySubmitted.emit();
+        // this.location.reload();
         // this.announcments.unshift({authorName: this.userService.user!.profile.firstName, date: requestAnnouncementDto.date, message: requestAnnouncementDto.message})
       },
       error: (err: HttpErrorResponse) => {
