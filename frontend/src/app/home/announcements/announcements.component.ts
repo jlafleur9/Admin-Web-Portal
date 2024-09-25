@@ -62,7 +62,7 @@ export class AnnouncementsComponent {
 
 
   toggleOverlay() {
-    this.dialogService.open(CreateAnnouncmentOverlayComponent);
+    this.dialogService.open(CreateAnnouncmentOverlayComponent, this.announcements);
   }
 
   ngOnInit(): void {

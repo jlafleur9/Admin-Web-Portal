@@ -1,6 +1,6 @@
-import { Announcement } from 'src/app/home/announcements/announcements.component';
+import { Announcement, SimplifiedAnnouncement } from 'src/app/home/announcements/announcements.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { OverlayLayoutComponent } from 'src/app/shared/overlay-layout/overlay-layout.component';
@@ -9,6 +9,7 @@ import { MatError } from '@angular/material/form-field';
 import { UserService } from 'src/services/user.service';
 import { RequestAnnouncementDto } from 'src/services/dtos/announcement.dto';
 import { MatInput } from '@angular/material/input';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-announcment-overlay',
@@ -23,7 +24,10 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
   formError: Partial<HttpErrorResponse> | null = null;
   loading: boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public announcments: SimplifiedAnnouncement[]
+  ) {}
+
   announcementForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     message: new FormControl('', [Validators.required]),
@@ -41,7 +45,7 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
       title: this.announcementForm.value.title,
       message: this.announcementForm.value.message,
       author: {
-        id: 1
+        id: this.userService.user!.id
       }
     };
 
@@ -49,7 +53,7 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
     this.userService.postAnnouncement(requestAnnouncementDto).subscribe({
       next: _ => {
         this.successfullySubmitted.emit();
-        // this.loading = false;
+        // this.announcments.unshift({authorName: this.userService.user!.profile.firstName, date: requestAnnouncementDto.date, message: requestAnnouncementDto.message})
       },
       error: (err: HttpErrorResponse) => {
         this.formError = err;
