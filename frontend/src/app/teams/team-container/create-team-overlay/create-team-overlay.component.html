@@ -13,17 +13,21 @@
         <input matInput id="description" formControlName="description" />
       </mat-form-field>
 
-      <label for="members">Select Members</label>
-      <select
-        id="members"
-        formControlName="members"
-        (change)="onMemberChange()"
-      >
-        <option *ngFor="let member of availableMembers" [value]="member.id">
-          {{ member.profile.firstName }}
-          {{ member.profile.lastName | slice : 0 : 1 }}
-        </option>
-      </select>
+      <mat-form-field>
+        <mat-label for="members">Select Members</mat-label>
+        <select
+          matNativeControl
+          required
+          id="members"
+          formControlName="members"
+          (change)="onMemberChange()"
+        >
+          <option *ngFor="let member of availableMembers" [value]="member.id">
+            {{ member.profile.firstName }}
+            {{ member.profile.lastName | slice : 0 : 1 }}
+          </option>
+        </select>
+      </mat-form-field>
 
       <div *ngIf="selectedMembers.length > 0">
         <h3>Selected Members:</h3>
@@ -31,7 +35,13 @@
           <li *ngFor="let member of selectedMembers">
             {{ member.profile.firstName }}
             {{ member.profile.lastName | slice : 0 : 1 }}
-            <button mat-flat-button type="button" (click)="removeMember(member)">Remove</button>
+            <button
+              mat-flat-button
+              type="button"
+              (click)="removeMember(member)"
+            >
+              Remove
+            </button>
           </li>
         </ul>
       </div>
