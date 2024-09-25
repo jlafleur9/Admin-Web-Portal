@@ -9,6 +9,7 @@
 
   width: clamp(270px, 20vw + 200px, 480px);
   height: 440px;
+  max-height: 85vh;
   border-radius: 12px;
 
   background-color: var(--sys-primary-container);
