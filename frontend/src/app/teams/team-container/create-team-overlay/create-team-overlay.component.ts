@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   Output,
   SimpleChanges,
@@ -14,23 +15,35 @@ import {
 } from '@angular/forms';
 import Team from '../../models/Team';
 import Teammate from '../../models/Teammate';
-import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+// import { catchError } from 'rxjs/operators';
+// import { throwError } from 'rxjs';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
+import { OverlayLayoutComponent } from "../../../shared/overlay-layout/overlay-layout.component";
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-team-overlay',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    OverlayLayoutComponent
+],
   templateUrl: './create-team-overlay.component.html',
   styleUrl: './create-team-overlay.component.css',
 })
-export class CreateTeamOverlayComponent {
+export class CreateTeamOverlayComponent implements DialogFormInterface {
   @Input() showOverlay: boolean | undefined;
   @Input() membersData: Teammate[] = [];
   @Output() showOverlayChange = new EventEmitter<boolean>();
@@ -41,19 +54,26 @@ export class CreateTeamOverlayComponent {
   team: Team | undefined;
   availableMembers: Teammate[] = [];
   selectedMembers: Teammate[] = [];
+  successfullySubmitted: EventEmitter<void> = new EventEmitter<void>();
+  formError: Partial<HttpErrorResponse> | null = null;
+  loading: boolean = false;
+  submitDisabled: boolean = this.selectedMembers.length === 0;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public data: Teammate[]) {
     this.createTeamForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       members: [''],
     });
+    this.membersData = data
+    this.availableMembers = [...this.membersData];
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['membersData']) {
       // when the number of members for a company is fetched, ensure it's passed to here and updated for the dropdown
       this.availableMembers = [...this.membersData];
+      
     }
   }
 
@@ -89,6 +109,8 @@ export class CreateTeamOverlayComponent {
 
   saveNewTeam = () => {
     if (this.createTeamForm.valid) {
+      this.loading = true;
+      this.formError = null;
       const formValues = this.createTeamForm.value;
       // the API expected the request body to go in the order name, description, teammates
       // formValues' name for teammates is members. Here I'm renaming it to teammates.
@@ -106,24 +128,27 @@ export class CreateTeamOverlayComponent {
         .post('http://localhost:8080/company/1/teams', jsonFormValues, {
           headers: { 'Content-Type': 'application/json' },
         })
-        .pipe(
-          catchError((error) => {
-            console.error('Error occurred:', error);
-            return throwError(() => new Error(error));
-          })
-        )
+        // .pipe(
+        //   catchError((error) => {
+        //     console.error('Error occurred:', error);
+        //     return throwError(() => new Error(error));
+        //   })
+        // )
         .subscribe({
           next: (response) => {
-            // when i recieve a response back from the api, clear all inputs from the form, 
+            // when i recieve a response back from the api, clear all inputs from the form,
             // hide the overlay, and refetch everything in team-container
             console.log('API Response:', response);
-            this.createTeamForm.reset();
-            this.selectedMembers = [];
-            this.hideOverlay();
+            // this.createTeamForm.reset();
+            // this.selectedMembers = [];
+            // this.hideOverlay();
+            this.successfullySubmitted.emit();
             this.teamCreated.emit();
           },
           error: (error) => {
             console.error('error:', error);
+            this.formError = error;
+            this.loading = false;
           },
           complete: () => {
             console.log('Completed sucessfully');

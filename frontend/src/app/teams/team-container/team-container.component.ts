@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
 import Team from '../models/Team';
 import Teammate from '../models/Teammate';
 import Project from '../models/Project';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { DialogService } from 'src/services/dialog.service';
 
 interface assignedProjects {
   teamId: number;
@@ -32,6 +33,8 @@ export class TeamContainerComponent {
   showOverlay: boolean = false;
   assignedProjectsList: assignedProjects[] = [];
 
+  constructor(private dialogService: DialogService) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['projectData']) {
       // process projectData when it gets passed into this component
@@ -48,25 +51,29 @@ export class TeamContainerComponent {
     }
 
     // for each teamData, set their projects property equal to the assignedProjectsList based on their ID
-    this.assignedProjectsList.forEach(project => {
+    this.assignedProjectsList.forEach((project) => {
       this.teamData.forEach((team) => {
-        if(team.id === project.teamId){
-          team.projects = project.projects
+        if (team.id === project.teamId) {
+          team.projects = project.projects;
         }
-      })
-    })
-
+      });
+    });
   }
+
+  openOverlay = () => {
+    this.dialogService.open(CreateTeamOverlayComponent, this.membersData);
+
+  };
 
   logTeams = () => {
     // console.log(this.teamData);
-    console.log(this.teamData)
-    console.log(this.assignedProjectsList)
+    console.log(this.teamData);
+    console.log(this.assignedProjectsList);
   };
 
-  revealOverlay = () => {
-    this.showOverlay = true;
-  };
+  // revealOverlay = () => {
+  //   this.showOverlay = true;
+  // };
 
   onTeamCreated(): void {
     this.teamCreated.emit();

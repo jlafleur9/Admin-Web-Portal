@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TeamContainerComponent } from './team-container/team-container.component';
 import { HttpClient } from '@angular/common/http';
 import Team from './models/Team';
-import Profile from './models/Profile';
 import Teammate from './models/Teammate';
 import { lastValueFrom } from 'rxjs';
 import Project from './models/Project';
