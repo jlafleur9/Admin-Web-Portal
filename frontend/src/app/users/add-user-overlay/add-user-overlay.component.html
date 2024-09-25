@@ -1,78 +1,60 @@
-<div class="overlay">
-    <div class="overlay-content blue-box">
-      <h2>Add New User</h2>
-  
-      <form (ngSubmit)="submitForm(userForm)" #userForm="ngForm" novalidate>
-        <!-- First Name -->
-        <div>
-          <label>First Name:</label>
-          <input type="text" [(ngModel)]="user.profile.firstName" name="firstName" required #firstName="ngModel" />
-          <div *ngIf="firstName.invalid && (firstName.touched || userForm.submitted)">
-            <small class="error">First name is required.</small>
-          </div>
-        </div>
-  
-        <!-- Last Name -->
-        <div>
-          <label>Last Name:</label>
-          <input type="text" [(ngModel)]="user.profile.lastName" name="lastName" required #lastName="ngModel" />
-          <div *ngIf="lastName.invalid && (lastName.touched || userForm.submitted)">
-            <small class="error">Last name is required.</small>
-          </div>
-        </div>
-  
-        <!-- Email -->
-        <div>
-          <label>Email:</label>
-          <input type="email" [(ngModel)]="user.profile.email" name="email" required email #email="ngModel" />
-          <div *ngIf="email.invalid && (email.touched || userForm.submitted)">
-            <small class="error">A valid email is required.</small>
-          </div>
-        </div>
-  
-        <!-- Phone -->
-        <div>
-          <label>Phone:</label>
-          <input type="text" [(ngModel)]="user.profile.phone" name="phone" required #phone="ngModel" />
-          <div *ngIf="phone.invalid && (phone.touched || userForm.submitted)">
-            <small class="error">Phone number is required.</small>
-          </div>
-        </div>
-  
-        <!-- Password -->
-        <div>
-          <label>Password:</label>
-          <input type="password" [(ngModel)]="user.credentials.password" name="password" required minlength="6" #password="ngModel" />
-          <div *ngIf="password.invalid && (password.touched || userForm.submitted)">
-            <small class="error">Password is required (min 6 characters).</small>
-          </div>
-        </div>
-  
-        <!-- Confirm Password -->
-        <div>
-          <label>Confirm Password:</label>
-          <input type="password" [(ngModel)]="user.confirmPassword" name="confirmPassword" required #confirmPassword="ngModel" />
-          <div *ngIf="confirmPassword.invalid && (confirmPassword.touched || userForm.submitted)">
-            <small class="error">Confirm password is required.</small>
-          </div>
-          <div *ngIf="user.credentials.password !== user.confirmPassword && userForm.submitted">
-            <small class="error">Passwords must match.</small>
-          </div>
-        </div>
-  
-        <!-- Confirm Admin Role -->
-        <div>
-          <label>Confirm Admin Role:</label>
-          <select [(ngModel)]="user.admin" name="isAdmin">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-        </div>
-  
-        <!-- Submit Button -->
-        <button type="submit" [disabled]="!userForm.valid || user.credentials.password !== user.confirmPassword">Submit</button>
-        <button type="button" (click)="close()">Close</button>
-      </form>
-    </div>
-  </div>
-  
+<app-overlay-layout [formGroup]="newUserForm" [showLoading]="loading" [dialogError]="formError"
+     largeOverlay="true" (submit)="submitForm()" [submitDisabled]="submitDisabled">
+    <!-- UserName -->
+    <mat-form-field hideRequiredMarker>
+        <mat-label>User Name</mat-label>
+        <input matInput required formControlName="userName" />
+        <mat-error>A valid user name is required</mat-error>
+    </mat-form-field>
+    <!-- First Name -->
+    <mat-form-field hideRequiredMarker>
+        <mat-label>First Name</mat-label>
+        <input matInput required formControlName="firstName" />
+        <mat-error>A valid first name is required</mat-error>
+    </mat-form-field>
+    <!-- Last Name -->
+    <mat-form-field hideRequiredMarker>
+        <mat-label>Last Name</mat-label>
+        <input matInput required formControlName="lastName" />
+        <mat-error>A valid last name is required</mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field hideRequiredMarker>
+        <mat-label>Email</mat-label>
+        <input matInput required formControlName="email" />
+        <mat-error>A valid email is required</mat-error>
+    </mat-form-field>
+
+    <!-- Phone -->
+    <mat-form-field hideRequiredMarker>
+        <mat-label>phone</mat-label>
+        <input matInput required formControlName="phone" />
+        <mat-error>A valid phone number is required</mat-error>
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field hideRequiredMarker>
+        <mat-label>Password</mat-label>
+        <input matInput required formControlName="password" />
+        <mat-error>A valid password is required</mat-error>
+    </mat-form-field>
+
+    <!-- Confirm Password -->
+    <mat-form-field hideRequiredMarker>
+        <mat-label>Confirm Password</mat-label>
+        <input matInput required formControlName="confirmPass" />
+        <mat-error>A valid first name is required</mat-error>
+    </mat-form-field>
+
+    <!-- Confirm Admin Role -->
+    <mat-form-field>
+        <mat-label>Is Admin?</mat-label>
+        <mat-select formControlName="admin">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <!-- Submit Button -->
+</app-overlay-layout>

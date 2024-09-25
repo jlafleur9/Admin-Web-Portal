@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddUserOverlayComponent } from './add-user-overlay/add-user-overlay.component';
+import { DialogService } from 'src/services/dialog.service';
 
 @Component({
   selector: 'app-users',
@@ -12,8 +13,10 @@ import { AddUserOverlayComponent } from './add-user-overlay/add-user-overlay.com
 export class UsersComponent {
   showAddUserOverlay = false;
 
+  constructor(private dialogService: DialogService) {}
+
   toggleOverlay() {
-    this.showAddUserOverlay = !this.showAddUserOverlay;
+    this.dialogService.open(AddUserOverlayComponent);
   }
 
 }
