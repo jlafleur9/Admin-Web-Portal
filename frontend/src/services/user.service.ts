@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {CredentialsDto} from "./dtos/credentials.dto";
 import {FullUserDto} from "./dtos/full-user.dto";
 import {catchError, Observable, tap, throwError} from "rxjs";
+import { RequestAnnouncementDto, ResponseAnnouncementDto} from "./dtos/announcement.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,10 @@ export class UserService {
         tap(response => this.saveUser(response)),
         catchError(error => throwError(() => error))
       );
+  }
+
+  postAnnouncement(requestAnnouncementDto: RequestAnnouncementDto): Observable<ResponseAnnouncementDto[]> {
+    return this.httpClient.post<ResponseAnnouncementDto[]>(`${this.baseUrl}/company/1/announcements`, requestAnnouncementDto)
   }
 
   logout() {

@@ -3,7 +3,8 @@
   <span>Announcements</span>
 </mat-toolbar>
   <mat-divider></mat-divider>
-
+  <button (click)="toggleOverlay()">Add Annoucement</button>
+  <app-create-announcment-overlay *ngIf="showCreateAnnouncmentOverlay" (closeOverlay)="toggleOverlay()"></app-create-announcment-overlay>
 <div class="container">
   <mat-card *ngFor="let announcement of announcements" class="announcement">
     <mat-card-header>

@@ -8,6 +8,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from 'src/services/user.service';
 import { ProfileDto } from 'src/services/dtos/profile.dto';
+import { DialogService } from 'src/services/dialog.service';
+import { CreateAnnouncmentOverlayComponent } from '../create-announcment-overlay/create-announcment-overlay.component';
 
 export interface Author {
   id: number;
@@ -40,7 +42,8 @@ export interface SimplifiedAnnouncement {
     DatePipe,
     MatToolbarModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    CreateAnnouncmentOverlayComponent
     ],
   templateUrl: './announcements.component.html',
   styleUrl: './announcements.component.css'
@@ -48,12 +51,19 @@ export interface SimplifiedAnnouncement {
 
 export class AnnouncementsComponent {
   companyId: number = 1;
-
   announcements: SimplifiedAnnouncement[] = [];
+  showCreateAnnouncmentOverlay = false;
+
 
   constructor(private apiService: ApiService,
-    private userService: UserService
+    private userService: UserService,
+    private dialogService: DialogService
   ) {}
+
+
+  toggleOverlay() {
+    this.dialogService.open(CreateAnnouncmentOverlayComponent);
+  }
 
   ngOnInit(): void {
 
