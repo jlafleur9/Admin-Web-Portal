@@ -39,7 +39,7 @@ export class OverlayLayoutComponent {
   /**
    * Event emitted when the form is submitted.
    */
-  @Output() submit = new EventEmitter<void>();
+  @Output() submittedFormEvent = new EventEmitter<void>();
 
   /**
    * Event emitted when the dialog is closed.
@@ -85,8 +85,7 @@ export class OverlayLayoutComponent {
       return;
     }
 
-    this.showLoading = true;
-    this.submit.emit();
+    this.submittedFormEvent.emit();
   }
 
   /**
