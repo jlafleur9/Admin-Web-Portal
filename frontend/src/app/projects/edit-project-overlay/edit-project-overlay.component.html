@@ -11,25 +11,78 @@
     >
   </button>
 
-  <mat-dialog-content class="dialog-content">
+  <div class="dialog-content">
     <form id="overlay-form" (submit)="onSubmit()" [formGroup]="formGroup">
-      <ng-content></ng-content>
+      <div style="display: flex">
+        <label class="label-text"
+          >Project Name<span
+            class="error-message"
+            *ngIf="
+              formGroup.get('name')?.invalid && formGroup.get('name')?.touched
+            "
+          >
+            Cannot be empty
+          </span></label
+        >
+      </div>
+
+      <input class="input-box" id="name" type="text" formControlName="name" />
+
+      <div style="display: flex; padding-top: 13px">
+        <label class="label-text"
+          >Description<span
+            class="error-message"
+            *ngIf="
+              formGroup.get('description')?.invalid &&
+              formGroup.get('description')?.touched
+            "
+          >
+            Cannot be empty
+          </span></label
+        >
+      </div>
+      <input
+        class="input-box"
+        id="description"
+        type="text"
+        formControlName="description"
+      />
 
       @if (dialogError) {
       <p class="error-message">{{ dialogError.message }}</p>
       }
+
+      <h3 class="active-text">Active?</h3>
+
+      <!--<div class="custom-select-wrapper">
+        <select [(ngModel)]="selectedOption">
+          <option *ngIf="!selectedOption" value="" hidden>
+            Pick an option <span class="custom-arrow">&or;</span>
+          </option>
+          <option value="option">Yes</option>
+          <option value="option">No</option>
+        </select>
+      </div>-->
+
+      <select [(ngModel)]="selectedOption" class="dropdown">
+        <option *ngIf="!selectedOption" value="" hidden>Pick an option</option>
+        <option value="option">Yes</option>
+        <option value="option">No</option>
+      </select>
     </form>
-  </mat-dialog-content>
+  </div>
 
   <mat-dialog-actions class="actions-container" align="center">
     @if (!showLoading) {
     <button
+      [disabled]="isFormInvalid()"
       form="overlay-form"
       type="submit"
       mat-flat-button
-      class="primary-button dialog-submit-button"
+      [ngClass]="{ 'primary-button': isFormValid() }"
+      class="dialog-submit-button"
     >
-      Submit
+      Save
     </button>
     } @else {
     <mat-spinner diameter="48"></mat-spinner>

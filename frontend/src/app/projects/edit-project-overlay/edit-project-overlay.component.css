@@ -1,0 +1,160 @@
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    gap: 2rem;
+    padding: 0.25rem;
+  
+    width: clamp(270px, 20vw + 200px, 480px);
+    height: 440px;
+    max-height: 85vh;
+    border-radius: 12px;
+  
+    background-color: var(--sys-primary-container);
+  }
+  
+  .dialog-container-large {
+    width: clamp(270px, 35vw + 150px, 768px);
+    height: 700px;
+  }
+  
+  #close-dialog-button {
+    align-self: flex-end;
+    color: #F24E1E;
+    margin: .25rem;
+    padding-top: 20px;
+  }
+  
+  #close-dialog-icon {
+    transform: scale(1.75);
+  }
+  
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #overlay-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+    gap: 1rem;
+  }
+ 
+  .label-text {
+    color: var(--sys-secondary);
+    align-self: start;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    width: 300px;
+  }
+
+  .input-box{
+    background-color: var(--sys-primary-container);
+    border: none;
+    border-bottom: 1px solid var(--sys-secondary);
+    width: 300px;
+    caret-color: white;
+    color: white;
+    font-size: 16px;
+  } 
+
+  .input-box:focus {
+    outline: none;
+  }
+
+  .error-message{
+    color: var(--mat-form-field-error-text-color);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .dialog-submit-button {
+    width: 200px;
+    height: 48px;
+    border-radius: 10px;
+  
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .actions-container {
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    color: var(--sys-error);
+    margin: 0;
+    text-align: center;
+    font-size: smaller;
+    padding: 15px;
+  }
+
+  .active-text {
+    color: var(--sys-secondary);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    margin: 0;
+  }
+
+  .dropdown {
+    margin: 0;
+    border: none;
+    border-radius: 8px;
+    width: 163px;
+    height: 36px;
+
+    color: #5533FF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    text-align: center;
+  }
+
+
+
+  .custom-select-wrapper {
+    position: relative;
+    display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  select {
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 16px;
+    cursor: pointer;
+    color: #5533FF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    text-align: center;
+  }
+  
+  /* Custom arrow */
+  .custom-arrow {
+    pointer-events: none; /* Prevent the arrow from blocking clicks */
+    font-size: 16px; /* You can change this to resize the custom arrow */
+  }
+  
+  /* Optional: Adjust the dropdown list size */
+  select:focus {
+    outline: none;
+  }
+  
