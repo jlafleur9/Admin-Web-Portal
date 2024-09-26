@@ -1,1 +1,72 @@
-<p>add-user-overlay works!</p>
+<app-overlay-layout [formGroup]="newUserForm" [showLoading]="loading" [dialogError]="formError"
+  largeOverlay="true" (submit)="submitForm()">
+  
+  <div class="form-container">
+    <!-- Left and Right Columns for First Name and Last Name -->
+    <div class="left-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
+        <mat-label class="label-text">First Name</mat-label>
+        <input matInput required formControlName="firstName" class="input-text" />
+        <mat-error>A valid first name is required</mat-error>
+      </mat-form-field>
+      
+    </div>
+
+    <div class="right-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
+        <mat-label class="label-text">Last Name</mat-label>
+        <input matInput required formControlName="lastName" />
+        <mat-error>A valid last name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Full Width Email Field -->
+    <div class="full-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
+        <mat-label class="label-text">Email</mat-label>
+        <input matInput required formControlName="email" type="email" />
+        <mat-error>A valid email is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Full Width Phone Field -->
+    <div class="full-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
+        <mat-label class="label-text">Phone</mat-label>
+        <input matInput required formControlName="phone" />
+        <mat-error>A valid phone number is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Left and Right Columns for Password and Confirm Password -->
+    <div class="left-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
+        <mat-label class="label-text">Password</mat-label>
+        <input matInput required formControlName="password" type="password" />
+        <mat-error>A valid password is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="right-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
+        <mat-label class="label-text">Confirm Password</mat-label>
+        <input matInput required formControlName="confirmPass" type="password" />
+        <mat-error>A valid confirm password is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Centered Admin Role Text and Dropdown -->
+    <div class="center-column">
+      <p class="label-text">Make user an admin role?</p>
+      <div class="admin-dropdown">
+        <mat-form-field class="form-field admin-dropdown-field label-text">
+          <mat-label class="label-text">Is Admin?</mat-label>
+          <mat-select class="label-text" formControlName="admin">
+            <mat-option class="label-text" [value]="true">Yes</mat-option>
+            <mat-option class="label-text"[value]="false">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</app-overlay-layout>
