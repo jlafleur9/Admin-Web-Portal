@@ -43,7 +43,9 @@ export class AddUserOverlayComponent implements DialogFormInterface{
   submitDisabled = this.newUserForm.get("password") !== this.newUserForm.get("confirmPass")
   @Output() closeOverlay = new EventEmitter<void>();
 
-  constructor(private http: HttpClient, @Inject(MAT_DIALOG_DATA) private usersDataSource: MatTableDataSource<FullUserDto>) {
+  constructor(private http: HttpClient,
+              private userService: UserService,
+              @Inject(MAT_DIALOG_DATA) private usersDataSource: MatTableDataSource<FullUserDto>) {
     this.newUserForm.valueChanges.subscribe(() => {
       this.updateSubmitDisabled();
     });
@@ -71,8 +73,7 @@ export class AddUserOverlayComponent implements DialogFormInterface{
     this.formError = null;
     this.loading = true;
 
-    const companyId = 1; // Replace with actual company ID
-    const url = `http://localhost:8080/company/${companyId}/users`;
+    const url = `http://localhost:8080/company/${this.userService.selectedCompany}/users`;
 
     const userRequestDto = {
       credentials: {
