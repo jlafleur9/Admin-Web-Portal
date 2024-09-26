@@ -60,7 +60,7 @@ Use the `OverlayLayoutComponent` in your form component's template, passing in t
   [formGroup]="loginForm"
   [showLoading]="loading"
   [dialogError]="formError"
-  (submit)="login()"
+  (submittedFormEvent)="login()"
   (close)="close()">
   
   <mat-form-field>
@@ -136,7 +136,7 @@ export class OverlayExampleComponent {
 
 ## Output Events
 
-### `submit`
+### `submitttedFormEvent`
 
 - **Emitted when:** The form is submitted.
 - **Usage:** Handle form submission logic in your component.

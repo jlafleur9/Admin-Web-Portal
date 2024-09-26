@@ -1,4 +1,4 @@
-<app-overlay-layout [formGroup]="loginForm" largeOverlay="true" [showLoading]="loading" [dialogError]="formError" (submit)="login()" (close)="close()">
+<app-overlay-layout [formGroup]="loginForm" largeOverlay="true" [showLoading]="loading" [dialogError]="formError" (submittedFormEvent)="login()" (close)="close()">
   <mat-form-field hideRequiredMarker>
     <mat-label class="label-text">username</mat-label>
     <input matInput required formControlName="username" />
