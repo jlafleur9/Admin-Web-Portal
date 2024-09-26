@@ -8,6 +8,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from 'src/services/user.service';
 import { ProfileDto } from 'src/services/dtos/profile.dto';
+import { DialogService } from 'src/services/dialog.service';
+import { CreateAnnouncmentOverlayComponent } from '../create-announcment-overlay/create-announcment-overlay.component';
 import { Subscription } from 'rxjs';
 
 export interface Author {
@@ -41,7 +43,8 @@ export interface SimplifiedAnnouncement {
     DatePipe,
     MatToolbarModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    CreateAnnouncmentOverlayComponent
     ],
   templateUrl: './announcements.component.html',
   styleUrl: './announcements.component.css'
@@ -52,10 +55,18 @@ export class AnnouncementsComponent {
   private subscription: Subscription = new Subscription();
 
   announcements: SimplifiedAnnouncement[] = [];
+  showCreateAnnouncmentOverlay = false;
+
 
   constructor(private apiService: ApiService,
-    private userService: UserService
+    private userService: UserService,
+    private dialogService: DialogService
   ) {}
+
+
+  toggleOverlay() {
+    this.dialogService.open(CreateAnnouncmentOverlayComponent, this.announcements);
+  }
 
   ngOnInit(): void {
 
@@ -75,7 +86,8 @@ export class AnnouncementsComponent {
             authorName: announcement.author.profile.firstName,
             date: announcement.date,
             message: announcement.message
-          }));
+          }))
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         },
         error: (error) => {
           console.error('Error fetching announcements:', error);

@@ -51,7 +51,6 @@ export class CompanyFormComponent {
     onCompanySelected() {
       if (this.companyForm.controls['company'].value) {
         const companyId = this.companyForm.controls['company'].value;
-        // console.log(this.companyForm.controls['company'].value)
         this.userService.setSelectedCompany(companyId)
         this.router.navigate(['/app/home'])
       } else {

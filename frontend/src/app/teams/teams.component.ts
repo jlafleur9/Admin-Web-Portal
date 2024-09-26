@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { TeamContainerComponent } from './team-container/team-container.component';
 import { HttpClient } from '@angular/common/http';
 import Team from './models/Team';
-import Profile from './models/Profile';
 import Teammate from './models/Teammate';
 import { lastValueFrom } from 'rxjs';
 import Project from './models/Project';
+import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component';
+import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-teams',
   standalone: true,
-  imports: [CommonModule, TeamContainerComponent],
+  imports: [CommonModule, TeamContainerComponent, NavMenuComponent, NavBarComponent],
   templateUrl: './teams.component.html',
   styleUrl: './teams.component.css',
 })
@@ -49,10 +50,10 @@ export class TeamsComponent {
     })
   }
 
-  onTeamCreated = () => {
-    console.log('new team added');
-    this.loadTeams();
-  };
+  // onTeamCreated = () => {
+  //   console.log('new team added');
+  //   this.loadTeams();
+  // };
 
   // uncomment this when the previous page is done handling their stuff
   // getCompanyFromLocalStorage(): void {

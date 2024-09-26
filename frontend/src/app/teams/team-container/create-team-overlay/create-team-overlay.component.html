@@ -1,57 +1,88 @@
-<div *ngIf="showOverlay" class="dim-bg">
-  <div>
-    <form [formGroup]="createTeamForm" (ngSubmit)="saveNewTeam()">
-      <mat-form-field>
-        <!-- <label for="name">Team Name</label> -->
-        <mat-label>Team Name</mat-label>
-        <input matInput id="name" formControlName="name" />
-      </mat-form-field>
+<app-overlay-layout
+  [formGroup]="createTeamForm"
+  [showLoading]="loading"
+  [dialogError]="formError"
+  (submittedFormEvent)="saveNewTeam()"
+  largeOverlay="true"
+  [submitDisabled]="submitDisabled"
+>
+  <!-- <form [formGroup]="createTeamForm" (ngSubmit)="saveNewTeam()"> -->
+  <mat-form-field>
+    <!-- <label for="name">Team Name</label> -->
+    <mat-label>Team Name</mat-label>
+    <input matInput id="name" formControlName="name" />
+  </mat-form-field>
 
-      <mat-form-field>
-        <!-- <label for="description">Description</label> -->
-        <mat-label>Description</mat-label>
-        <input matInput id="description" formControlName="description" />
-      </mat-form-field>
+  <mat-form-field>
+    <!-- <label for="description">Description</label> -->
+    <mat-label>Description</mat-label>
+    <input matInput id="description" formControlName="description" />
+  </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Select Members</mat-label>
-        <mat-select
-          id="members"
-          formControlName="members"
-          (selectionChange)="onMemberChange()"
-        >
-          <mat-option *ngFor="let member of availableMembers" [value]="member.id">
+  <mat-form-field>
+    <mat-label>Select Members</mat-label>
+    <mat-select
+      id="members"
+      formControlName="members"
+      (selectionChange)="onMemberChange()"
+    >
+      <mat-option *ngFor="let member of availableMembers" [value]="member.id">
+        {{ member.profile.firstName }}
+        {{ member.profile.lastName | slice : 0 : 1 }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="selectedMembers.length > 0">
+    <h3>Selected Members:</h3>
+
+      <div *ngFor="let member of selectedMembers" class="selected-members-container">
+        <div class="selected-member-name">
+          <!-- <p> -->
             {{ member.profile.firstName }}
             {{ member.profile.lastName | slice : 0 : 1 }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          <!-- </p> -->
+        </div>
 
-      <div *ngIf="selectedMembers.length > 0">
-        <h3>Selected Members:</h3>
-        <ul>
-          <li *ngFor="let member of selectedMembers">
-            {{ member.profile.firstName }}
-            {{ member.profile.lastName | slice : 0 : 1 }}
-            <button
-              mat-flat-button
-              type="button"
-              (click)="removeMember(member)"
+        <div>
+          <button
+            mat-icon-button
+            mat-dialog-close
+            type="button"
+            (click)="removeMember(member)"
+          >
+            <mat-icon class="remove-member" fontSet="material-symbols-outlined"
+              >cancel</mat-icon
             >
-              Remove
-            </button>
-          </li>
-        </ul>
+          </button>
+        </div>
       </div>
 
-      <button
-        mat-flat-button
-        type="submit"
-        [disabled]="createTeamForm.invalid || selectedMembers.length === 0"
-      >
-        Save Team
-      </button>
-    </form>
-    <button mat-flat-button (click)="hideOverlay()">close</button>
+    <!-- <ul>
+      <li *ngFor="let member of selectedMembers" class="selected-member">
+        {{ member.profile.firstName }}
+        {{ member.profile.lastName | slice : 0 : 1 }}
+        <button
+          mat-icon-button
+          mat-dialog-close
+          type="button"
+          (click)="removeMember(member)"
+        >
+          <mat-icon class="remove-member" fontSet="material-symbols-outlined"
+            >cancel</mat-icon
+          >
+        </button>
+      </li>
+    </ul> -->
   </div>
-</div>
+
+  <!-- <button
+      mat-flat-button
+      type="submit"
+      [disabled]="createTeamForm.invalid || selectedMembers.length === 0"
+    >
+      Save Team
+    </button> -->
+  <!-- </form> -->
+  <!-- <button mat-flat-button (click)="hideOverlay()">close</button> -->
+</app-overlay-layout>
