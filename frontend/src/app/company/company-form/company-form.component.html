@@ -1,6 +1,6 @@
 
   <form [formGroup]="companyForm" >
-        <mat-form-field>
+        <mat-form-field hideRequiredMarker>
           <mat-label for="company">Pick a company</mat-label>
           <mat-select required id="company" formControlName="company" (selectionChange)="onCompanySelected()">
             <mat-option *ngFor="let company of companies" [value]="company.id">
