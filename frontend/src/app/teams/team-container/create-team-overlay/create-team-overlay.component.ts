@@ -23,9 +23,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
-import { OverlayLayoutComponent } from "../../../shared/overlay-layout/overlay-layout.component";
+import { OverlayLayoutComponent } from '../../../shared/overlay-layout/overlay-layout.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -41,8 +41,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     MatSelectModule,
     OverlayLayoutComponent,
     MatSelectModule,
-    MatIconModule
-],
+    MatIconModule,
+  ],
   templateUrl: './create-team-overlay.component.html',
   styleUrl: './create-team-overlay.component.css',
 })
@@ -60,37 +60,39 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
   successfullySubmitted: EventEmitter<void> = new EventEmitter<void>();
   formError: Partial<HttpErrorResponse> | null = null;
   loading: boolean = false;
-  submitDisabled: boolean = true;
+  submitDisabled: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public data: Teammate[]) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: Teammate[]
+  ) {
     this.createTeamForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       members: [''],
     });
-    this.membersData = data
+    this.membersData = data;
     this.availableMembers = [...this.membersData];
-    this.createTeamForm.valueChanges.subscribe( () => {
+    this.createTeamForm.valueChanges.subscribe(() => {
       this.updateSubmitDisabled();
-    })
+    });
   }
 
   // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes['membersData']) {
-  //     // when the number of members for a company is fetched, ensure it's passed to here and updated for the dropdown
-  //     this.availableMembers = [...this.membersData];
-      
-  //   }
+    // if (changes['availableMembers']) {
+    //   // when the number of members for a company is fetched, ensure it's passed to here and updated for the dropdown
+    //   this.availableMembers.sort()
+    // }
+    // if(changes['selectedMembers']){
+    //   this.selectedMembers.sort()
+    // }
   // }
 
   updateSubmitDisabled = () => {
-    // const name = this.createTeamForm.get("name")?.value
-    // const description = this.createTeamForm.get("description")?.value
-    const membersSelected = this.selectedMembers.length
-    // this.submitDisabled = name && description && membersSelected !== 0
-    this.submitDisabled = membersSelected !== 0
-    console.log(this.submitDisabled)
-  }
+    const membersSelected = this.selectedMembers.length;
+    this.submitDisabled = membersSelected === 0;
+  };
 
   onMemberChange = () => {
     // basically, if a member is selected from the dropdown, remove that member from the dropdown (availableMembers) and add it to selectedMembers
@@ -109,12 +111,22 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
     }
   };
 
+  sortMembers = () => {
+    this.availableMembers.sort((a, b) => {
+      if (a.profile.firstName < b.profile.firstName) return -1;
+      if (a.profile.firstName > b.profile.firstName) return 1;
+      return 0;
+    });
+  };
+
   removeMember = (member: Teammate) => {
     // when the remove button is clicked, remove that member from selectedMembers and add it back into availableMembers (the dropdown)
     this.selectedMembers = this.selectedMembers.filter(
       (m) => m.id !== member.id
     );
     this.availableMembers.push(member);
+    this.sortMembers()
+    this.updateSubmitDisabled();
   };
 
   // hideOverlay = () => {

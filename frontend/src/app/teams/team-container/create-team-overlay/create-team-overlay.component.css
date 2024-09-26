@@ -10,9 +10,9 @@
   /* list-style-type: none; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: var(--sys-primary);
+  justify-content: space-evenly;
   border-radius: 5px;
+  align-items: center;
   /* gap: 10px; */
 }
 
@@ -21,5 +21,8 @@
 }
 
 .selected-member-name {
-    margin-left: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--sys-primary);
 }

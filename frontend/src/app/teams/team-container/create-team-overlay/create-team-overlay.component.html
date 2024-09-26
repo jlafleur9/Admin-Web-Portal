@@ -2,7 +2,7 @@
   [formGroup]="createTeamForm"
   [showLoading]="loading"
   [dialogError]="formError"
-  (submit)="saveNewTeam()"
+  (submittedFormEvent)="saveNewTeam()"
   largeOverlay="true"
   [submitDisabled]="submitDisabled"
 >
@@ -38,10 +38,10 @@
 
       <div *ngFor="let member of selectedMembers" class="selected-members-container">
         <div class="selected-member-name">
-          <p>
+          <!-- <p> -->
             {{ member.profile.firstName }}
             {{ member.profile.lastName | slice : 0 : 1 }}
-          </p>
+          <!-- </p> -->
         </div>
 
         <div>

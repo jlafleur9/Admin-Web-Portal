@@ -37,6 +37,7 @@ export class TeamContainerComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['projectData']) {
+      this.sortTeams();
       // process projectData when it gets passed into this component
       this.teamData.forEach((team) => {
         // gets the count of how many projects are assigned to a specific team
@@ -60,9 +61,16 @@ export class TeamContainerComponent {
     });
   }
 
+  sortTeams = () => {
+    this.teamData.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
+  };
+
   openOverlay = () => {
     this.dialogService.open(CreateTeamOverlayComponent, this.membersData);
-
   };
 
   logTeams = () => {
