@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatAnchor, MatButton} from "@angular/material/button";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {NgOptimizedImage} from "@angular/common";
 import {UserService} from "../../../services/user.service";
-
-// TODO: Add logout functionality
 
 @Component({
   selector: 'app-nav-bar',
@@ -24,7 +22,7 @@ import {UserService} from "../../../services/user.service";
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   get isAdmin() {
     return this.userService.user?.admin;
@@ -48,5 +46,13 @@ export class NavBarComponent {
       const lastNamePrefix = this.userService.user?.profile.lastName[0];
       return `${firstName} ${lastNamePrefix}.`;
     }
+  }
+
+  logout() {
+    this.userService.logout();
+    this.router.navigate(['/login'])
+      .catch((_) => {
+        window.location.reload(); // last resort. Reload the page and let the guards handle navigation
+      });
   }
 }

@@ -3,7 +3,7 @@ import {MatIcon} from "@angular/material/icon";
 import {NgOptimizedImage} from "@angular/common";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatActionList, MatListItem} from "@angular/material/list";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
 import {ExtensionAnimation} from "./nav.animations";
 import {UserService} from "../../../services/user.service";
@@ -30,7 +30,7 @@ import {UserService} from "../../../services/user.service";
 export class NavMenuComponent {
   showMenu = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   get isAdmin() {
     return this.userService.user?.admin;
@@ -58,5 +58,13 @@ export class NavMenuComponent {
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
+  }
+
+  logout() {
+    this.userService.logout();
+    this.router.navigate(['/login'])
+      .catch((_) => {
+        window.location.reload(); // last resort. Reload the page and let the guards handle navigation
+      });
   }
 }
