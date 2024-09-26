@@ -7,6 +7,9 @@ mat-divider {
   margin-bottom: 4%;
 }
 
+button {
+  border-radius: 8px;
+}
 .card-title {
   display: flex;
   justify-content: space-between;
@@ -21,16 +24,27 @@ mat-divider {
 }
 
 .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: #1BA098;
   margin: 0;
   display: flex;
   justify-content: center;
   font-size: 5vw;
-  margin-bottom: 2%;
   margin-top: 2%;
   background-color: var(--sys-background);
 }
 
+.button-container {
+  width: 100;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: -1%;
+  margin-right: 20%;
+  margin-bottom: 1%;
+}
 .container {
   margin: 2%;
   display: flex;
@@ -49,7 +63,7 @@ mat-divider {
 .author {
   color: #fff;
   font-weight: 400;
-  font-size: clamp(22px, 2vw + 1px, 24px);
+  font-size: clamp(15px, 2vw + 1px, 24px);
   line-height: clamp(32px, 4vw + 8px, 36px);
 }
 
@@ -57,7 +71,7 @@ mat-divider {
   color: #fff;
   font-size: 3vw;
   font-weight: 200;
-  font-size: clamp(20px, 2vw + 1px, 24px);
+  font-size: clamp(15px, 2vw + 1px, 24px);
   line-height: clamp(32px, 4vw + 8px, 36px);
 }
 
@@ -91,4 +105,16 @@ mat-divider {
     align-items: center;
     text-align: center;
   }
+
+  .button-container {
+    margin-right: 20%;
+    margin-top: -5%;
+    margin-bottom: 1%;
+  }
+
+  button {
+    width: 1%;
+    height: 4%;
+  }
+
 }

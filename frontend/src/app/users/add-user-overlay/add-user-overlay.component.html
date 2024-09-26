@@ -1,73 +1,71 @@
 <app-overlay-layout [formGroup]="newUserForm" [showLoading]="loading" [dialogError]="formError"
-  largeOverlay="true" (submit)="submitForm()" >
+  largeOverlay="true" (submit)="submitForm()">
   
   <div class="form-container">
-    <!-- Left Column -->
+    <!-- Left and Right Columns for First Name and Last Name -->
     <div class="left-column">
-        <!-- User Name -->
-        <mat-form-field class="form-field" hideRequiredMarker>
-        <mat-label>User Name</mat-label>
-        <input matInput required formControlName="userName" />
-        <mat-error>A valid user name is required</mat-error>
-        </mat-form-field>
-
-        <!-- First Name -->
-        <mat-form-field class="form-field" hideRequiredMarker>
+      <mat-form-field class="form-field custom-color" hideRequiredMarker>
         <mat-label>First Name</mat-label>
         <input matInput required formControlName="firstName" />
         <mat-error>A valid first name is required</mat-error>
-        </mat-form-field>
+      </mat-form-field>
+    </div>
 
-        <!-- Last Name -->
-        <mat-form-field class="form-field" hideRequiredMarker>
+    <div class="right-column">
+      <mat-form-field class="form-field custom-color" hideRequiredMarker>
         <mat-label>Last Name</mat-label>
         <input matInput required formControlName="lastName" />
         <mat-error>A valid last name is required</mat-error>
-        </mat-form-field>
+      </mat-form-field>
+    </div>
 
-        <!-- Email -->
-        <mat-form-field class="form-field" hideRequiredMarker>
+    <!-- Full Width Email Field -->
+    <div class="full-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>Email</mat-label>
         <input matInput required formControlName="email" type="email" />
         <mat-error>A valid email is required</mat-error>
-        </mat-form-field>
+      </mat-form-field>
     </div>
 
-    <!-- Right Column -->
-    <div class="right-column">
-        <!-- Phone -->
-        <mat-form-field class="form-field" hideRequiredMarker>
+    <!-- Full Width Phone Field -->
+    <div class="full-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>Phone</mat-label>
         <input matInput required formControlName="phone" />
         <mat-error>A valid phone number is required</mat-error>
-        </mat-form-field>
+      </mat-form-field>
+    </div>
 
-        <!-- Password -->
-        <mat-form-field class="form-field" hideRequiredMarker>
+    <!-- Left and Right Columns for Password and Confirm Password -->
+    <div class="left-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>Password</mat-label>
         <input matInput required formControlName="password" type="password" />
         <mat-error>A valid password is required</mat-error>
-        </mat-form-field>
+      </mat-form-field>
+    </div>
 
-        <!-- Confirm Password -->
-        <mat-form-field class="form-field" hideRequiredMarker>
+    <div class="right-column">
+      <mat-form-field class="form-field" hideRequiredMarker>
         <mat-label>Confirm Password</mat-label>
         <input matInput required formControlName="confirmPass" type="password" />
         <mat-error>A valid confirm password is required</mat-error>
-        </mat-form-field>
+      </mat-form-field>
+    </div>
 
-        <!-- Confirm Admin Role -->
-        <mat-form-field class="form-field">
-        <mat-label>Is Admin?</mat-label>
-        <mat-select formControlName="admin">
+    <!-- Centered Admin Role Text and Dropdown -->
+    <div class="center-column">
+      <p>Make user an admin role?</p>
+      <div class="admin-dropdown">
+        <mat-form-field class="form-field admin-dropdown-field">
+          <mat-label>Is Admin?</mat-label>
+          <mat-select formControlName="admin">
             <mat-option [value]="true">Yes</mat-option>
             <mat-option [value]="false">No</mat-option>
-        </mat-select>
+          </mat-select>
         </mat-form-field>
+      </div>
     </div>
-  </div>
-
-  <!-- Submit Button -->
-  <div class="form-field full-width">
   </div>
 </app-overlay-layout>

@@ -51,9 +51,12 @@ export class LoginComponent implements OnInit {
 
     this.loginError = null;
     this.loggingIn = true;
-
     this.userService.login(this.loginForm.value).subscribe({
-      next: _ => this.router.navigate(['/app/home']),
+      next: (user) => {
+        user.admin ?
+          this.router.navigate(['/company']) :
+          (this.userService.setSelectedCompany(user.companies[0].id), this.router.navigate(['/app/home']))
+      },
       error: (err: HttpErrorResponse) => {
         this.loginError = err
         this.loggingIn = false;

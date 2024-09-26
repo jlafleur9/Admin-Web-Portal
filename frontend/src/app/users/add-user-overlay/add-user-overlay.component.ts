@@ -73,7 +73,7 @@ export class AddUserOverlayComponent implements DialogFormInterface{
 
     const userRequestDto = {
       credentials: {
-        username: (this.newUserForm.get("firstName")?.value ??"") + (this.newUserForm.get("lastName")?.value ??""),
+        username: this.newUserForm.get("email")?.value,
         password: this.newUserForm.get("password")?.value
       },
       profile: {

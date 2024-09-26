@@ -1,17 +1,47 @@
 .form-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
-    gap: 16px; /* Space between the columns */
-    padding: 20px; /* Padding inside the form */
-  }
-  
-  .left-column, .right-column {
-    display: flex;
-    flex-direction: column;
-    gap: 16px; /* Space between fields in each column */
-  }
-  
-  .form-field {
-    width: 100%; /* Ensure form fields take the full width of their container */
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.left-column, .right-column {
+  width: 48%;
+}
+
+.full-column {
+  width: 100%;
+}
+
+.center-column {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.admin-dropdown {
+  display: inline-block;
+  width: 20%;  /* 1/5 of the container's width */
+  margin: 0 auto;
+}
+
+.admin-dropdown-field {
+  width: 100%;
+}
+
+.form-field {
+  width: 100%;
+}
+
+::ng-deep .form-field .mat-input-element {
+  color: var(--sys-secondary); /* Text color */
+  background-color: var(--sys-primary); /* Background color */
+}
+
+::ng-deep .form-field .mat-form-field-wrapper {
+  background-color: var(--sys-primary); /* To affect background of input area */
+}
+
+::ng-deep .form-field .mat-error {
+  color: var(--sys-secondary); /* Error message color */
+}
+
