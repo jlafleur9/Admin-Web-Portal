@@ -58,10 +58,14 @@ export class AnnouncementsComponent {
   showCreateAnnouncmentOverlay = false;
 
 
-  constructor(private apiService: ApiService,
+  constructor(
     private userService: UserService,
     private dialogService: DialogService
   ) {}
+
+  get isAdmin() {
+    return this.userService.user?.admin;
+  }
 
 
   toggleOverlay() {
