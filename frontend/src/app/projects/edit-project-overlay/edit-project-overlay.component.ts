@@ -12,6 +12,7 @@ import { CompanyService } from 'src/services/CompanyService';
 import { Inject } from '@angular/core';
 import { ProjectDto } from 'src/services/dtos/project.dto';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {ProjectWrapper} from "../project-segment/project-segment.component";
 
 
 @Component({
@@ -24,8 +25,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     MatInput,
     MatLabel,
     OverlayLayoutComponent,
-    ReactiveFormsModule,
-    EditProjectOverlayComponent, MatOption, MatSelect
+    ReactiveFormsModule, MatOption, MatSelect
   ],
   templateUrl: './edit-project-overlay.component.html',
   styleUrl: './edit-project-overlay.component.css'
@@ -36,21 +36,18 @@ export class EditProjectOverlayComponent implements DialogFormInterface, OnInit{
   formError: Partial<HttpErrorResponse> | null = null;
   loading: boolean = false;
 
-  projectId!: number
-
   editProjectForm: FormGroup = new FormGroup({
     name: new FormControl("", [Validators.required]),
     description: new FormControl("", [Validators.required]),
     active: new FormControl()
   });
 
-  constructor(private projectService: ProjectService, @Inject(MAT_DIALOG_DATA) private project: ProjectDto){}
+  constructor(private projectService: ProjectService, @Inject(MAT_DIALOG_DATA) private projectWrapper: ProjectWrapper){}
 
   ngOnInit(): void{
-    this.projectId = this.project.id
     this.editProjectForm.patchValue({
-      name: this.project.name,
-      description: this.project.description,
+      name: this.projectWrapper.project.name,
+      description: this.projectWrapper.project.description,
     });
   }
 
@@ -58,13 +55,14 @@ export class EditProjectOverlayComponent implements DialogFormInterface, OnInit{
     this.loading = true;
     this.formError = null;
 
-    this.projectService.editProjects(this.projectId, this.editProjectForm.value).subscribe({
+    this.projectService.editProjects(this.projectWrapper.project.id!, this.editProjectForm.value).subscribe({
       next: result => {
+        this.projectWrapper.project = result;
         this.successfullySubmitted.emit()
       },
       error: error => {
         this.formError = {message: 'There was a server error. Try again later.'};
-        this.loading = false; 
+        this.loading = false;
       }
     })}
 

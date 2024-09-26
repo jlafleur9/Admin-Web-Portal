@@ -1,4 +1,4 @@
-import { Component, Input  } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
@@ -7,6 +7,10 @@ import { ProjectDto } from 'src/services/dtos/project.dto';
 import { CompanyService } from 'src/services/CompanyService';
 import { DialogService } from 'src/services/dialog.service';
 import { EditProjectOverlayComponent } from '../edit-project-overlay/edit-project-overlay.component';
+
+export type ProjectWrapper = {
+  project: Partial<ProjectDto>
+}
 
 @Component({
   selector: 'app-project-segment',
@@ -17,22 +21,29 @@ import { EditProjectOverlayComponent } from '../edit-project-overlay/edit-projec
 })
 export class ProjectSegmentComponent {
 
-  @Input() projectId = ''
+  @Output()
+  newProject = new EventEmitter<ProjectDto>();
+
+  @Input() projectId = 0
   @Input() projectName = ''
   @Input() description = ''
-  @Input() active = 'false'
+  @Input() active = false
 
-  project: ProjectDto | any
+  projectWrapper: ProjectWrapper | null = { project: {} };
 
   constructor(private dialogService: DialogService) {}
 
   openDialog(): void {
-    this.project = {
+    this.projectWrapper!.project = {
       id: this.projectId,
       name: this.projectName,
       description: this.description,
       active: this.active
     }
-    this.dialogService.open(EditProjectOverlayComponent, this.project);
+    const dialogRef = this.dialogService.open(EditProjectOverlayComponent, this.projectWrapper);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.newProject.emit(this.projectWrapper?.project as ProjectDto);
+    })
   }
 }

@@ -18,9 +18,11 @@
     @if (projects.length !== 0) {
       <div *ngFor="let project of projects">
         <app-project-segment
-            projectName="{{ project.name }}"
-            description="{{ project.description }}"
-            active="{{ project.active }}"
+            [projectId]="project.id"
+            [projectName]="project.name"
+            [description]="project.description"
+            [active]="project.active"
+            (newProject)="updateProjects($event)"
         ></app-project-segment>
       </div>
     } @else {
