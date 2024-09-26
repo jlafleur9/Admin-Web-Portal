@@ -1,7 +1,97 @@
-.overlay-container {
-    background-color: #0b2d45;
-    justify-content: center;
-    align-items: center;
+.dialog-container {
     display: flex;
     flex-direction: column;
-}
+    align-items: center;
+    justify-content: center;
+  
+    gap: 2rem;
+    padding: 0.25rem;
+  
+    width: clamp(270px, 20vw + 200px, 480px);
+    height: 440px;
+    max-height: 85vh;
+    border-radius: 12px;
+  
+    background-color: var(--sys-primary-container);
+  }
+  
+  .dialog-container-large {
+    width: clamp(270px, 35vw + 150px, 768px);
+    height: 700px;
+  }
+  
+  #close-dialog-button {
+    align-self: flex-end;
+    color: #F24E1E;
+    margin: 0.25rem;
+  }
+  
+  #close-dialog-icon {
+    transform: scale(2);
+  }
+  
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #overlay-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+    gap: 1rem;
+  }
+ 
+  .label-text {
+    color: var(--sys-secondary);
+    align-self: start;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    width: 300px;
+  }
+
+  .input-box{
+    background-color: var(--sys-primary-container);
+    border: none;
+    border-bottom: 1px solid var(--sys-secondary);
+    width: 300px;
+    caret-color: white;
+    color: white;
+    font-size: 16px;
+  } 
+
+  .input-box:focus {
+    outline: none;
+  }
+
+  .error-message{
+    color: var(--mat-form-field-error-text-color);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .dialog-submit-button {
+    width: 200px;
+    height: 48px;
+    border-radius: 10px;
+  
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .actions-container {
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    color: var(--sys-error);
+    margin: 0;
+    text-align: center;
+  }
+  
