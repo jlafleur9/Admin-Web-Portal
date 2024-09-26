@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
 import { CompanyService } from 'src/services/CompanyService';
 import { CreateProjectOverlayComponent } from "../create-project-overlay/create-project-overlay.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-project-form',
@@ -31,6 +32,9 @@ export class CreateProjectFormComponent implements DialogFormInterface{
   formError: Partial<HttpErrorResponse> | null = null;
   loading: boolean = false;
 
+  //companyId!: number
+  //teamId!: number
+
   companyId = 1
   teamId = 1
 
@@ -40,16 +44,18 @@ export class CreateProjectFormComponent implements DialogFormInterface{
     active: new FormControl("")
   });
 
-  constructor(private companyService: CompanyService){}
+  constructor(private companyService: CompanyService, private route: ActivatedRoute){}
 
   createProject(event: Event){
     event.preventDefault();
     this.loading = true;
     this.formError = null;
 
+    //this.grabParams()
+
     this.companyService.createProject(this.companyId, this.teamId, this.createProjectForm.value).subscribe({
       next: result => {
-        //this.successfullySubmitted.emit()
+        this.successfullySubmitted.emit()
       },
       error: error => {
         this.formError = error
@@ -57,6 +63,13 @@ export class CreateProjectFormComponent implements DialogFormInterface{
       }
     }
   )}
+
+  /*grabParams(){
+    this.route.paramMap.subscribe(params => {
+      this.companyId = parseInt(params.get('companyId') || '');
+      this.teamId = parseInt(params.get('teamId') || '');
+    })
+  }*/
 
   close(): void {
     console.log('Closed');

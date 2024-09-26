@@ -6,6 +6,7 @@ import { OverlayLayoutComponent } from 'src/app/shared/overlay-layout/overlay-la
 import { HttpErrorResponse } from '@angular/common/http';
 import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
 import { ProjectService } from 'src/services/project.service';
+import { EditProjectOverlayComponent } from "../edit-project-overlay/edit-project-overlay.component";
 
 @Component({
   selector: 'app-edit-project-form',
@@ -17,8 +18,9 @@ import { ProjectService } from 'src/services/project.service';
     MatInput,
     MatLabel,
     OverlayLayoutComponent,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    EditProjectOverlayComponent
+],
   templateUrl: './edit-project-form.component.html',
   styleUrl: './edit-project-form.component.css'
 })

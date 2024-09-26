@@ -13,7 +13,30 @@
 
   <mat-dialog-content class="dialog-content">
     <form id="overlay-form" (submit)="onSubmit()" [formGroup]="formGroup">
-      <ng-content></ng-content>
+      <label class="label-text">Project Name</label>
+      <input class="input-box" id="name" type="text" formControlName="name" />
+      <h5
+        class="error-message"
+        *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched"
+      >
+        Project name cannot be empty
+      </h5>
+      <label class="label-text">Description</label>
+      <input
+        class="input-box"
+        id="description"
+        type="text"
+        formControlName="description"
+      />
+      <h5
+        class="error-message"
+        *ngIf="
+          formGroup.get('description')?.invalid &&
+          formGroup.get('description')?.touched
+        "
+      >
+        Descripton cannot be empty
+      </h5>
 
       @if (dialogError) {
       <p class="error-message">{{ dialogError.message }}</p>
@@ -24,10 +47,12 @@
   <mat-dialog-actions class="actions-container" align="center">
     @if (!showLoading) {
     <button
+      [disabled]="isFormInvalid()"
       form="overlay-form"
       type="submit"
       mat-flat-button
-      class="primary-button dialog-submit-button"
+      [ngClass]="{ 'primary-button': isFormValid() }"
+      class="dialog-submit-button"
     >
       Submit
     </button>
