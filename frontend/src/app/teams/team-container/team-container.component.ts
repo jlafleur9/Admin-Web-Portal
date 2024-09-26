@@ -29,7 +29,7 @@ export class TeamContainerComponent {
   @Input() teamData: Team[] = [];
   @Input() membersData: Teammate[] = [];
   @Input() projectData: Project[] = [];
-  @Output() teamCreated = new EventEmitter<void>();
+  // @Output() teamCreated = new EventEmitter<void>();
   showOverlay: boolean = false;
   assignedProjectsList: assignedProjects[] = [];
 
@@ -83,7 +83,8 @@ export class TeamContainerComponent {
   //   this.showOverlay = true;
   // };
 
-  onTeamCreated(): void {
-    this.teamCreated.emit();
-  }
+  // onTeamCreated(): void {
+  //   console.log("emitted to team container")
+  //   this.teamCreated.emit();
+  // }
 }

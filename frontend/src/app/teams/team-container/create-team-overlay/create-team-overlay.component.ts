@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -51,7 +51,7 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
   @Output() showOverlayChange = new EventEmitter<boolean>();
   // team created is being emitted from here to team-container to team-component to tell team-component to refetch everything
   // when the user creates a new team so it can display the newly created team
-  @Output() teamCreated = new EventEmitter<void>();
+  // @Output() teamCreated = new EventEmitter<void>();
   createTeamForm: FormGroup;
   membersData: Teammate[] = [];
   team: Team | undefined;
@@ -166,11 +166,9 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
             // when i recieve a response back from the api, clear all inputs from the form,
             // hide the overlay, and refetch everything in team-container
             console.log('API Response:', response);
-            // this.createTeamForm.reset();
-            // this.selectedMembers = [];
-            // this.hideOverlay();
+            // this.teamCreated.emit();
             this.successfullySubmitted.emit();
-            this.teamCreated.emit();
+            window.location.reload();
           },
           error: (error) => {
             console.error('error:', error);

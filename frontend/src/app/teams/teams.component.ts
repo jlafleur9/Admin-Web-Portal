@@ -50,10 +50,10 @@ export class TeamsComponent {
     })
   }
 
-  onTeamCreated = () => {
-    console.log('new team added');
-    this.loadTeams();
-  };
+  // onTeamCreated = () => {
+  //   console.log('new team added');
+  //   this.loadTeams();
+  // };
 
   // uncomment this when the previous page is done handling their stuff
   // getCompanyFromLocalStorage(): void {
