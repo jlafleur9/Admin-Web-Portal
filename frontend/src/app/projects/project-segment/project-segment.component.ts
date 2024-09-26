@@ -5,7 +5,6 @@ import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ProjectDto } from 'src/services/dtos/project.dto';
 import { CompanyService } from 'src/services/CompanyService';
-import { EditProjectFormComponent } from '../edit-project-form/edit-project-form.component';
 import { DialogService } from 'src/services/dialog.service';
 import { EditProjectOverlayComponent } from '../edit-project-overlay/edit-project-overlay.component';
 
@@ -18,13 +17,22 @@ import { EditProjectOverlayComponent } from '../edit-project-overlay/edit-projec
 })
 export class ProjectSegmentComponent {
 
+  @Input() projectId = ''
   @Input() projectName = ''
   @Input() description = ''
   @Input() active = 'false'
 
+  project: ProjectDto | any
+
   constructor(private dialogService: DialogService) {}
 
   openDialog(): void {
-    this.dialogService.open(EditProjectFormComponent);
+    this.project = {
+      id: this.projectId,
+      name: this.projectName,
+      description: this.description,
+      active: this.active
+    }
+    this.dialogService.open(EditProjectOverlayComponent, this.project);
   }
 }

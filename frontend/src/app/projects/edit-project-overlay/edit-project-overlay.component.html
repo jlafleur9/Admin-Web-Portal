@@ -1,91 +1,31 @@
-<div
-  class="dialog-container"
-  [ngClass]="largeOverlay ? 'dialog-container-large' : ''"
+<app-overlay-layout
+  [formGroup]="editProjectForm"
+  [showLoading]="loading"
+  [dialogError]="formError"
+  largeOverlay="true"
+  (submittedFormEvent)="editProject()"
+  (close)="close()"
 >
-  <button id="close-dialog-button" mat-icon-button mat-dialog-close>
-    <mat-icon
-      id="close-dialog-icon"
-      fontSet="material-symbols-outlined"
-      (click)="onClose()"
-      >cancel</mat-icon
-    >
-  </button>
+  <div class="container">
+    <mat-form-field class="form-field" hideRequiredMarker>
+      <mat-label class="label-text">Project Name</mat-label>
+      <input matInput required formControlName="name" />
+      <mat-error>Project name cannot be empty</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" hideRequiredMarker>
+      <mat-label class="label-text">Description</mat-label>
+      <input matInput required formControlName="description" />
+      <mat-error>Description cannot be empty</mat-error>
+    </mat-form-field>
 
-  <div class="dialog-content">
-    <form id="overlay-form" (submit)="onSubmit()" [formGroup]="formGroup">
-      <div style="display: flex">
-        <label class="label-text"
-          >Project Name<span
-            class="error-message"
-            *ngIf="
-              formGroup.get('name')?.invalid && formGroup.get('name')?.touched
-            "
-          >
-            Cannot be empty
-          </span></label
-        >
-      </div>
+    <p class="active-text">Active?</p>
 
-      <input class="input-box" id="name" type="text" formControlName="name" />
-
-      <div style="display: flex; padding-top: 13px">
-        <label class="label-text"
-          >Description<span
-            class="error-message"
-            *ngIf="
-              formGroup.get('description')?.invalid &&
-              formGroup.get('description')?.touched
-            "
-          >
-            Cannot be empty
-          </span></label
-        >
-      </div>
-      <input
-        class="input-box"
-        id="description"
-        type="text"
-        formControlName="description"
-      />
-
-      @if (dialogError) {
-      <p class="error-message">{{ dialogError.message }}</p>
-      }
-
-      <h3 class="active-text">Active?</h3>
-
-      <!--<div class="custom-select-wrapper">
-        <select [(ngModel)]="selectedOption">
-          <option *ngIf="!selectedOption" value="" hidden>
-            Pick an option <span class="custom-arrow">&or;</span>
-          </option>
-          <option value="option">Yes</option>
-          <option value="option">No</option>
-        </select>
-      </div>-->
-
-      <select [(ngModel)]="selectedOption" class="dropdown">
-        <option *ngIf="!selectedOption" value="" hidden>Pick an option</option>
-        <option value="option">Yes</option>
-        <option value="option">No</option>
-      </select>
-    </form>
+    <mat-form-field>
+      <mat-label class="label-text">Pick an option</mat-label>
+      <mat-select formControlName="active">
+        <mat-option class="label-text" value="true">Yes</mat-option>
+        <mat-option class="label-text" value="false">No</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-
-  <mat-dialog-actions class="actions-container" align="center">
-    @if (!showLoading) {
-    <button
-      [disabled]="isFormInvalid()"
-      form="overlay-form"
-      type="submit"
-      mat-flat-button
-      [ngClass]="{ 'primary-button': isFormValid() }"
-      class="dialog-submit-button"
-    >
-      Save
-    </button>
-    } @else {
-    <mat-spinner diameter="48"></mat-spinner>
-    }
-  </mat-dialog-actions>
-</div>
+</app-overlay-layout>

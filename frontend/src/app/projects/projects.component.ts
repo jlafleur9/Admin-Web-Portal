@@ -9,10 +9,9 @@ import { CompanyService } from 'src/services/CompanyService';
 import { CommonModule, Location } from '@angular/common';
 import { NavBarComponent } from "../shared/nav-bar/nav-bar.component";
 import {MatButton} from "@angular/material/button";
-import { CreateProjectFormComponent } from './create-project-form/create-project-form.component';
 import { DialogService } from 'src/services/dialog.service';
 import { ActivatedRoute } from '@angular/router'
-import { MatDialog } from '@angular/material/dialog';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-projects', 
@@ -22,27 +21,32 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './projects.component.css'
 })
 export class ProjectsComponent {
+  //--TO-DO: 
+  //---get companyId and teamId
+  //---create dynamic projects title for each team
+  //---auto-refresh projects after editing a project
 
-  //companyId!: number;
-  //teamId!: number;
-
+  //companyId!: number
   companyId = 1
   teamId = 1
 
+  team!: string
+
   projects: ProjectDto[] | any
 
-  constructor(private companyService: CompanyService, private dialogService: MatDialog, private route: ActivatedRoute, private location: Location) {}
+  constructor(private companyService: CompanyService, private dialogService: DialogService, private route: ActivatedRoute, private location: Location, private userService: UserService) {}
 
   ngOnInit(): void {
-    //this.grabParams()
+    //this.team = ...
     this.displayProjects();
   }
 
   displayProjects(){
-    this.companyService.getProjects(this.companyId, this.teamId).subscribe(
+    
+  this.companyService.getProjects(this.companyId, this.teamId).subscribe(
       (projects: ProjectDto[]) => {
         this.projects = projects;
-        projects.sort((a, b) => a.id - b.id)
+        projects.sort((a, b) => b.id - a.id)
       },
       (error) => {
         console.error('Error fetching projects:', error);
@@ -54,18 +58,7 @@ export class ProjectsComponent {
     this.location.back()
   }
 
-  /*grabParams(){
-    this.route.paramMap.subscribe(params => {
-      this.companyId = parseInt(params.get('companyId') || '');
-      this.teamId = parseInt(params.get('teamId') || '');
-    })
-  }*/
-
   openDialog(): void {
-    const dialogRef = this.dialogService.open(CreateProjectFormComponent);
-    dialogRef.componentInstance.successfullySubmitted.subscribe(() => {
-      this.displayProjects();
-      dialogRef.close();
-    });
+    this.dialogService.open(CreateProjectOverlayComponent, this.projects);
   }
 }

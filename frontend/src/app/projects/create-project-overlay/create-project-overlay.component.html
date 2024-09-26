@@ -1,63 +1,18 @@
-<div
-  class="dialog-container"
-  [ngClass]="largeOverlay ? 'dialog-container-large' : ''"
+<app-overlay-layout
+  [formGroup]="createProjectForm"
+  [showLoading]="loading"
+  [dialogError]="formError"
+  (submittedFormEvent)="createProject()"
+  (close)="close()"
 >
-  <button id="close-dialog-button" mat-icon-button mat-dialog-close>
-    <mat-icon
-      id="close-dialog-icon"
-      fontSet="material-symbols-outlined"
-      (click)="onClose()"
-      >cancel</mat-icon
-    >
-  </button>
-
-  <mat-dialog-content class="dialog-content">
-    <form id="overlay-form" (submit)="onSubmit()" [formGroup]="formGroup">
-      <label class="label-text">Project Name</label>
-      <input class="input-box" id="name" type="text" formControlName="name" />
-      <h5
-        class="error-message"
-        *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched"
-      >
-        Project name cannot be empty
-      </h5>
-      <label class="label-text">Description</label>
-      <input
-        class="input-box"
-        id="description"
-        type="text"
-        formControlName="description"
-      />
-      <h5
-        class="error-message"
-        *ngIf="
-          formGroup.get('description')?.invalid &&
-          formGroup.get('description')?.touched
-        "
-      >
-        Descripton cannot be empty
-      </h5>
-
-      @if (dialogError) {
-      <p class="error-message">{{ dialogError.message }}</p>
-      }
-    </form>
-  </mat-dialog-content>
-
-  <mat-dialog-actions class="actions-container" align="center">
-    @if (!showLoading) {
-    <button
-      [disabled]="isFormInvalid()"
-      form="overlay-form"
-      type="submit"
-      mat-flat-button
-      [ngClass]="{ 'primary-button': isFormValid() }"
-      class="dialog-submit-button"
-    >
-      Submit
-    </button>
-    } @else {
-    <mat-spinner diameter="48"></mat-spinner>
-    }
-  </mat-dialog-actions>
-</div>
+  <mat-form-field hideRequiredMarker>
+    <mat-label class="label-text">Project Name</mat-label>
+    <input matInput required formControlName="name" />
+    <mat-error>Project name cannot be empty</mat-error>
+  </mat-form-field>
+  <mat-form-field hideRequiredMarker>
+    <mat-label class="label-text">Description</mat-label>
+    <input matInput required formControlName="description" />
+    <mat-error>Description cannot be empty</mat-error>
+  </mat-form-field>
+</app-overlay-layout>
