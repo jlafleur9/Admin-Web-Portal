@@ -1,7 +1,7 @@
 <div class="page-container">
   <div style="width: 60%; padding-left: 20%; padding-top: 35px">
     <a class="back-btn" (click)="back()">&lt; Back</a>
-    <h1 class="title">Projects for Team 1</h1>
+    <h1 class="title">Projects for Team {{ teamId }}</h1>
 
     @if (isAdmin) {
       <div class="new-btn-div">
@@ -15,12 +15,18 @@
       </div>
     }
 
-    <div *ngFor="let project of projects">
-      <app-project-segment
-        projectName="{{ project.name }}"
-        description="{{ project.description }}"
-        active="{{ project.active }}"
-      ></app-project-segment>
-    </div>
+    @if (projects.length !== 0) {
+      <div *ngFor="let project of projects">
+        <app-project-segment
+            projectName="{{ project.name }}"
+            description="{{ project.description }}"
+            active="{{ project.active }}"
+        ></app-project-segment>
+      </div>
+    } @else {
+      <div class="empty-message">
+        This team has no projects
+      </div>
+    }
   </div>
 </div>

@@ -1,6 +1,6 @@
 <h1 class="center-title">Teams</h1>
 <div class="main-container">
-  <div class="sub-container" *ngFor="let team of teamData">
+  <div class="sub-container" *ngFor="let team of teamData" (click)="routeToTeam(team.id)">
     <div class="title-container full-width">
       <div class="title-container-children">
         <!-- <h3> -->

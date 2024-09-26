@@ -13,6 +13,7 @@ import Project from '../models/Project';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogService } from 'src/services/dialog.service';
 import {UserService} from "../../../services/user.service";
+import {Router} from "@angular/router";
 
 interface assignedProjects {
   teamId: number;
@@ -34,10 +35,14 @@ export class TeamContainerComponent {
   showOverlay: boolean = false;
   assignedProjectsList: assignedProjects[] = [];
 
-  constructor(private dialogService: DialogService, private userService: UserService) {}
+  constructor(private dialogService: DialogService, private userService: UserService, private router: Router) {}
 
   get isAdmin() {
     return this.userService.user?.admin;
+  }
+
+  routeToTeam(id: number) {
+    this.router.navigate(['/app/projects', id])
   }
 
   ngOnChanges(changes: SimpleChanges): void {

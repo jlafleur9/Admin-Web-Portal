@@ -23,7 +23,7 @@ export const routes: Routes = [
     children: [
       { path: "home", component: HomeComponent },
       { path: "teams", component: TeamsComponent },
-      { path: "projects", component: ProjectsComponent },
+      { path: "projects/:id", component: ProjectsComponent },
       { path: "users", component: UsersComponent, canActivate: [IsAdminGuard] },
       { path: "**", redirectTo: "home", pathMatch: "full" }
     ]

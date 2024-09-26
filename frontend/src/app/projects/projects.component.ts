@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import { ProjectSegmentComponent } from './project-segment/project-segment.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
@@ -14,6 +14,7 @@ import { DialogService } from 'src/services/dialog.service';
 import { ActivatedRoute } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog';
 import {UserService} from "../../services/user.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-projects',
@@ -22,7 +23,7 @@ import {UserService} from "../../services/user.service";
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements OnInit {
 
   //companyId!: number;
   //teamId!: number;
@@ -30,7 +31,7 @@ export class ProjectsComponent {
   companyId = 1
   teamId = 1
 
-  projects: ProjectDto[] | any
+  projects: ProjectDto[] = [];
 
   constructor(
       private companyService: CompanyService,
@@ -42,7 +43,13 @@ export class ProjectsComponent {
 
   ngOnInit(): void {
     //this.grabParams()
-    this.displayProjects();
+    this.companyId = this.userService.selectedCompany;
+    this.route.params.subscribe(params => {
+      console.log("Displaying projects")
+      this.teamId = params['id'];
+      console.log("Team id is", this.teamId);
+      this.displayProjects();
+    });
   }
 
   get isAdmin() {
@@ -53,6 +60,7 @@ export class ProjectsComponent {
     this.companyService.getProjects(this.companyId, this.teamId).subscribe(
       (projects: ProjectDto[]) => {
         this.projects = projects;
+        console.log("Projects: ", this.projects);
         projects.sort((a, b) => a.id - b.id)
       },
       (error) => {
