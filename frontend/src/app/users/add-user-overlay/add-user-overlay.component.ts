@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Inject, Output} from '@angular/core';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -9,14 +9,17 @@ import {MatInput} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import { MatOptgroup, MatOption, MatSelect } from '@angular/material/select';
 import { UserService } from 'src/services/user.service';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {FullUserDto} from "../../../services/dtos/full-user.dto";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-add-user-overlay',
   standalone: true,
-  imports: [FormsModule, 
-    CommonModule, 
-    OverlayLayoutComponent, 
-    MatFormField, 
+  imports: [FormsModule,
+    CommonModule,
+    OverlayLayoutComponent,
+    MatFormField,
     MatInput,
     MatLabel,
     MatError,
@@ -25,7 +28,7 @@ import { UserService } from 'src/services/user.service';
     MatOption,
   ],
   templateUrl: './add-user-overlay.component.html',
-  styleUrl: './add-user-overlay.component.css', 
+  styleUrl: './add-user-overlay.component.css',
 })
 export class AddUserOverlayComponent implements DialogFormInterface{
   newUserForm: FormGroup = new FormGroup({
@@ -40,7 +43,7 @@ export class AddUserOverlayComponent implements DialogFormInterface{
   submitDisabled = this.newUserForm.get("password") !== this.newUserForm.get("confirmPass")
   @Output() closeOverlay = new EventEmitter<void>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, @Inject(MAT_DIALOG_DATA) private usersDataSource: MatTableDataSource<FullUserDto>) {
     this.newUserForm.valueChanges.subscribe(() => {
       this.updateSubmitDisabled();
     });
@@ -86,10 +89,14 @@ export class AddUserOverlayComponent implements DialogFormInterface{
     };
 
     // Make the HTTP POST request
-    this.http.post(url, userRequestDto).subscribe({
+    this.http.post<FullUserDto>(url, userRequestDto).subscribe({
       next: (response) => {
         console.log('User added successfully:', response);
         this.successfullySubmitted.emit();
+        this.usersDataSource.data = [
+          ...this.usersDataSource.data,
+          response
+        ]
       },
       error: (err) => {
         this.formError = err;

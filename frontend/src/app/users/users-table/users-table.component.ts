@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angular/core';
 import { FullUserDto } from 'src/services/dtos/full-user.dto';
 import { UserService } from 'src/services/user.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTable, MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 @Component({
   selector: 'app-users-table',
   standalone: true,
@@ -18,7 +19,11 @@ import {MatTable, MatTableDataSource, MatTableModule} from '@angular/material/ta
 })
 
 export class UsersTableComponent implements OnInit, AfterViewInit {
-  allCompanyUsers: FullUserDto[] = [];
+  // allCompanyUsers: FullUserDto[] = [];
+  @Output()
+  shareUsers = new EventEmitter<MatTableDataSource<FullUserDto>>();
+
+
   private subscription: Subscription = new Subscription();
   displayedColumns = ['name', 'email', 'active', 'admin', 'status'];
   dataSource: MatTableDataSource<FullUserDto> = new MatTableDataSource();
@@ -26,15 +31,14 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<FullUserDto>;
 
+  constructor(private userService: UserService) {}
 
-
-  constructor(private userService: UserService,) {}
   ngOnInit(): void {
     const usersSubscription = this.userService.getCompanyUsers(this.userService.selectedCompany).subscribe({
       next: (data: FullUserDto[]) => {
-        this.allCompanyUsers = data
-        this.dataSource.data = this.allCompanyUsers
-
+        // this.allCompanyUsers = data
+        this.dataSource.data = data
+        this.shareUsers.emit(this.dataSource)
       },
       error: (error) => {
         console.log('Error fetching all users from a company', error)
