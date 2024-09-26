@@ -1,4 +1,4 @@
-import { Announcement, SimplifiedAnnouncement } from 'src/app/home/announcements/announcements.component';
+import { SimplifiedAnnouncement } from 'src/app/home/announcements/announcements.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
@@ -11,6 +11,7 @@ import { UserService } from 'src/services/user.service';
 import { RequestAnnouncementDto } from 'src/services/dtos/announcement.dto';
 import { MatInput } from '@angular/material/input';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-create-announcment-overlay',
@@ -55,8 +56,7 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
     this.userService.postAnnouncement(requestAnnouncementDto).subscribe({
       next: _ => {
         this.successfullySubmitted.emit();
-        // this.location.reload();
-        // this.announcments.unshift({authorName: this.userService.user!.profile.firstName, date: requestAnnouncementDto.date, message: requestAnnouncementDto.message})
+        window.location.reload();
       },
       error: (err: HttpErrorResponse) => {
         this.formError = err;

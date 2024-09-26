@@ -2,14 +2,10 @@ import {EventEmitter, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {CredentialsDto} from "./dtos/credentials.dto";
 import {FullUserDto} from "./dtos/full-user.dto";
-<<<<<<< HEAD
-import {catchError, Observable, tap, throwError} from "rxjs";
-import { RequestAnnouncementDto, ResponseAnnouncementDto} from "./dtos/announcement.dto";
-=======
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
 import { CompanyDto } from "./dtos/company.dto";
 import { Announcement } from "src/app/home/announcements/announcements.component";
->>>>>>> frontend
+import { RequestAnnouncementDto, ResponseAnnouncementDto } from "./dtos/announcement.dto";
 
 @Injectable({
   providedIn: 'root'

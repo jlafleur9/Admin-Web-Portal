@@ -86,7 +86,8 @@ export class AnnouncementsComponent {
             authorName: announcement.author.profile.firstName,
             date: announcement.date,
             message: announcement.message
-          }));
+          }))
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         },
         error: (error) => {
           console.error('Error fetching announcements:', error);

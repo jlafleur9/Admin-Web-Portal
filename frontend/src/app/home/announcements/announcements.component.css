@@ -9,7 +9,6 @@ mat-divider {
 
 button {
   border-radius: 8px;
-  
 }
 .card-title {
   display: flex;
@@ -64,7 +63,7 @@ button {
 .author {
   color: #fff;
   font-weight: 400;
-  font-size: clamp(22px, 2vw + 1px, 24px);
+  font-size: clamp(15px, 2vw + 1px, 24px);
   line-height: clamp(32px, 4vw + 8px, 36px);
 }
 
@@ -72,7 +71,7 @@ button {
   color: #fff;
   font-size: 3vw;
   font-weight: 200;
-  font-size: clamp(20px, 2vw + 1px, 24px);
+  font-size: clamp(15px, 2vw + 1px, 24px);
   line-height: clamp(32px, 4vw + 8px, 36px);
 }
 
@@ -112,4 +111,10 @@ button {
     margin-top: -5%;
     margin-bottom: 1%;
   }
+
+  button {
+    width: 1%;
+    height: 4%;
+  }
+
 }
