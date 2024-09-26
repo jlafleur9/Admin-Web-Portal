@@ -32,16 +32,15 @@
   width: 100%;
 }
 
-::ng-deep .form-field .mat-input-element {
-  color: var(--sys-secondary); /* Text color */
-  background-color: var(--sys-primary); /* Background color */
+.label-text {
+  color: var(--sys-secondary); 
 }
 
-::ng-deep .form-field .mat-form-field-wrapper {
-  background-color: var(--sys-primary); /* To affect background of input area */
+.input-text {
+  color: var(--sys-secondary) !important;
 }
-
-::ng-deep .form-field .mat-error {
-  color: var(--sys-secondary); /* Error message color */
+.label-background {
+  background-color: var(--sys-primary); /* Example: #1BA098 */
+  padding: 0 5px; /* Adds padding to make the background more visible */
+  border-radius: 4px; /* Optional: to add a little rounded edge */
 }
-
