@@ -20,6 +20,8 @@
   background-color: var(--sys-primary-container);
   border-radius: 10px;
   position: relative;
+
+  cursor: pointer;
 }
 
 .name-container {

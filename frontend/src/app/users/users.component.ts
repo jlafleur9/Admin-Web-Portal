@@ -5,6 +5,8 @@ import { DialogService } from 'src/services/dialog.service';
 import { NavBarComponent } from "../shared/nav-bar/nav-bar.component";
 import { UsersTableComponent } from "./users-table/users-table.component";
 import { MatButtonModule } from '@angular/material/button';
+import {FullUserDto} from "../../services/dtos/full-user.dto";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-users',
@@ -16,10 +18,16 @@ import { MatButtonModule } from '@angular/material/button';
 export class UsersComponent {
   showAddUserOverlay = false;
 
+  users: MatTableDataSource<FullUserDto> | null = null;
+
   constructor(private dialogService: DialogService) {}
 
+  updateUsers(users: MatTableDataSource<FullUserDto>) {
+    this.users = users;
+  }
+
   toggleOverlay() {
-    this.dialogService.open(AddUserOverlayComponent);
+    this.dialogService.open(AddUserOverlayComponent, this.users);
   }
 
 }

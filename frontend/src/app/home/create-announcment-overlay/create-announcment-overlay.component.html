@@ -5,15 +5,15 @@
   (submittedFormEvent)="post()"
   (close)="close()">
 
-  <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input matInput required formControlName="title" />
+  <mat-form-field hideRequiredMarker>
+    <mat-label class="label-text">Title</mat-label>
+    <input class="input-text" matInput required formControlName="title" />
     <mat-error>A valid title is required</mat-error>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Message</mat-label>
-    <input matInput required formControlName="message" />
+  <mat-form-field hideRequiredMarker>
+    <mat-label class="label-text">Message</mat-label>
+    <input class="input-text" matInput required formControlName="message" />
     <mat-error>A valid message is required</mat-error>
   </mat-form-field>
 </app-overlay-layout>

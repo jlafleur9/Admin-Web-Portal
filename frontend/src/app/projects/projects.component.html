@@ -1,23 +1,34 @@
 <div class="page-container">
   <div style="width: 60%; padding-left: 20%; padding-top: 35px">
     <a class="back-btn" (click)="back()">&lt; Back</a>
-    <h1 class="title">Projects for Team {{ team }}</h1>
-    <div class="new-btn-div">
-      <button
-        mat-flat-button
-        class="new-btn primary-button"
-        (click)="openDialog()"
-      >
-        New
-      </button>
-    </div>
-    <div *ngFor="let project of projects">
-      <app-project-segment
-        projectId="{{ project.id }}"
-        projectName="{{ project.name }}"
-        description="{{ project.description }}"
-        active="{{ project.active }}"
-      ></app-project-segment>
-    </div>
+    <h1 class="title">Projects for Team {{ teamId }}</h1>
+
+    @if (isAdmin) {
+      <div class="new-btn-div">
+        <button
+            mat-flat-button
+            class="new-btn primary-button"
+            (click)="openDialog()"
+        >
+          New
+        </button>
+      </div>
+    }
+
+    @if (projects.length !== 0) {
+      <div *ngFor="let project of projects">
+        <app-project-segment
+            [projectId]="project.id"
+            [projectName]="project.name"
+            [description]="project.description"
+            [active]="project.active"
+            (newProject)="updateProjects($event)"
+        ></app-project-segment>
+      </div>
+    } @else {
+      <div class="empty-message">
+        This team has no projects
+      </div>
+    }
   </div>
 </div>

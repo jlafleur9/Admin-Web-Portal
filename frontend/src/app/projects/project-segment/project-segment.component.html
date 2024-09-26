@@ -4,20 +4,23 @@
     <div>
       <div style="display: flex; align-items: center; height: 60px">
         <h3 class="project-title">{{ projectName }}</h3>
-        <h6
-          class="active-inactive"
-          style="color: #22dd2abf"
-          *ngIf="active === 'true'"
-        >
-          Active
-        </h6>
-        <h6
-          class="active-inactive"
-          style="color: #df0f0fbf; font-style: italic"
-          *ngIf="active === 'false'"
-        >
-          Inactive
-        </h6>
+
+        @if (active) {
+          <h6
+              class="active-inactive"
+              style="color: #22dd2abf"
+          >
+            Active
+          </h6>
+        } @else {
+          <h6
+              class="active-inactive"
+              style="color: #df0f0fbf; font-style: italic"
+          >
+            Inactive
+          </h6>
+        }
+
       </div>
       <p class="project-descrip">
         {{ description }}

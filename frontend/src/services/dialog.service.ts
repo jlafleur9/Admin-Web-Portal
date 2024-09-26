@@ -26,9 +26,9 @@ export class DialogService {
    * @param {any} data - The data to pass to the dialog. Available in the MAT_DIALOG_DATA token.
    * implementing the DialogFormInterface.
    * @param {any} data - The data to pass to the dialog component
-   * @returns {void}
+   * @returns {MatDialogRef<DialogFormInterface, any>} a reference to the dialog
    */
-  open(dialogForm: ComponentType<DialogFormInterface>, data?: any): void {
+  open(dialogForm: ComponentType<DialogFormInterface>, data?: any): MatDialogRef<DialogFormInterface, any> {
     const dialogRef = this.dialog.open(dialogForm, {
       autoFocus: 'dialog',
       maxWidth: '80vw',
@@ -37,6 +37,7 @@ export class DialogService {
     });
 
     this.closeDialogWhenSubmitted(dialogRef);
+    return dialogRef;
   }
 
   /**

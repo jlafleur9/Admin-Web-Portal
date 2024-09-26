@@ -85,8 +85,8 @@ export class UserService {
     this.selectedCompanyChange.emit(company);
   }
 
-  postAnnouncement(requestAnnouncementDto: RequestAnnouncementDto): Observable<ResponseAnnouncementDto[]> {
-    return this.httpClient.post<ResponseAnnouncementDto[]>(`${this.baseUrl}/company/1/announcements`, requestAnnouncementDto)
+  postAnnouncement(requestAnnouncementDto: RequestAnnouncementDto): Observable<ResponseAnnouncementDto> {
+    return this.httpClient.post<ResponseAnnouncementDto>(`${this.baseUrl}/company/${this.selectedCompany}/announcements`, requestAnnouncementDto)
   }
 
   logout() {

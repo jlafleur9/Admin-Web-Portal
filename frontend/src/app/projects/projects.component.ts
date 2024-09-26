@@ -1,8 +1,6 @@
-import { Component, Injector } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ProjectSegmentComponent } from './project-segment/project-segment.component';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { CreateProjectOverlayComponent } from './create-project-overlay/create-project-overlay.component';
 import { ProjectDto } from 'src/services/dtos/project.dto';
 import { CompanyService } from 'src/services/CompanyService';
@@ -11,39 +9,52 @@ import { NavBarComponent } from "../shared/nav-bar/nav-bar.component";
 import {MatButton} from "@angular/material/button";
 import { DialogService } from 'src/services/dialog.service';
 import { ActivatedRoute } from '@angular/router'
-import { UserService } from 'src/services/user.service';
+import {UserService} from "../../services/user.service";
 
 @Component({
-  selector: 'app-projects', 
+  selector: 'app-projects',
   standalone: true,
   imports: [ProjectSegmentComponent, OverlayModule, CommonModule, NavBarComponent, MatButton],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })
-export class ProjectsComponent {
-  //--TO-DO: 
-  //---get companyId and teamId
-  //---create dynamic projects title for each team
-  //---auto-refresh projects after editing a project
+export class ProjectsComponent implements OnInit {
+  // TODO create dynamic projects title for each team
 
-  //companyId!: number
+  //companyId!: number;
+  //teamId!: number;
+
   companyId = 1
   teamId = 1
 
+  projects: ProjectDto[] = [];
   team!: string
 
-  projects: ProjectDto[] | any
-
-  constructor(private companyService: CompanyService, private dialogService: DialogService, private route: ActivatedRoute, private location: Location, private userService: UserService) {}
+  constructor(
+      private companyService: CompanyService,
+      private dialogService: DialogService,
+      private route: ActivatedRoute,
+      private location: Location,
+      private userService: UserService,
+  ) {}
 
   ngOnInit(): void {
-    //this.team = ...
-    this.displayProjects();
+    //this.grabParams()
+    this.companyId = this.userService.selectedCompany;
+    this.route.params.subscribe(params => {
+      console.log("Displaying projects")
+      this.teamId = params['id'];
+      console.log("Team id is", this.teamId);
+      this.displayProjects();
+    });
+  }
+
+  get isAdmin() {
+    return this.userService.user?.admin;
   }
 
   displayProjects(){
-    
-  this.companyService.getProjects(this.companyId, this.teamId).subscribe(
+    this.companyService.getProjects(this.companyId, this.teamId).subscribe(
       (projects: ProjectDto[]) => {
         this.projects = projects;
         projects.sort((a, b) => b.id - a.id)
@@ -52,6 +63,11 @@ export class ProjectsComponent {
         console.error('Error fetching projects:', error);
       }
     );
+  }
+
+  updateProjects(project: ProjectDto) {
+    const index = this.projects.findIndex(p => p.id === project.id);
+    this.projects[index] = project;
   }
 
   back(): void{
