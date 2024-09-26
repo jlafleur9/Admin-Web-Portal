@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
 import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
 import { OverlayLayoutComponent } from "../../../shared/overlay-layout/overlay-layout.component";
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -38,26 +39,28 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    OverlayLayoutComponent
+    OverlayLayoutComponent,
+    MatSelectModule,
+    MatIconModule
 ],
   templateUrl: './create-team-overlay.component.html',
   styleUrl: './create-team-overlay.component.css',
 })
 export class CreateTeamOverlayComponent implements DialogFormInterface {
-  @Input() showOverlay: boolean | undefined;
-  @Input() membersData: Teammate[] = [];
+  // @Input() showOverlay: boolean | undefined;
   @Output() showOverlayChange = new EventEmitter<boolean>();
   // team created is being emitted from here to team-container to team-component to tell team-component to refetch everything
   // when the user creates a new team so it can display the newly created team
   @Output() teamCreated = new EventEmitter<void>();
   createTeamForm: FormGroup;
+  membersData: Teammate[] = [];
   team: Team | undefined;
   availableMembers: Teammate[] = [];
   selectedMembers: Teammate[] = [];
   successfullySubmitted: EventEmitter<void> = new EventEmitter<void>();
   formError: Partial<HttpErrorResponse> | null = null;
   loading: boolean = false;
-  submitDisabled: boolean = this.selectedMembers.length === 0;
+  submitDisabled: boolean = true;
 
   constructor(private fb: FormBuilder, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public data: Teammate[]) {
     this.createTeamForm = this.fb.group({
@@ -67,14 +70,26 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
     });
     this.membersData = data
     this.availableMembers = [...this.membersData];
+    this.createTeamForm.valueChanges.subscribe( () => {
+      this.updateSubmitDisabled();
+    })
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['membersData']) {
-      // when the number of members for a company is fetched, ensure it's passed to here and updated for the dropdown
-      this.availableMembers = [...this.membersData];
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes['membersData']) {
+  //     // when the number of members for a company is fetched, ensure it's passed to here and updated for the dropdown
+  //     this.availableMembers = [...this.membersData];
       
-    }
+  //   }
+  // }
+
+  updateSubmitDisabled = () => {
+    const name = this.createTeamForm.get("name")?.value
+    const description = this.createTeamForm.get("description")?.value
+    const membersSelected = this.selectedMembers.length
+    // this.submitDisabled = name && description && membersSelected !== 0
+    this.submitDisabled = membersSelected !== 0
+    console.log(this.submitDisabled)
   }
 
   onMemberChange = () => {
@@ -102,10 +117,10 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
     this.availableMembers.push(member);
   };
 
-  hideOverlay = () => {
-    this.showOverlay = false;
-    this.showOverlayChange.emit(this.showOverlay);
-  };
+  // hideOverlay = () => {
+  //   this.showOverlay = false;
+  //   this.showOverlayChange.emit(this.showOverlay);
+  // };
 
   saveNewTeam = () => {
     if (this.createTeamForm.valid) {

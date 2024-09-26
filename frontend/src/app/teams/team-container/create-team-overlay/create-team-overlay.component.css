@@ -1,6 +1,25 @@
-/* .dim-bg {
-    color: black;
-    opacity: 10%;
-    width: 100vw;
-    height: 100vh;
-} */
+.parent-selected-members-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.selected-members-container {
+  /* list-style-type: none; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: var(--sys-primary);
+  border-radius: 5px;
+  /* gap: 10px; */
+}
+
+.remove-member {
+  color: #f24e1e;
+}
+
+.selected-member-name {
+    margin-left: 10px;
+}

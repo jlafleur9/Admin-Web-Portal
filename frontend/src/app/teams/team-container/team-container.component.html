@@ -1,19 +1,43 @@
-<button (click)="logTeams()">Log Teams</button>
 <h1 class="center-title">Teams</h1>
 <div class="main-container">
   <div class="sub-container" *ngFor="let team of teamData">
-    <div>{{ team.name }}</div>
-    <div># of projects: {{ team.projects }}</div>
-    <p>Members:</p>
-    <div *ngFor="let teammate of team.teammates" class="name-container">
-      <div>
-        {{ teammate.profile.firstName }}
-        {{ teammate.profile.lastName }}
+    <div class="title-container full-width">
+      <div class="title-container-children">
+        <!-- <h3> -->
+          {{ team.name }}
+        <!-- </h3> -->
+      </div>
+
+      <div class="title-container-children">
+        <!-- <p> -->
+          # of projects: {{ team.projects }}
+        <!-- </p> -->
       </div>
     </div>
+
+    <div class="full-width">
+      <hr class="solid" />
+    </div>
+
+    <div class="members-title full-width">
+      <!-- <p> -->
+        Members
+      <!-- </p> -->
+    </div>
+
+    <div class="name-container">
+      <div
+        *ngFor="let teammate of team.teammates"
+        class="name-container-children "
+      >
+        {{ teammate.profile.firstName }}
+        {{ teammate.profile.lastName | slice : 0 : 1  }}
+      </div>
+    </div>
+    
   </div>
   <div>
-    <button mat-flat-button (click)="openOverlay()" >Add Team</button>
+    <button mat-flat-button (click)="openOverlay()">Add Team</button>
   </div>
 </div>
 
