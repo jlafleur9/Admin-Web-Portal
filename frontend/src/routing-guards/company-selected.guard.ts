@@ -12,7 +12,7 @@ import {UserService} from "../services/user.service";
 @Injectable({
   providedIn: "root"
 })
-export class CompanySelected implements CanActivate {
+export class CompanySelectedGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
