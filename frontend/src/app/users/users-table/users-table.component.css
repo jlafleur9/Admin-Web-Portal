@@ -5,19 +5,20 @@ table {
   width: 100%;
   height: 100%;
   padding: 1rem;
-  width: 100%;
   font-family: var(--sys-body-large-font);
 }
 
 .full-width-table {
   width: 100%;
+  min-width: 50px;
   table-layout: auto;
 }
 
 .table-container {
   max-height: 80vh;
+  max-width: 80vw;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 table, td {
