@@ -13,9 +13,10 @@ import { CreateProjectFormComponent } from './create-project-form/create-project
 import { DialogService } from 'src/services/dialog.service';
 import { ActivatedRoute } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog';
+import {UserService} from "../../services/user.service";
 
 @Component({
-  selector: 'app-projects', 
+  selector: 'app-projects',
   standalone: true,
   imports: [ProjectSegmentComponent, OverlayModule, CommonModule, NavBarComponent, MatButton],
   templateUrl: './projects.component.html',
@@ -31,11 +32,21 @@ export class ProjectsComponent {
 
   projects: ProjectDto[] | any
 
-  constructor(private companyService: CompanyService, private dialogService: MatDialog, private route: ActivatedRoute, private location: Location) {}
+  constructor(
+      private companyService: CompanyService,
+      private dialogService: MatDialog,
+      private route: ActivatedRoute,
+      private location: Location,
+      private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     //this.grabParams()
     this.displayProjects();
+  }
+
+  get isAdmin() {
+    return this.userService.user?.admin;
   }
 
   displayProjects(){

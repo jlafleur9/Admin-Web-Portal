@@ -12,6 +12,7 @@ import Teammate from '../models/Teammate';
 import Project from '../models/Project';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogService } from 'src/services/dialog.service';
+import {UserService} from "../../../services/user.service";
 
 interface assignedProjects {
   teamId: number;
@@ -33,7 +34,11 @@ export class TeamContainerComponent {
   showOverlay: boolean = false;
   assignedProjectsList: assignedProjects[] = [];
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialogService: DialogService, private userService: UserService) {}
+
+  get isAdmin() {
+    return this.userService.user?.admin;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['projectData']) {

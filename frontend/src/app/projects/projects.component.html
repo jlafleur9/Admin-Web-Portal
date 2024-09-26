@@ -2,15 +2,19 @@
   <div style="width: 60%; padding-left: 20%; padding-top: 35px">
     <a class="back-btn" (click)="back()">&lt; Back</a>
     <h1 class="title">Projects for Team 1</h1>
-    <div class="new-btn-div">
-      <button
-        mat-flat-button
-        class="new-btn primary-button"
-        (click)="openDialog()"
-      >
-        New
-      </button>
-    </div>
+
+    @if (isAdmin) {
+      <div class="new-btn-div">
+        <button
+            mat-flat-button
+            class="new-btn primary-button"
+            (click)="openDialog()"
+        >
+          New
+        </button>
+      </div>
+    }
+
     <div *ngFor="let project of projects">
       <app-project-segment
         projectName="{{ project.name }}"

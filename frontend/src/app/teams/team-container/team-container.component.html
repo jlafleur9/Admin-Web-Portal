@@ -36,9 +36,13 @@
     </div>
 
   </div>
-  <div>
-    <button mat-flat-button (click)="openOverlay()">Add Team</button>
-  </div>
+
+  @if (isAdmin) {
+    <div>
+      <button mat-flat-button (click)="openOverlay()">Add Team</button>
+    </div>
+  }
+
 </div>
 
 <!-- <app-create-team-overlay [(showOverlay)]="showOverlay" [membersData]="membersData" (teamCreated)="onTeamCreated()"></app-create-team-overlay> -->
