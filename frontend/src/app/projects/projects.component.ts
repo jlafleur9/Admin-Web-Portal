@@ -1,20 +1,15 @@
-import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import { ProjectSegmentComponent } from './project-segment/project-segment.component';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { CreateProjectOverlayComponent } from './create-project-overlay/create-project-overlay.component';
 import { ProjectDto } from 'src/services/dtos/project.dto';
 import { CompanyService } from 'src/services/CompanyService';
 import { CommonModule, Location } from '@angular/common';
 import { NavBarComponent } from "../shared/nav-bar/nav-bar.component";
 import {MatButton} from "@angular/material/button";
-import { CreateProjectFormComponent } from './create-project-form/create-project-form.component';
 import { DialogService } from 'src/services/dialog.service';
 import { ActivatedRoute } from '@angular/router'
-import { MatDialog } from '@angular/material/dialog';
 import {UserService} from "../../services/user.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-projects',
@@ -23,7 +18,11 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent {
+  //--TO-DO:
+  //---get companyId and teamId
+  //---create dynamic projects title for each team
+  //---auto-refresh projects after editing a project
 
   //companyId!: number;
   //teamId!: number;
@@ -32,10 +31,11 @@ export class ProjectsComponent implements OnInit {
   teamId = 1
 
   projects: ProjectDto[] = [];
+  team!: string
 
   constructor(
       private companyService: CompanyService,
-      private dialogService: MatDialog,
+      private dialogService: DialogService,
       private route: ActivatedRoute,
       private location: Location,
       private userService: UserService
@@ -60,8 +60,7 @@ export class ProjectsComponent implements OnInit {
     this.companyService.getProjects(this.companyId, this.teamId).subscribe(
       (projects: ProjectDto[]) => {
         this.projects = projects;
-        console.log("Projects: ", this.projects);
-        projects.sort((a, b) => a.id - b.id)
+        projects.sort((a, b) => b.id - a.id)
       },
       (error) => {
         console.error('Error fetching projects:', error);
@@ -73,18 +72,7 @@ export class ProjectsComponent implements OnInit {
     this.location.back()
   }
 
-  /*grabParams(){
-    this.route.paramMap.subscribe(params => {
-      this.companyId = parseInt(params.get('companyId') || '');
-      this.teamId = parseInt(params.get('teamId') || '');
-    })
-  }*/
-
   openDialog(): void {
-    const dialogRef = this.dialogService.open(CreateProjectFormComponent);
-    dialogRef.componentInstance.successfullySubmitted.subscribe(() => {
-      this.displayProjects();
-      dialogRef.close();
-    });
+    this.dialogService.open(CreateProjectOverlayComponent, this.projects);
   }
 }

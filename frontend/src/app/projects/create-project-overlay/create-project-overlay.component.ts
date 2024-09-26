@@ -1,69 +1,72 @@
-import { booleanAttribute, Component, EventEmitter, Input, Output } from '@angular/core';
-import {FormGroup, ReactiveFormsModule} from "@angular/forms";
-import { MatIcon } from '@angular/material/icon';
-import { MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { OverlayLayoutComponent } from 'src/app/shared/overlay-layout/overlay-layout.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgClass } from '@angular/common';
-import { CommonModule } from '@angular/common';
-
+import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
+import { CompanyService } from 'src/services/CompanyService';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/services/user.service';
+import { Inject } from '@angular/core';
+import { ProjectDto } from 'src/services/dtos/project.dto';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-create-project-overlay',
   standalone: true,
   imports: [
+    FormsModule,
     MatError,
-    MatIcon,
-    MatDialogContent,
-    MatDialogActions,
-    MatButton,
-    MatDialogClose,
-    MatIconButton,
     MatFormField,
     MatInput,
     MatLabel,
+    OverlayLayoutComponent,
     ReactiveFormsModule,
-    MatProgressSpinner,
-    NgClass,
-    CommonModule
+    CreateProjectOverlayComponent
   ],
   templateUrl: './create-project-overlay.component.html',
   styleUrl: './create-project-overlay.component.css'
 })
-export class CreateProjectOverlayComponent {
+export class CreateProjectOverlayComponent implements DialogFormInterface{
+  @Output() successfullySubmitted = new EventEmitter<void>();
 
-  
+  formError: Partial<HttpErrorResponse> | null = null;
+  loading: boolean = false;
 
-  @Output() submit = new EventEmitter<void>();
-  @Output() close = new EventEmitter<void>();
-  @Input() formGroup!: FormGroup;
-  @Input() dialogError: Partial<HttpErrorResponse> | null = null;
-  @Input() showLoading: boolean = false;
-  @Input({ transform: booleanAttribute }) largeOverlay: boolean = false;
-  @Input({ transform: booleanAttribute }) submitDisabled: boolean = false;
+  //companyId!: number
+  //teamId!: number
 
-  constructor(){}
+  companyId= 1
+  teamId = 1
 
-  onSubmit(){ 
-    if (this.formGroup.invalid) {
-      return;
+  createProjectForm: FormGroup = new FormGroup({
+    name: new FormControl("", [Validators.required]),
+    description: new FormControl("", [Validators.required]),
+    active: new FormControl("")
+  });
+
+  constructor(private companyService: CompanyService, private route: ActivatedRoute, private userService: UserService,  @Inject(MAT_DIALOG_DATA) private projects: ProjectDto[]){}
+
+  createProject(){
+    this.loading = true;
+    this.formError = null;
+
+    //this.companyId = this.userService.selectedCompany
+
+    this.companyService.createProject(this.companyId, this.teamId, this.createProjectForm.value).subscribe({
+      next: result => {
+        this.projects.push(result)
+        this.projects.sort((a, b) => b.id - a.id)
+        this.successfullySubmitted.emit()
+      },
+      error: error => {
+        this.formError = error
+        this.loading = false
+      }
     }
-    console.log("submission")
-    this.showLoading = true;
-    this.submit.emit();
-  }
+  )}
 
-  onClose(): void {
-    this.close.emit();
-  }
-
-  isFormValid(): boolean {
-    return !this.isFormInvalid();
-  }
-
-  isFormInvalid(): boolean {
-    return this.formGroup.invalid || this.submitDisabled
+  close(): void {
+    console.log('Closed');
   }
 }
