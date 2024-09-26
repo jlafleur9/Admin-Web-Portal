@@ -6,6 +6,18 @@ import { Subscription } from 'rxjs';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTable, MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+
+export const sortUsers = (users: FullUserDto[]) => {
+  console.log("Sorting users")
+  users.sort((a, b) => {
+    if (a.profile.lastName.toLowerCase() < b.profile.lastName.toLowerCase()) return -1;
+    if (a.profile.firstName.toLowerCase() > b.profile.firstName.toLowerCase()) return 1;
+    return 0;
+  });
+  const sortCopy = [...users]
+  console.log("Sorted users", sortCopy);
+}
+
 @Component({
   selector: 'app-users-table',
   standalone: true,
@@ -17,7 +29,6 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
   templateUrl: './users-table.component.html',
   styleUrl: './users-table.component.css'
 })
-
 export class UsersTableComponent implements OnInit, AfterViewInit {
   // allCompanyUsers: FullUserDto[] = [];
   @Output()
@@ -37,6 +48,8 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     const usersSubscription = this.userService.getCompanyUsers(this.userService.selectedCompany).subscribe({
       next: (data: FullUserDto[]) => {
         // this.allCompanyUsers = data
+        sortUsers(data);
+        console.log("Setting datasource")
         this.dataSource.data = data
         this.shareUsers.emit(this.dataSource)
       },

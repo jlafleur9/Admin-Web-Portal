@@ -12,6 +12,7 @@ import { UserService } from 'src/services/user.service';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {FullUserDto} from "../../../services/dtos/full-user.dto";
 import {MatTableDataSource} from "@angular/material/table";
+import {sortUsers} from "../users-table/users-table.component";
 
 @Component({
   selector: 'app-add-user-overlay',
@@ -94,10 +95,16 @@ export class AddUserOverlayComponent implements DialogFormInterface{
       next: (response) => {
         console.log('User added successfully:', response);
         this.successfullySubmitted.emit();
-        this.usersDataSource.data = [
+
+        const newUsers = [
           ...this.usersDataSource.data,
           response
         ]
+
+        sortUsers(newUsers);
+
+        this.usersDataSource.data = newUsers
+
       },
       error: (err) => {
         this.formError = err;
