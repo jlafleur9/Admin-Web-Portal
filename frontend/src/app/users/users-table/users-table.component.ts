@@ -11,6 +11,9 @@ export const sortUsers = (users: FullUserDto[]) => {
   console.log("Sorting users")
   users.sort((a, b) => {
     if (a.profile.lastName.toLowerCase() < b.profile.lastName.toLowerCase()) return -1;
+    if (a.profile.lastName.toLowerCase() > b.profile.lastName.toLowerCase()) return 1;
+
+    if (a.profile.firstName.toLowerCase() < b.profile.firstName.toLowerCase()) return -1;
     if (a.profile.firstName.toLowerCase() > b.profile.firstName.toLowerCase()) return 1;
     return 0;
   });
