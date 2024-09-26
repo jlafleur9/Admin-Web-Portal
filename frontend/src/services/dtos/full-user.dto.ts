@@ -5,7 +5,7 @@ import {TeamDto} from "./team.dto";
 export interface FullUserDto {
   id: number,
   profile: ProfileDto,
-  isAdmin: boolean,
+  admin: boolean,
   active: boolean,
   status: string,
   companies: [CompanyDto],
