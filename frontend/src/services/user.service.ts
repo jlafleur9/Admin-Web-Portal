@@ -1,8 +1,10 @@
-import {Injectable} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {CredentialsDto} from "./dtos/credentials.dto";
 import {FullUserDto} from "./dtos/full-user.dto";
-import {catchError, Observable, tap, throwError} from "rxjs";
+import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
+import { CompanyDto } from "./dtos/company.dto";
+import { Announcement } from "src/app/home/announcements/announcements.component";
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +12,19 @@ import {catchError, Observable, tap, throwError} from "rxjs";
 export class UserService {
   private baseUrl = 'http://localhost:8080';
   private userKey = 'user';
+  private selectedCompanyKey = 'selectedCompany'
   private _user: FullUserDto | null = null;
+
+  private _selectedCompany: number | null = null;
+  selectedCompanyChange: EventEmitter<number | null> = new EventEmitter();
 
   constructor(private httpClient: HttpClient) {
     const storedUser = localStorage.getItem(this.userKey);
+    const storedCompany = localStorage.getItem(this.selectedCompanyKey);
+
+    if (storedCompany) {
+      this._selectedCompany = JSON.parse(storedCompany);
+    }
 
     if (storedUser) {
       this._user = JSON.parse(storedUser);
@@ -32,12 +43,45 @@ export class UserService {
     }
   }
 
+  get usersCompanies(): CompanyDto[] {
+    try {
+      const user = this.user;
+      return user?.companies || [];
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
+   get selectedCompany() {
+    if (this._selectedCompany) {
+      return this._selectedCompany;
+    } else {
+      throw new Error("No Selected Company");
+    }
+  }
+
+
   login(credentialsDto: CredentialsDto): Observable<FullUserDto> {
     return this.httpClient.post<FullUserDto>(`${this.baseUrl}/users/login`, credentialsDto)
-      .pipe(
-        tap(response => this.saveUser(response)),
-        catchError(error => throwError(() => error))
-      );
+    .pipe(
+      tap(response => this.saveUser(response)),
+      catchError(error => throwError(() => error))
+    );
+  }
+
+  getAnnouncements(companyId: number): Observable<Announcement[]> {
+    return this.httpClient.get<Announcement[]>(`${this.baseUrl}/company/${companyId}/announcements`);
+  }
+
+  getCompanyUsers(companyId: number): Observable<FullUserDto[]> {
+    return this.httpClient.get<FullUserDto[]>(`${this.baseUrl}/company/${companyId}/users`)
+  }
+
+  setSelectedCompany(company: number) {
+    this._selectedCompany = company;
+    localStorage.setItem(this.selectedCompanyKey, JSON.stringify(company));
+    this.selectedCompanyChange.emit(company);
   }
 
   logout() {

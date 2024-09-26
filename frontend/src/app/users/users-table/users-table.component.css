@@ -1,0 +1,54 @@
+table {
+  margin-top: 40px;
+  border: 2px solid var(--sys-secondary);
+  border-radius: 10px;
+  table-layout: auto;
+  width: 100%;
+  padding: 1rem;
+  min-width: 80vw;
+  font-family: var(--sys-body-large-font);
+}
+
+
+table, td {
+  font-size: 18px;
+  padding: 25px 80px;
+}
+
+th {
+  color: white;
+  font-size: 28px;
+  font-weight: 500;
+  padding: 25px 80px;
+}
+
+.brown-text {
+  color: var(--sys-secondary)
+}
+
+.email {
+  text-decoration: underline;
+}
+
+.col-name {
+  width: 10%;
+}
+
+.col-email {
+  width: 30%;
+}
+
+.col-active, .col-admin, .col-status {
+  width: 10%;
+}
+
+.yes {
+  color: #00B11C;
+  font-weight: bold;
+}
+
+.no {
+  color: #FF0000;
+  font-weight: bold;
+}
+

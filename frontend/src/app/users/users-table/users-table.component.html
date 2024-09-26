@@ -1,0 +1,39 @@
+
+<table mat-table [dataSource]="allCompanyUsers" class="full-width-table">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef class="col-name"> Name </th>
+    <td mat-cell *matCellDef="let user" class="brown-text"> {{ user.profile.firstName }} {{ user.profile.lastName }} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef class="col-email"> Email </th>
+    <td mat-cell *matCellDef="let user" class="brown-text email"> {{ user.profile.email }} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="active">
+    <th mat-header-cell *matHeaderCellDef class="col-active"> Active </th>
+    <td mat-cell *matCellDef="let user"
+      [ngClass]="user.active ? 'yes' : 'no'">
+      {{ user.active ? 'Yes' : 'No' }} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="admin">
+    <th mat-header-cell *matHeaderCellDef class="col-admin"> Admin </th>
+    <td mat-cell *matCellDef="let user"
+    [ngClass]="user.admin ? 'yes' : 'no'">
+    {{ user.admin ? 'Yes' : 'No' }} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef class="col-status"> Status </th>
+    <td mat-cell *matCellDef="let user" class="brown-text"> {{ user.status }} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
