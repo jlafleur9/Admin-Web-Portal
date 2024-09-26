@@ -1,32 +1,69 @@
-import { Component } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import { CompanyService } from 'src/services/CompanyService';
-import { ProjectDto } from 'src/services/dtos/project.dto';
-import { TeamDto } from 'src/services/dtos/team.dto';
+import { booleanAttribute, Component, EventEmitter, Input, Output } from '@angular/core';
+import {FormGroup, ReactiveFormsModule} from "@angular/forms";
+import { MatIcon } from '@angular/material/icon';
+import { MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-project-overlay',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [
+    MatError,
+    MatIcon,
+    MatDialogContent,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+    MatIconButton,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    MatProgressSpinner,
+    NgClass,
+    CommonModule
+  ],
   templateUrl: './create-project-overlay.component.html',
   styleUrl: './create-project-overlay.component.css'
 })
 export class CreateProjectOverlayComponent {
 
-  companyId = 1
-  teamId = 1
+  
 
-  constructor(private companyService: CompanyService){}
+  @Output() submit = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
+  @Input() formGroup!: FormGroup;
+  @Input() dialogError: Partial<HttpErrorResponse> | null = null;
+  @Input() showLoading: boolean = false;
+  @Input({ transform: booleanAttribute }) largeOverlay: boolean = false;
+  @Input({ transform: booleanAttribute }) submitDisabled: boolean = false;
 
-  createProjectForm: FormGroup = new FormGroup({
-    name: new FormControl("", [Validators.required]),
-    description: new FormControl("", [Validators.required]),
-  });
-
+  constructor(){}
 
   onSubmit(){ 
-    this.companyService.createProject(this.companyId, this.teamId, this.createProjectForm.value).subscribe( 
-      () => console.log(this.createProjectForm.value)
-    )
+    if (this.formGroup.invalid) {
+      return;
+    }
+    console.log("submission")
+    this.showLoading = true;
+    this.submit.emit();
+  }
+
+  onClose(): void {
+    this.close.emit();
+  }
+
+  isFormValid(): boolean {
+    return !this.isFormInvalid();
+  }
+
+  isFormInvalid(): boolean {
+    return this.formGroup.invalid || this.submitDisabled
   }
 }

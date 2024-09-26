@@ -1,32 +1,63 @@
-<div class="overlay-container">
-  <form [formGroup]="createProjectForm" (ngSubmit)="onSubmit()">
-    <label>Project Name</label>
-    <input type="text" class="" formControlName="name" />
-    <label>Description</label>
-    <input type="text" class="" formControlName="description" />
-    <button>Submit</button>
-  </form>
-  <!--<form id="login-form" [formGroup]="createProjectForm" (submit)="createProject()">
-        <div id="login-form-fields-container">
-          <mat-form-field hideRequiredMarker class="login-form-field">
-            <mat-label class="form-field-label">username</mat-label>
-            <input autocomplete="username" required matInput formControlName="username" />
-            <mat-error>A valid username is required</mat-error>
-          </mat-form-field>
-  
-          <mat-form-field hideRequiredMarker class="login-form-field">
-            <mat-label class="form-field-label">password</mat-label>
-            <input autocomplete="current-password" required type="password" matInput formControlName="password" />
-            <mat-error>A password is required</mat-error>
-          </mat-form-field>
-        </div>
-  
-        @if (loggingIn) {
-          <mat-spinner diameter="52"></mat-spinner>
-        } @else {
-          <button id="login-form-submit-button" mat-stroked-button type="submit">LOGIN</button>
-        }
-  
-  
-      </form>-->
+<div
+  class="dialog-container"
+  [ngClass]="largeOverlay ? 'dialog-container-large' : ''"
+>
+  <button id="close-dialog-button" mat-icon-button mat-dialog-close>
+    <mat-icon
+      id="close-dialog-icon"
+      fontSet="material-symbols-outlined"
+      (click)="onClose()"
+      >cancel</mat-icon
+    >
+  </button>
+
+  <mat-dialog-content class="dialog-content">
+    <form id="overlay-form" (submit)="onSubmit()" [formGroup]="formGroup">
+      <label class="label-text">Project Name</label>
+      <input class="input-box" id="name" type="text" formControlName="name" />
+      <h5
+        class="error-message"
+        *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched"
+      >
+        Project name cannot be empty
+      </h5>
+      <label class="label-text">Description</label>
+      <input
+        class="input-box"
+        id="description"
+        type="text"
+        formControlName="description"
+      />
+      <h5
+        class="error-message"
+        *ngIf="
+          formGroup.get('description')?.invalid &&
+          formGroup.get('description')?.touched
+        "
+      >
+        Descripton cannot be empty
+      </h5>
+
+      @if (dialogError) {
+      <p class="error-message">{{ dialogError.message }}</p>
+      }
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="actions-container" align="center">
+    @if (!showLoading) {
+    <button
+      [disabled]="isFormInvalid()"
+      form="overlay-form"
+      type="submit"
+      mat-flat-button
+      [ngClass]="{ 'primary-button': isFormValid() }"
+      class="dialog-submit-button"
+    >
+      Submit
+    </button>
+    } @else {
+    <mat-spinner diameter="48"></mat-spinner>
+    }
+  </mat-dialog-actions>
 </div>
