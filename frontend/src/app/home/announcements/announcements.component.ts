@@ -10,6 +10,7 @@ import { UserService } from 'src/services/user.service';
 import { ProfileDto } from 'src/services/dtos/profile.dto';
 import { DialogService } from 'src/services/dialog.service';
 import { CreateAnnouncmentOverlayComponent } from '../create-announcment-overlay/create-announcment-overlay.component';
+import { Subscription } from 'rxjs';
 
 export interface Author {
   id: number;
@@ -50,7 +51,9 @@ export interface SimplifiedAnnouncement {
 })
 
 export class AnnouncementsComponent {
-  companyId: number = 1;
+  companyId: number  | null = null;
+  private subscription: Subscription = new Subscription();
+
   announcements: SimplifiedAnnouncement[] = [];
   showCreateAnnouncmentOverlay = false;
 
@@ -67,19 +70,32 @@ export class AnnouncementsComponent {
 
   ngOnInit(): void {
 
-    this.apiService.getAnnouncements(this.companyId).subscribe({
-      next: (data: Announcement[]) => {
-        console.log('API Response:', data);
-        console.log("company ids", this.userService.user)
-        this.announcements = data.map(announcement => ({
-          authorName: announcement.author.profile.firstName,
-          date: announcement.date,
-          message: announcement.message
-        }))
-      },
-      error: (error) => {
-        console.error('Error fetching announcements:', error);
+      if (this.userService.selectedCompany) {
+        this.companyId = this.userService.selectedCompany;
+        this.fetchAnnouncements(this.companyId);
+      } else {
+        console.error('No selected company found');
       }
-    });
   }
-}
+
+  private fetchAnnouncements(companyId: number) {
+
+      this.userService.getAnnouncements(companyId).subscribe({
+        next: (data: Announcement[]) => {
+          this.announcements = data.map(announcement => ({
+            authorName: announcement.author.profile.firstName,
+            date: announcement.date,
+            message: announcement.message
+          }));
+        },
+        error: (error) => {
+          console.error('Error fetching announcements:', error);
+        }
+      });
+  }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
+    }
+  }
+

@@ -1,0 +1,14 @@
+form {
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+}
+
+mat-form-field {
+  width: 80%;
+  height: auto;
+}
+
+mat-label {
+  font-size: small;
+}
