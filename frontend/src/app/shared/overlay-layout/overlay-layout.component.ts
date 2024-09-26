@@ -63,11 +63,6 @@ export class OverlayLayoutComponent {
   @Input() showLoading: boolean = false;
 
   /**
-   * Field to control whether the submit button on the form is disabled.
-   */
-  @Input() submitDisabled: boolean = false;
-
-  /**
    * Determines whether the overlay should be displayed as wide.
    * This input uses a transform function for boolean values.
    */
