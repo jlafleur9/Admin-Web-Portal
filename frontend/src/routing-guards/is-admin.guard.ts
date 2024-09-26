@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import {UserService} from "../services/user.service";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -7,17 +8,17 @@ import {
   Router,
   RouterStateSnapshot
 } from "@angular/router";
-import {UserService} from "../services/user.service";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
-export class IsAuthenticatedGuard implements CanActivate {
-  constructor(private userService: UserService, private router: Router) {}
+export class IsAdminGuard implements CanActivate {
+
+  constructor(private router: Router, private userService: UserService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-    return this.userService.isLoggedIn() ?
+    return this.userService.user?.admin ?
       true
-      : this.router.createUrlTree(['/login'])
+      : this.router.createUrlTree(['/app/home'])
   }
 }

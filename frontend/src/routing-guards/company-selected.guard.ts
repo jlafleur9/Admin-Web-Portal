@@ -1,4 +1,3 @@
-import {Injectable} from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -7,17 +6,28 @@ import {
   Router,
   RouterStateSnapshot
 } from "@angular/router";
+import {Injectable} from "@angular/core";
 import {UserService} from "../services/user.service";
 
 @Injectable({
   providedIn: "root"
 })
-export class IsAuthenticatedGuard implements CanActivate {
+export class CompanySelectedGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-    return this.userService.isLoggedIn() ?
+    return this.companySelected() ?
       true
-      : this.router.createUrlTree(['/login'])
+      : this.router.createUrlTree(['/company']);
+  }
+
+  public companySelected(): boolean {
+    try {
+      this.userService.selectedCompany;
+    } catch (error) {
+      return false;
+    }
+
+    return true;
   }
 }

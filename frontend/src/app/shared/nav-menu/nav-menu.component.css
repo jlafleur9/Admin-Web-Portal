@@ -107,6 +107,10 @@
   text-decoration: none;
 }
 
+.logout {
+  cursor: pointer;
+}
+
 .nav-menu-text {
   margin: 0;
   padding: 2rem;
@@ -124,10 +128,5 @@
 
 .dropdown-tab.active {
   background-color: var(--sys-primary-container);
-}
-
-#logout-button {
-  background-color: inherit;
-  border: none;
 }
 
