@@ -84,8 +84,8 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
   // }
 
   updateSubmitDisabled = () => {
-    const name = this.createTeamForm.get("name")?.value
-    const description = this.createTeamForm.get("description")?.value
+    // const name = this.createTeamForm.get("name")?.value
+    // const description = this.createTeamForm.get("description")?.value
     const membersSelected = this.selectedMembers.length
     // this.submitDisabled = name && description && membersSelected !== 0
     this.submitDisabled = membersSelected !== 0
