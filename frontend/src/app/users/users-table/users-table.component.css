@@ -63,3 +63,8 @@ th {
   font-weight: bold;
 }
 
+@media (prefers-color-scheme: dark) {
+  .table-container {
+    scrollbar-color: #555 #333; 
+  }
+}
