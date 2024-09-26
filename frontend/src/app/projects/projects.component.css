@@ -26,7 +26,7 @@ projects.css
 }
 
 .back-btn {
-    color: #1BA098;
+    color: var(--sys-primary);
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 400;
     font-size: 24px;

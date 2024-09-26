@@ -1,0 +1,18 @@
+<app-overlay-layout
+  [formGroup]="createProjectForm"
+  [showLoading]="loading"
+  [dialogError]="formError"
+  (submit)="editProject()"
+  (close)="close()"
+>
+  <mat-form-field hideRequiredMarker>
+    <mat-label class="label-text">Project Name</mat-label>
+    <input matInput required formControlName="name" />
+    <mat-error>Project name cannot be empty</mat-error>
+  </mat-form-field>
+  <mat-form-field hideRequiredMarker>
+    <mat-label class="label-text">Description</mat-label>
+    <input matInput required formControlName="description" />
+    <mat-error>Description cannot be empty</mat-error>
+  </mat-form-field>
+</app-overlay-layout>

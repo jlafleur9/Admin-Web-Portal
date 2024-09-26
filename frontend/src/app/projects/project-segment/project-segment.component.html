@@ -4,13 +4,17 @@
     <div>
       <div style="display: flex; align-items: center; height: 60px">
         <h3 class="project-title">{{ projectName }}</h3>
-        <h6 class="active-inactive" style="color: #22dd2abf" *ngIf="active">
+        <h6
+          class="active-inactive"
+          style="color: #22dd2abf"
+          *ngIf="active === 'true'"
+        >
           Active
         </h6>
         <h6
           class="active-inactive"
           style="color: #df0f0fbf; font-style: italic"
-          *ngIf="!active"
+          *ngIf="active === 'false'"
         >
           Inactive
         </h6>
@@ -20,7 +24,9 @@
       </p>
     </div>
     <div class="edit-btn-div">
-      <button class="edit-btn">Edit</button>
+      <button class="edit-btn secondary-button" (click)="openDialog()">
+        Edit
+      </button>
     </div>
   </div>
 </div>
