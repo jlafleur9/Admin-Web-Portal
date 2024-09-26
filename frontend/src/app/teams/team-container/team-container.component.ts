@@ -80,7 +80,7 @@ export class TeamContainerComponent {
   };
 
   openOverlay = () => {
-    this.dialogService.open(CreateTeamOverlayComponent, this.membersData);
+    this.dialogService.open(CreateTeamOverlayComponent, { membersData: this.membersData, teamData: this.teamData });
   };
 
   logTeams = () => {

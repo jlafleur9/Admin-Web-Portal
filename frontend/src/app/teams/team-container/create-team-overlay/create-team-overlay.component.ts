@@ -29,6 +29,11 @@ import { OverlayLayoutComponent } from '../../../shared/overlay-layout/overlay-l
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {UserService} from "../../../../services/user.service";
 
+type TeamInfo = {
+  membersData: Teammate[],
+  teamData: Team[]
+}
+
 @Component({
   selector: 'app-create-team-overlay',
   standalone: true,
@@ -67,14 +72,14 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
     private fb: FormBuilder,
     private http: HttpClient,
     private userService: UserService,
-    @Inject(MAT_DIALOG_DATA) public data: Teammate[]
+    @Inject(MAT_DIALOG_DATA) public data: TeamInfo
   ) {
     this.createTeamForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       members: [''],
     });
-    this.membersData = data;
+    this.membersData = data.membersData;
     this.availableMembers = [...this.membersData];
     this.createTeamForm.valueChanges.subscribe(() => {
       this.updateSubmitDisabled();
@@ -154,7 +159,7 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
 
       // send the post request passing in the json
       this.http
-        .post(`http://localhost:8080/company/${this.userService.selectedCompany}/teams`, jsonFormValues, {
+        .post<Team>(`http://localhost:8080/company/${this.userService.selectedCompany}/teams`, jsonFormValues, {
           headers: { 'Content-Type': 'application/json' },
         })
         // .pipe(
@@ -164,13 +169,14 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
         //   })
         // )
         .subscribe({
-          next: (response) => {
+          next: (response: Team) => {
             // when i recieve a response back from the api, clear all inputs from the form,
             // hide the overlay, and refetch everything in team-container
             console.log('API Response:', response);
             // this.teamCreated.emit();
             this.successfullySubmitted.emit();
-            window.location.reload();
+            // window.location.reload();
+            this.data.teamData.push(response);
           },
           error: (error) => {
             console.error('error:', error);
