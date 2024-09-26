@@ -2,7 +2,6 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DialogFormInterface} from "../app/shared/overlay-layout/dialog-form.interface";
 import {Injectable} from "@angular/core";
 import {ComponentType} from "@angular/cdk/overlay";
-import {DialogRef} from "@angular/cdk/dialog";
 
 /**
  * @service DialogService
@@ -27,7 +26,7 @@ export class DialogService {
    * @param {any} data - The data to pass to the dialog. Available in the MAT_DIALOG_DATA token.
    * implementing the DialogFormInterface.
    * @param {any} data - The data to pass to the dialog component
-   * @returns {void}
+   * @returns {MatDialogRef<DialogFormInterface, any>} a reference to the dialog
    */
   open(dialogForm: ComponentType<DialogFormInterface>, data?: any): MatDialogRef<DialogFormInterface, any> {
     const dialogRef = this.dialog.open(dialogForm, {

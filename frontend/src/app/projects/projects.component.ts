@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ProjectSegmentComponent } from './project-segment/project-segment.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CreateProjectOverlayComponent } from './create-project-overlay/create-project-overlay.component';

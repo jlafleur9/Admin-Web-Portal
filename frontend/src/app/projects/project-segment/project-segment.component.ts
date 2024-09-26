@@ -1,10 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { ProjectDto } from 'src/services/dtos/project.dto';
-import { CompanyService } from 'src/services/CompanyService';
 import { DialogService } from 'src/services/dialog.service';
 import { EditProjectOverlayComponent } from '../edit-project-overlay/edit-project-overlay.component';
 

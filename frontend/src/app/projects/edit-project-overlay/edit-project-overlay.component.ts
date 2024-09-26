@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -8,9 +8,7 @@ import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.i
 import { ProjectService } from 'src/services/project.service';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
-import { CompanyService } from 'src/services/CompanyService';
 import { Inject } from '@angular/core';
-import { ProjectDto } from 'src/services/dtos/project.dto';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {ProjectWrapper} from "../project-segment/project-segment.component";
 
@@ -60,7 +58,7 @@ export class EditProjectOverlayComponent implements DialogFormInterface, OnInit{
         this.projectWrapper.project = result;
         this.successfullySubmitted.emit()
       },
-      error: error => {
+      error: _ => {
         this.formError = {message: 'There was a server error. Try again later.'};
         this.loading = false;
       }
