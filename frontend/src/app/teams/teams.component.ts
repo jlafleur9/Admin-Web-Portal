@@ -8,6 +8,7 @@ import { lastValueFrom } from 'rxjs';
 import Project from './models/Project';
 import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component';
 import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-teams',
@@ -22,7 +23,7 @@ export class TeamsComponent {
   membersData: Teammate[] = [];
   projectData: Project[] = []
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
 
   ngOnInit(): void {
     // this.getCompanyFromLocalStorage();
@@ -30,19 +31,19 @@ export class TeamsComponent {
   }
 
   loadTeams(): void {
-
+    const companyId = this.userService.selectedCompany;
 
     lastValueFrom(
       // return a list of teams for that given company
-      this.http.get<Team[]>('http://localhost:8080/company/1/teams')
+      this.http.get<Team[]>(`http://localhost:8080/company/${companyId}/teams`)
     ).then((teams) => {
       this.teamData = teams
       // return a list of projects a company has (includes the team thats working on it)
-      return lastValueFrom(this.http.get<Project[]>('http://localhost:8080/projects/company/1'))
+      return lastValueFrom(this.http.get<Project[]>(`http://localhost:8080/projects/company/${companyId}`))
     }).then((projects) => {
       this.projectData = projects
       // return a list of all memebrs from the company
-      return lastValueFrom(this.http.get<Teammate[]>(`http://localhost:8080/company/1/users`))
+      return lastValueFrom(this.http.get<Teammate[]>(`http://localhost:8080/company/${companyId}/users`))
     }).then((members) => {
       this.membersData = members
     }).catch((error) => {

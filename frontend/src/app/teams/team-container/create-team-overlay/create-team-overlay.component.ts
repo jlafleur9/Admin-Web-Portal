@@ -27,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DialogFormInterface } from 'src/app/shared/overlay-layout/dialog-form.interface';
 import { OverlayLayoutComponent } from '../../../shared/overlay-layout/overlay-layout.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {UserService} from "../../../../services/user.service";
 
 @Component({
   selector: 'app-create-team-overlay',
@@ -65,6 +66,7 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
+    private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: Teammate[]
   ) {
     this.createTeamForm = this.fb.group({
@@ -152,7 +154,7 @@ export class CreateTeamOverlayComponent implements DialogFormInterface {
 
       // send the post request passing in the json
       this.http
-        .post('http://localhost:8080/company/1/teams', jsonFormValues, {
+        .post(`http://localhost:8080/company/${this.userService.selectedCompany}/teams`, jsonFormValues, {
           headers: { 'Content-Type': 'application/json' },
         })
         // .pipe(
