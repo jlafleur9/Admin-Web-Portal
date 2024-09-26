@@ -7,12 +7,14 @@ import {UsersComponent} from "./users/users.component";
 // import {LayoutComponent} from "./shared/layout/layout.component";
 import {IsNotAuthenticated} from "../routing-guards/is-not-authenticated.guard";
 import {IsAuthenticated} from "../routing-guards/is-authenticated.guard";
+import { ProjectsComponent } from "./projects/projects.component";
 import {OverlayExampleComponent} from "./shared/overlay-layout/examples/overlay-example/overlay-example.component";
 import { AppComponent } from "./app.component";
 
 export const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [IsNotAuthenticated] },
   { path: "company", component: CompanyComponent },
+  { path: "projects", component: ProjectsComponent },
   { path: "overlay-example", component: OverlayExampleComponent },
   {
     path: "app",

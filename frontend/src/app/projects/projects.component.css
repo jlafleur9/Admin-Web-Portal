@@ -1,0 +1,61 @@
+projects.css
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-container{
+    align-items: center;
+    display: flex; 
+    margin-left: 40px; 
+    margin-right: 40px;
+    padding-top: 35px;
+}
+
+.title{
+    text-align: center;
+    color: #1BA098;
+    font-weight: 400;
+    font-size: 48px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 427px;
+    height: 72px;
+    margin: 0 auto;
+}
+
+.back-btn {
+    color: #1BA098;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    padding-left: 40px;
+    padding-top: 10px;
+}
+
+.new-btn-div {
+    display: flex;
+    justify-content: end;
+    padding-top: 20px;
+    padding-bottom: 10px;
+      
+}
+
+.new-btn {
+    background-color: #1BA098;
+    width: 103px;
+    height: 32px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+}
+

@@ -1,1 +1,32 @@
-<p>create-project-overlay works!</p>
+<div class="overlay-container">
+  <form [formGroup]="createProjectForm" (ngSubmit)="onSubmit()">
+    <label>Project Name</label>
+    <input type="text" class="" formControlName="name" />
+    <label>Description</label>
+    <input type="text" class="" formControlName="description" />
+    <button>Submit</button>
+  </form>
+  <!--<form id="login-form" [formGroup]="createProjectForm" (submit)="createProject()">
+        <div id="login-form-fields-container">
+          <mat-form-field hideRequiredMarker class="login-form-field">
+            <mat-label class="form-field-label">username</mat-label>
+            <input autocomplete="username" required matInput formControlName="username" />
+            <mat-error>A valid username is required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field hideRequiredMarker class="login-form-field">
+            <mat-label class="form-field-label">password</mat-label>
+            <input autocomplete="current-password" required type="password" matInput formControlName="password" />
+            <mat-error>A password is required</mat-error>
+          </mat-form-field>
+        </div>
+  
+        @if (loggingIn) {
+          <mat-spinner diameter="52"></mat-spinner>
+        } @else {
+          <button id="login-form-submit-button" mat-stroked-button type="submit">LOGIN</button>
+        }
+  
+  
+      </form>-->
+</div>
