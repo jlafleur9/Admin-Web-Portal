@@ -5,6 +5,7 @@ import {FullUserDto} from "./dtos/full-user.dto";
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
 import { CompanyDto } from "./dtos/company.dto";
 import { Announcement } from "src/app/home/announcements/announcements.component";
+import { RequestAnnouncementDto, ResponseAnnouncementDto } from "./dtos/announcement.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,10 @@ export class UserService {
     this._selectedCompany = company;
     localStorage.setItem(this.selectedCompanyKey, JSON.stringify(company));
     this.selectedCompanyChange.emit(company);
+  }
+
+  postAnnouncement(requestAnnouncementDto: RequestAnnouncementDto): Observable<ResponseAnnouncementDto[]> {
+    return this.httpClient.post<ResponseAnnouncementDto[]>(`${this.baseUrl}/company/1/announcements`, requestAnnouncementDto)
   }
 
   logout() {
