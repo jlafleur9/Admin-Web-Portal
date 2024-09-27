@@ -1,10 +1,9 @@
-<app-nav-bar></app-nav-bar>
 <div class="users-container">
 
   <div class="header">User Registry</div>
   <div class="subtitle">A general view of all your members in your orginaztion</div>
 
-  <app-users-table></app-users-table>
+  <app-users-table (shareUsers)="updateUsers($event)"></app-users-table>
   <div class="button-container">
     <button mat-flat-button (click)="toggleOverlay()">ADD USER</button>
   </div>

@@ -2,7 +2,7 @@ import {EventEmitter, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {CredentialsDto} from "./dtos/credentials.dto";
 import {FullUserDto} from "./dtos/full-user.dto";
-import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
+import {catchError, Observable, tap, throwError} from "rxjs";
 import { CompanyDto } from "./dtos/company.dto";
 import { Announcement } from "src/app/home/announcements/announcements.component";
 import { RequestAnnouncementDto, ResponseAnnouncementDto } from "./dtos/announcement.dto";
@@ -85,13 +85,15 @@ export class UserService {
     this.selectedCompanyChange.emit(company);
   }
 
-  postAnnouncement(requestAnnouncementDto: RequestAnnouncementDto): Observable<ResponseAnnouncementDto[]> {
-    return this.httpClient.post<ResponseAnnouncementDto[]>(`${this.baseUrl}/company/1/announcements`, requestAnnouncementDto)
+  postAnnouncement(requestAnnouncementDto: RequestAnnouncementDto): Observable<ResponseAnnouncementDto> {
+    return this.httpClient.post<ResponseAnnouncementDto>(`${this.baseUrl}/company/${this.selectedCompany}/announcements`, requestAnnouncementDto)
   }
 
   logout() {
     localStorage.removeItem(this.userKey);
+    localStorage.removeItem(this.selectedCompanyKey);
     this._user = null;
+    this._selectedCompany = null;
   }
 
   private saveUser(fullUserDto: FullUserDto) {

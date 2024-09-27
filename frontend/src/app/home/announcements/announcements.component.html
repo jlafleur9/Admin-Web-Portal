@@ -1,11 +1,13 @@
 
-<mat-toolbar color="primary" class="header">
-  <span>Announcements</span>
-</mat-toolbar>
-  <div class="button-container">
-    <button mat-flat-button (click)="toggleOverlay()" style="color: white;">New</button>
-  </div>
-  <mat-divider></mat-divider>
+<div >
+  <h1 class="header">Announcements</h1>
+</div>
+    @if (isAdmin) {
+      <div class="button-container">
+        <button mat-flat-button (click)="toggleOverlay()" style="color: white;">New</button>
+      </div>
+    }
+    <mat-divider></mat-divider>
   <app-create-announcment-overlay *ngIf="showCreateAnnouncmentOverlay" (closeOverlay)="toggleOverlay()"></app-create-announcment-overlay>
 <div class="container">
   <mat-card *ngFor="let announcement of announcements" class="announcement">

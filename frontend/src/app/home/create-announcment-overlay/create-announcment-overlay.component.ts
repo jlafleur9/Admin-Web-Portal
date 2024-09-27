@@ -27,7 +27,7 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
   loading: boolean = false;
 
   constructor(private userService: UserService,
-    @Inject(MAT_DIALOG_DATA) public announcments: SimplifiedAnnouncement[],
+    @Inject(MAT_DIALOG_DATA) public announcements: SimplifiedAnnouncement[],
     private location: Location
   ) {}
 
@@ -52,11 +52,18 @@ export class CreateAnnouncmentOverlayComponent implements DialogFormInterface {
       }
     };
 
-
+    console.log(requestAnnouncementDto)
     this.userService.postAnnouncement(requestAnnouncementDto).subscribe({
-      next: _ => {
+      next: announcement => {
+        const simpleAnnouncement = {
+          message: announcement.message,
+          date: announcement.date,
+          authorName: this.userService.user!.profile.firstName
+        };
+
+        this.announcements.unshift(simpleAnnouncement);
+
         this.successfullySubmitted.emit();
-        window.location.reload();
       },
       error: (err: HttpErrorResponse) => {
         this.formError = err;

@@ -1435,4 +1435,12 @@ html {
   background-color: var(--sys-secondary) !important;
 }
 
+.label-text {
+  color: var(--sys-secondary);
+}
+
+.input-text {
+  color: var(--sys-secondary) !important;
+}
+
 /*# sourceMappingURL=styles.css.map */

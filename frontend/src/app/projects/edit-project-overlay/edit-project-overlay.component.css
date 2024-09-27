@@ -1,0 +1,59 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.left-column, .right-column {
+  width: 48%;
+}
+
+.full-column {
+  width: 100%;
+}
+
+.center-column {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.admin-dropdown {
+  display: inline-block;
+  width: 20%;  /* 1/5 of the container's width */
+  margin: 0 auto;
+}
+
+.admin-dropdown-field {
+  width: 100%;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.label-text {
+  color: var(--sys-secondary); 
+}
+
+.active-text {
+  color: var(--sys-secondary); 
+  font-size: 16px;
+  
+}
+
+.input-text {
+  color: var(--sys-secondary) !important;
+}
+.label-background {
+  background-color: var(--sys-primary); /* Example: #1BA098 */
+  padding: 0 5px; /* Adds padding to make the background more visible */
+  border-radius: 4px; /* Optional: to add a little rounded edge */
+}

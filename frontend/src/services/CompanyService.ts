@@ -12,7 +12,7 @@ export class CompanyService {
   constructor(private http: HttpClient) {}
 
   public createProject(companyID: number, teamID: number, project: ProjectDto){
-    return this.http.post(this.baseUrl + '/company/' + companyID + '/teams/' + teamID + '/projects', project)
+    return this.http.post<ProjectDto>(this.baseUrl + '/company/' + companyID + '/teams/' + teamID + '/projects', project)
   }
 
   public getProjects(companyId: number, teamId: number){

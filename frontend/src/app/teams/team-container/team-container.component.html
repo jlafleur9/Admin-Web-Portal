@@ -1,6 +1,6 @@
 <h1 class="center-title">Teams</h1>
 <div class="main-container">
-  <div class="sub-container" *ngFor="let team of teamData">
+  <div class="sub-container" *ngFor="let team of teamData" (click)="routeToTeam(team.id)">
     <div class="title-container full-width">
       <div class="title-container-children">
         <!-- <h3> -->
@@ -34,11 +34,15 @@
         {{ teammate.profile.lastName | slice : 0 : 1  }}
       </div>
     </div>
-    
+
   </div>
-  <div>
-    <button mat-flat-button (click)="openOverlay()">Add Team</button>
-  </div>
+
+  @if (isAdmin) {
+    <div>
+      <button mat-flat-button (click)="openOverlay()">Add Team</button>
+    </div>
+  }
+
 </div>
 
 <!-- <app-create-team-overlay [(showOverlay)]="showOverlay" [membersData]="membersData" (teamCreated)="onTeamCreated()"></app-create-team-overlay> -->

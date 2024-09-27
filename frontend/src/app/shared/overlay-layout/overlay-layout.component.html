@@ -1,6 +1,14 @@
-<div class="dialog-container" [ngClass]="largeOverlay ? 'dialog-container-large' : ''">
+<div
+  class="dialog-container"
+  [ngClass]="largeOverlay ? 'dialog-container-large' : ''"
+>
   <button id="close-dialog-button" mat-icon-button mat-dialog-close>
-    <mat-icon id="close-dialog-icon" fontSet="material-symbols-outlined" (click)="onClose()">cancel</mat-icon>
+    <mat-icon
+      id="close-dialog-icon"
+      fontSet="material-symbols-outlined"
+      (click)="onClose()"
+      >cancel</mat-icon
+    >
   </button>
 
   <mat-dialog-content class="dialog-content">
@@ -8,26 +16,25 @@
       <ng-content></ng-content>
 
       @if (dialogError) {
-        <p class="error-message">{{ dialogError.message }}</p>
+      <p class="error-message">{{ dialogError.message }}</p>
       }
     </form>
   </mat-dialog-content>
 
   <mat-dialog-actions class="actions-container" align="center">
     @if (!showLoading) {
-      <button
-          [disabled]="isFormInvalid()"
-          form="overlay-form"
-          type="submit"
-          mat-flat-button
-          [ngClass]="{ 'primary-button': isFormValid() }"
-          class="dialog-submit-button"
-      >
-        Submit
-      </button>
+    <button
+      [disabled]="isFormInvalid()"
+      form="overlay-form"
+      type="submit"
+      mat-flat-button
+      [ngClass]="{ 'primary-button': isFormValid() }"
+      class="dialog-submit-button"
+    >
+      Submit
+    </button>
     } @else {
-      <mat-spinner diameter="48"></mat-spinner>
+    <mat-spinner diameter="48"></mat-spinner>
     }
   </mat-dialog-actions>
-
 </div>

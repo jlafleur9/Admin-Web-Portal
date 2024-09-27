@@ -1,1 +1,31 @@
-<p>edit-project-overlay works!</p>
+<app-overlay-layout
+  [formGroup]="editProjectForm"
+  [showLoading]="loading"
+  [dialogError]="formError"
+  largeOverlay="true"
+  (submittedFormEvent)="editProject()"
+  (close)="close()"
+>
+  <div class="container">
+    <mat-form-field class="form-field" hideRequiredMarker>
+      <mat-label class="label-text">Project Name</mat-label>
+      <input matInput required formControlName="name" />
+      <mat-error>Project name cannot be empty</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" hideRequiredMarker>
+      <mat-label class="label-text">Description</mat-label>
+      <input matInput required formControlName="description" />
+      <mat-error>Description cannot be empty</mat-error>
+    </mat-form-field>
+
+    <p class="active-text">Active?</p>
+
+    <mat-form-field>
+      <mat-label class="label-text">Pick an option</mat-label>
+      <mat-select formControlName="active">
+        <mat-option class="label-text" value="true">Yes</mat-option>
+        <mat-option class="label-text" value="false">No</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</app-overlay-layout>

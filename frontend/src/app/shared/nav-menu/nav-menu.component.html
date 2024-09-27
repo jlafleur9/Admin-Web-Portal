@@ -5,9 +5,11 @@
         <img ngSrc="assets/Company_Logo.svg" alt="company logo" width="50" height="60">
       </div>
 
-      <div id="info-text-container">
-        <p id="info-text">Acting as Admin</p>
-      </div>
+      @if (hasActorText) {
+        <div id="info-text-container">
+          <p id="info-text"> {{ actorText }}</p>
+        </div>
+      }
     </div>
 
     <div id="menu-icon-container">
@@ -33,14 +35,16 @@
           <div class="divider"></div>
         </a>
 
-        <a
-          class="dropdown-tab"
-          routerLinkActive="active"
-          routerLink="/app/company"
-        >
-          <p class="nav-menu-text">Company</p>
-          <div class="divider"></div>
-        </a>
+        @if (isAdmin) {
+          <a
+            class="dropdown-tab"
+            routerLinkActive="active"
+            routerLink="/company"
+          >
+            <p class="nav-menu-text">Company</p>
+            <div class="divider"></div>
+          </a>
+        }
 
         <a
           class="dropdown-tab"
@@ -51,15 +55,23 @@
           <div class="divider"></div>
         </a>
 
+        @if (isAdmin) {
+          <a
+            class="dropdown-tab"
+            routerLinkActive="active"
+            routerLink="/app/users"
+          >
+            <p class="nav-menu-text">Users</p>
+            <div class="divider"></div>
+          </a>
+        }
+
         <a
-          class="dropdown-tab"
-          routerLinkActive="active"
-          routerLink="/app/users"
+          class="dropdown-tab logout"
+          (click)="logout()"
         >
-          <p class="nav-menu-text">Users</p>
-          <div class="divider"></div>
+          <p class="nav-menu-text">Logout</p>
         </a>
-        <button id="logout-button" class="dropdown-tab nav-menu-text">Logout</button>
       </div>
     </div>
   }
